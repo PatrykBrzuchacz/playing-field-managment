@@ -48,6 +48,9 @@ public class User {
     @JoinColumn(name = "id_role")
     private Role roles;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private Request request;
 
     public User() {
     }

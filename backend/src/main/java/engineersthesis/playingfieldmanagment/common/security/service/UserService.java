@@ -50,16 +50,24 @@ public class UserService implements UserDetailsService {
 
 
     public User createUser(UserCredentials user) {
+        User newUser = assignUserData(user);
+        return userRepository.save(newUser);
+    }
+
+
+
+
+
+    public User assignUserData(UserCredentials user){
         checkUsername(user.getUsername());
+
         User newUser = new User();
         newUser.setUsername(user.getUsername());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
         newUser.setRoles(roleService.getUserRole());
         newUser.setRegistered(LocalDateTime.now());
-        userRepository.save(newUser);
-        return userRepository.save(newUser);
+        return newUser;
     }
-
     private void checkUsername(String username) {
         boolean usernameExists = userRepository.existsUserByUsername(username);
 
