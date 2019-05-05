@@ -55,9 +55,6 @@ public class UserService implements UserDetailsService {
     }
 
 
-
-
-
     public User assignUserData(UserCredentials user){
         checkUsername(user.getUsername());
 

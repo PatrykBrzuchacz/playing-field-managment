@@ -1,12 +1,14 @@
 package engineersthesis.playingfieldmanagment.common.security.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @AllArgsConstructor
 @Entity
+@Data
 public class Request {
 
     @Id
