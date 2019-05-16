@@ -6,13 +6,10 @@ import lombok.Data;
 import lombok.NonNull;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-import java.util.List;
 
 @Data
 @Entity
@@ -34,6 +31,8 @@ public class User {
 
     private boolean banned = false;
     private boolean active = true;
+    @Column(name = "is_active_worker")
+    private boolean isActiveWorker = false;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private LocalDateTime registered;
@@ -46,11 +45,12 @@ public class User {
     @ManyToOne
     @NonNull
     @JoinColumn(name = "id_role")
-    private Role roles;
+    private Role role;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    private Request request;
+    private WorkerRequest workerRequest;
 
     public User() {
     }

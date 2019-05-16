@@ -1,6 +1,8 @@
 package engineersthesis.playingfieldmanagment.common.security.service;
 
 import engineersthesis.playingfieldmanagment.common.security.exception.UsernameAlreadyExistsException;
+import engineersthesis.playingfieldmanagment.common.security.exception.WorkerIsNotActiveException;
+import engineersthesis.playingfieldmanagment.common.security.model.RoleName;
 import engineersthesis.playingfieldmanagment.common.security.model.User;
 import engineersthesis.playingfieldmanagment.common.security.model.UserCredentials;
 import engineersthesis.playingfieldmanagment.common.security.repository.UserRepository;
@@ -38,12 +40,15 @@ public class UserService implements UserDetailsService {
         if (user.isBanned()) {
             throw new UsernameNotFoundException("Your account has been banned");
         }
+        if (user.getRole().getName() == RoleName.ROLE_WORKER && !user.isActiveWorker()){
+            throw new WorkerIsNotActiveException();
+        }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
     }
 
     public Set<SimpleGrantedAuthority> getAuthority(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRoles().getName()));
+        authorities.add(new SimpleGrantedAuthority(user.getRole().getName().toString()));
 
         return authorities;
     }
@@ -61,7 +66,7 @@ public class UserService implements UserDetailsService {
         User newUser = new User();
         newUser.setUsername(user.getUsername());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        newUser.setRoles(roleService.getUserRole());
+        newUser.setRole(roleService.getUserRole());
         newUser.setRegistered(LocalDateTime.now());
         return newUser;
     }

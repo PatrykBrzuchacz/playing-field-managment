@@ -24,7 +24,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final String[] PUBLIC_GET_PATHS = { "/api/users" };
-
+    private final String[] PUBLIC_POST_PATHS = { "/api/users/signup", "/api/login",
+            "/api/workerRequests/worker/upload" };
     private UserDetailsService userDetailsService;
 
     public WebSecurityConfig(@Qualifier("userService") @Lazy UserDetailsService userDetailsService, JwtAuthenticationEntryPoint unauthorizedHandler) {
@@ -41,9 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/users/signup").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/login").permitAll()
                 .antMatchers(HttpMethod.GET, PUBLIC_GET_PATHS).permitAll()
+                .antMatchers(HttpMethod.POST, PUBLIC_POST_PATHS).permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
                 .addFilterBefore(new JwtLoginFilter("/api/login", authenticationManager()),

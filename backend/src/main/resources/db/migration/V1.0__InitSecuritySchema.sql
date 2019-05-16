@@ -10,6 +10,7 @@ CREATE TABLE `user` (
 `password` varchar(255),
 `banned` BIT(1) NOT NULL DEFAULT 0,
 `active` BIT(1) NOT NULL DEFAULT 1,
+`is_active_worker` BIT(1) NOT NULL default 0,
 `id_role` bigint,
 `last_login` 	TIMESTAMP default null,
 `registered`	TIMESTAMP default null,

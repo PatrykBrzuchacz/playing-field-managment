@@ -9,7 +9,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Data
-public class Request {
+@Table(name = "worker_request")
+public class WorkerRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +19,13 @@ public class Request {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
+    @Column(name = "file_name")
     private String fileName;
 
+    @Column(name = "file_type")
     private String fileType;
 
+    @Column(name = "proof_of_work")
     @Lob
     private byte[] proofOfWork;
 
@@ -29,13 +33,20 @@ public class Request {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Request(){}
+    public WorkerRequest(){}
 
-    public Request(Status status, String fileName, String fileType, byte[] proofOfWork, User user){
+    public WorkerRequest(Status status, String fileName, String fileType, byte[] proofOfWork, User user){
         this.status=status;
         this.fileName=fileName;
         this.fileType=fileType;
         this.proofOfWork=proofOfWork;
         this.user=user;
+    }
+    public WorkerRequest(Status status, String fileName, String fileType, byte[] proofOfWork){
+        this.status=status;
+        this.fileName=fileName;
+        this.fileType=fileType;
+        this.proofOfWork=proofOfWork;
+
     }
 }

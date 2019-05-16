@@ -16,19 +16,19 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String name;
 
-    @Column
+    @Enumerated(value = EnumType.STRING)
+    private RoleName name;
+
     private String description;
 
-    @OneToMany(mappedBy = "roles", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<User> users = new ArrayList<>();
 
     public Role() {
     }
 
-    public Role(long id, String name, String description) {
+    public Role(long id, RoleName name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
