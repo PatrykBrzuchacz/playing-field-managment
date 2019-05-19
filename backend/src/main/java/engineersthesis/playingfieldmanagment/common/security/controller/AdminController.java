@@ -22,7 +22,7 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{userId}")
-    public ResponseEntity<?> deleteAccount(@PathVariable("userId") Long id){
+    public ResponseEntity<?> deleteAccount(@PathVariable("userId") Long id) {
         try {
             userService.deleteUser(id);
             return ResponseEntity.ok().build();
@@ -33,14 +33,14 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{userId}/ban")
-    public ResponseEntity<User> banAccount(@PathVariable("userId") Long id){
+    public ResponseEntity<User> banAccount(@PathVariable("userId") Long id) {
         userService.banUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{userId}/unban")
-    public ResponseEntity<User> unbanAccount(@PathVariable("userId") Long id){
+    public ResponseEntity<User> unbanAccount(@PathVariable("userId") Long id) {
         userService.unbanUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

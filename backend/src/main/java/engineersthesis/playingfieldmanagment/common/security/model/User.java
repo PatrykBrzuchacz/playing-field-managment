@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NonNull;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

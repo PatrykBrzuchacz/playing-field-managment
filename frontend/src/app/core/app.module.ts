@@ -15,6 +15,7 @@ import 'hammerjs';
 import { AuthService, AccessTokenInterceptor } from './service';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from '../shared/shared.module';
+import {FileUploadModule} from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SharedModule } from '../shared/shared.module';
     MatButtonModule,
     SharedModule,
     HttpClientModule,
+    FileUploadModule,
     RouterModule,
     ToastrModule.forRoot(),
   ],

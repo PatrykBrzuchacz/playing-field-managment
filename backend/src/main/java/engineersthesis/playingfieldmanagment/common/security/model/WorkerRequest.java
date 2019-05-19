@@ -2,7 +2,6 @@ package engineersthesis.playingfieldmanagment.common.security.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -33,20 +32,22 @@ public class WorkerRequest {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public WorkerRequest(){}
-
-    public WorkerRequest(Status status, String fileName, String fileType, byte[] proofOfWork, User user){
-        this.status=status;
-        this.fileName=fileName;
-        this.fileType=fileType;
-        this.proofOfWork=proofOfWork;
-        this.user=user;
+    public WorkerRequest() {
     }
-    public WorkerRequest(Status status, String fileName, String fileType, byte[] proofOfWork){
-        this.status=status;
-        this.fileName=fileName;
-        this.fileType=fileType;
-        this.proofOfWork=proofOfWork;
+
+    public WorkerRequest(Status status, String fileName, String fileType, byte[] proofOfWork, User user) {
+        this.status = status;
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.proofOfWork = proofOfWork;
+        this.user = user;
+    }
+
+    public WorkerRequest(Status status, String fileName, String fileType, byte[] proofOfWork) {
+        this.status = status;
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.proofOfWork = proofOfWork;
 
     }
 }

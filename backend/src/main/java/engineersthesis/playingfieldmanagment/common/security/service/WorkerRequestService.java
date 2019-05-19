@@ -24,7 +24,8 @@ public class WorkerRequestService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
-    public WorkerRequest createWorker(UserCredentials userCredentials, MultipartFile file){
+
+    public WorkerRequest createWorker(UserCredentials userCredentials, MultipartFile file) {
         User worker = userService.assignUserData(userCredentials);
         worker.setRole(roleRepository.findByName(RoleName.ROLE_WORKER));
         userRepository.save(worker);
@@ -32,7 +33,7 @@ public class WorkerRequestService {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
-            if(fileName.contains("..")) {
+            if (fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
@@ -48,19 +49,18 @@ public class WorkerRequestService {
 
 
     public User manageRequest(Long id, boolean decision) {
-    WorkerRequest workerRequest = requestRepository.getOne(id);
-    if(decision){
-        workerRequest.setStatus(Status.ACCEPTED);
-        workerRequest.getUser().setActiveWorker(true);
-    }
-    else {
-        workerRequest.setStatus(Status.DECLINED);
-    }
-    requestRepository.save(workerRequest);
-    return userRepository.save(workerRequest.getUser());
+        WorkerRequest workerRequest = requestRepository.getOne(id);
+        if (decision) {
+            workerRequest.setStatus(Status.ACCEPTED);
+            workerRequest.getUser().setActiveWorker(true);
+        } else {
+            workerRequest.setStatus(Status.DECLINED);
+        }
+        requestRepository.save(workerRequest);
+        return userRepository.save(workerRequest.getUser());
     }
 
-    public List<WorkerRequest> findRequestBySendedStatus(){
+    public List<WorkerRequest> findRequestBySendedStatus() {
         return requestRepository.findAllByStatus(Status.SENDED);
     }
 }

@@ -23,9 +23,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final String[] PUBLIC_GET_PATHS = { "/api/users" };
-    private final String[] PUBLIC_POST_PATHS = { "/api/users/signup", "/api/login",
-            "/api/workerRequests/worker/upload" };
+    private final String[] PUBLIC_GET_PATHS = {"/api/users"};
+    private final String[] PUBLIC_POST_PATHS = {"/api/users/signup", "/api/login",
+            "/api/workerRequests/worker/signup"};
     private UserDetailsService userDetailsService;
 
     public WebSecurityConfig(@Qualifier("userService") @Lazy UserDetailsService userDetailsService, JwtAuthenticationEntryPoint unauthorizedHandler) {

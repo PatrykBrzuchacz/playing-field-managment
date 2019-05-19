@@ -1,8 +1,8 @@
 package engineersthesis.playingfieldmanagment.common.security.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import engineersthesis.playingfieldmanagment.common.security.model.WorkerRequest;
 import engineersthesis.playingfieldmanagment.common.security.model.UserCredentials;
+import engineersthesis.playingfieldmanagment.common.security.model.WorkerRequest;
 import engineersthesis.playingfieldmanagment.common.security.service.WorkerRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
@@ -21,24 +21,19 @@ public class RequestController {
     private WorkerRequestService workerRequestService;
 
     @CrossOrigin
-    @PostMapping(value = "/workerRequests/worker/upload", consumes = {"multipart/form-data" })
+    @PostMapping(value = "/workerRequests/worker/signup")
     public ResponseEntity<?> saveWorker(@RequestParam("file") MultipartFile file,
-@RequestParam("userCredentials") String userCredentials) throws IOException {
-UserCredentials userCredentials2 = new ObjectMapper().readValue(userCredentials, UserCredentials.class);
-
-        workerRequestService.createWorker(userCredentials2, file);
+                                        @RequestParam("userCredentials") String userCredentials) throws IOException {
+        UserCredentials userCred = new ObjectMapper().readValue(userCredentials, UserCredentials.class);
+        workerRequestService.createWorker(userCred, file);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-//    @PostMapping("/requests/worker/signup")
-//    public ResponseEntity<?> saveWorker(@RequestBody UserCredentials userCredentials,
-//                                        @RequestParam("file") MultipartFile file) {
-//        requestService.createWorker(userCredentials,file);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
+
     @GetMapping("/workerRequests")
-    public ResponseEntity<List<WorkerRequest>> getRequestByStatusSended(){
+    public ResponseEntity<List<WorkerRequest>> getRequestByStatusSended() {
         return ResponseEntity.ok(workerRequestService.findRequestBySendedStatus());
     }
+
     @PutMapping("/workerRequests/{id}")
     public ResponseEntity<?> manageRequest(@PathVariable("id") Long id, @RequestParam("decision") boolean decision) {
         workerRequestService.manageRequest(id, decision);

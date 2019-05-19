@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,7 +39,7 @@ public class UserService implements UserDetailsService {
         if (user.isBanned()) {
             throw new UsernameNotFoundException("Your account has been banned");
         }
-        if (user.getRole().getName() == RoleName.ROLE_WORKER && !user.isActiveWorker()){
+        if (user.getRole().getName() == RoleName.ROLE_WORKER && !user.isActiveWorker()) {
             throw new WorkerIsNotActiveException();
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
@@ -60,7 +59,7 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public User assignUserData(UserCredentials user){
+    public User assignUserData(UserCredentials user) {
         checkUsername(user.getUsername());
 
         User newUser = new User();
@@ -70,6 +69,7 @@ public class UserService implements UserDetailsService {
         newUser.setRegistered(LocalDateTime.now());
         return newUser;
     }
+
     private void checkUsername(String username) {
         boolean usernameExists = userRepository.existsUserByUsername(username);
 
