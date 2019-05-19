@@ -31,6 +31,13 @@ export class RegisterWorkerService {
   getWorkerRequests(): Observable<WorkerRequest[]> {
     return this.http.get<WorkerRequest[]>(`${API_URL}/workerRequests`);
   }
+  acceptWorkerRequest(id: number) {
+    const params = { "decision" : "true"};
+    return this.http.put<any>(`${API_URL}/workerRequests/` + id, null, {params} );
+  }
 
-
+  declineWorkerRequest(id: number) {
+    const params = { "decision" : "false"};
+    return this.http.put<any>(`${API_URL}/workerRequests/` + id, null, {params} );
+  }
 }

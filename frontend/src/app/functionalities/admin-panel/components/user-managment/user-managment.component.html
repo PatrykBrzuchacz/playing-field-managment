@@ -56,13 +56,15 @@
         <th mat-header-cell *matHeaderCellDef> Dowód pracy </th>
         <td mat-cell *matCellDef="let element">   <img src="data:image/jpg;base64,{{element.proofOfWork}}" /></td>
       </ng-container>
-<!-- 
-      <ng-container matColumnDef="akcje">
+
+      <ng-container matColumnDef="options">
         <th mat-header-cell *matHeaderCellDef> Opcje </th>
         <td mat-cell *matCellDef="let element">
 
+          <button mat-flat-button color="primary" (click)="acceptWorkerRequest(element.id)">Zaakceptuj zgłoszenie</button>
+          <button mat-flat-button color="primary" (click)="declineWorkerRequest(element.id)">Anuluj zgłoszenie</button>
         </td>
-      </ng-container> -->
+      </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedRequestColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedRequestColumns;"></tr>

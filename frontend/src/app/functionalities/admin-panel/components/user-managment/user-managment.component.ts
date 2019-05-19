@@ -12,14 +12,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class UserManagmentComponent implements OnInit {
   displayedColumns: string[] = ['id', 'username', 'zbanowany', 'akcje'];
-  displayedRequestColumns: string[] = ['username', 'status', 'fileName', 'proofOfWork'];
+  displayedRequestColumns: string[] = ['username', 'status', 'fileName', 'proofOfWork','options'];
   users: User[];
   workerRequest: WorkerRequest[];
-  fileUrl;
-  binaryData = [];
- ImageSource;
- imageToShow: any;
-image: any;
   constructor(private sanitizer: DomSanitizer,private userService: UserService, private registerWorkerService: RegisterWorkerService) { }
 
   ngOnInit() {
@@ -27,16 +22,7 @@ image: any;
   this.getWorkerRequests();
   }
 
-  createImageFromBlob(image: Blob) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-       this.imageToShow = reader.result;
-    }, false);
- 
-    if (image) {
-       reader.readAsDataURL(image);
-    }
-  }
+
 
   private getUsersForAdm() {
     this.userService.getUsersForAdmin().subscribe((users: any) => {
@@ -47,22 +33,20 @@ image: any;
   private getWorkerRequests() {
     this.registerWorkerService.getWorkerRequests().subscribe((workers: any) => {
       this.workerRequest = workers;
-      this.image= this.workerRequest[0].proofOfWork;
-      // console.log(this.workerRequest[0].proofOfWork);
-      // this.createImageFromBlob(this.workerRequest[0].proofOfWork);
-      // this.binaryData.push(this.workerRequest[0].proofOfWork);
-      // this.ImageSource = window.URL.createObjectURL(new Blob(this.binaryData, {type: "application/zip"}));
-//  let mySrc;
-// const reader = new FileReader();
-// console.log(this.workerRequest[0].proofOfWork);
-// reader.readAsDataURL(this.workerRequest[0].proofOfWork); 
-// reader.onloadend = function() {
-//    // result includes identifier 'data:image/png;base64,' plus the base64 data
-//    mySrc = reader.result;     
-// }
     })
   }
 
+  private acceptWorkerRequest(id: number) {
+    this.registerWorkerService.acceptWorkerRequest(id).subscribe(() => {
+      this.getWorkerRequests();
+    })
+  }
+
+  private declineWorkerRequest(id: number) {
+    this.registerWorkerService.declineWorkerRequest(id).subscribe(() => {
+      this.getWorkerRequests();
+    })
+  }
   banAccount(user: User) {
     this.userService.banUser(user.id)
     .subscribe((resp: any) => {
