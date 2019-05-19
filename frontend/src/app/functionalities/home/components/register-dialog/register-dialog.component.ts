@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { AuthService } from '@app/core/service';
 import { UserCredentials, UserRole } from '@app/shared/model';
-import { RegisterWorkerService } from '@app/shared/service/registerWorker.service';
+import { RegisterWorkerService } from '@app/shared/service/register-worker.service';
 
 
 @Component({
