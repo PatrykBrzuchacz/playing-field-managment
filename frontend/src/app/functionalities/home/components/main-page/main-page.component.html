@@ -3,37 +3,43 @@
     <div class="mt-4 container">
       <h3 class="mat-h2">Wybierz lokalizacje</h3>
       <mat-radio-group class="row">
-        <mat-radio-button #myLocation value="1" color="primary" (click)="setCurrentLocation()">Moja lokalizacja</mat-radio-button>
-        <mat-radio-button #selectedLocation value="2" color="primary">Wybierz lokalizację</mat-radio-button>
+        <mat-radio-button #myLocation value="1" [checked]="true" color="primary">Moja lokalizacja</mat-radio-button>
+        <mat-radio-button #chooseLocation value="2" color="primary">Wybierz lokalizację</mat-radio-button>
       </mat-radio-group>
 
+
       <div *ngIf="myLocation.checked">
-        <agm-map [latitude]="userLocation.lat" [longitude]="userLocation.lng">
-          <agm-marker [latitude]="userLocation.lat" [longitude]="userLocation.lng"></agm-marker>
+        <agm-map [latitude]="userLocation.lat" [longitude]="userLocation.lng" [zoom]="userLocation.zoom">
+            <agm-marker [iconUrl]="{url:customerMapIcon, labelOrigin:{x:15,y:-8}}" [latitude]="userLocation.lat"
+            [longitude]="userLocation.lng" [label]="customerLabel">
+            <agm-info-window>
+              <p class="info-content bold">Tu jesteś</p>
+            </agm-info-window>
+          </agm-marker>
         </agm-map>
       </div>
 
-      <ng-container *ngIf="selectedLocation.checked">
+
+      <ng-container *ngIf="chooseLocation.checked">
           <div class="container mt-5 mat-elevation-z10">
+
 
               <mat-form-field>
                   <input type="text" placeholder="Podaj lokalizację" matInput [formControl]="selectedLocationControl"
                     [matAutocomplete]="autoComplete">
                   <mat-autocomplete #autoComplete="matAutocomplete" (optionSelected)="setLocation($event)">
+
                     <mat-option *ngFor="let option of locations | async" [value]="option.formatted_address">
                       {{option.formatted_address}}
                     </mat-option>
+                  
                   </mat-autocomplete>
                 </mat-form-field>
-                <div class="my-auto mx-auto col-6 col-md-2 text-center">
-                  <button mat-icon-button (click)="findPlacesByCity()" [disabled]="!selectedLocationControl.value" color="primary">
-                  www  <!-- <fa-icon class="fa-lg" icon="search"></fa-icon> -->
-                  </button>
-                </div>
+
               </div>
             
               <div class="row">
-                <agm-map [latitude]="userLocation.lat" [longitude]="userLocation.lng" [zoom]="userLocation.zoom">
+                <agm-map [latitude]="selectedLocation.lat" [longitude]="selectedLocation.lng" [zoom]="selectedLocation.zoom">
                   <agm-marker [iconUrl]="{url:customerMapIcon, labelOrigin:{x:15,y:-8}}" [latitude]="userLocation.lat"
                     [longitude]="userLocation.lng" [label]="customerLabel">
                     <agm-info-window>

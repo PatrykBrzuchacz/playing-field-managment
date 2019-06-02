@@ -9,15 +9,14 @@ import { GooglePlaceMap } from '../model/google-map';
 })
 export class GoogleService {
 
-  
   constructor(private http: HttpClient) {
   }
 
-  getGooglePlaces(googlePlaceMap: GooglePlaceMap): Observable<any[]> {
-    console.log(googlePlaceMap.lat);
+  getGooglePlaces(lat: number, lng: number): Observable<any[]> {
+
     const params = new HttpParams()
-    .set('lat', `${googlePlaceMap.lat}`)
-    .set('lng', `${googlePlaceMap.lng}`);
+    .set('lat', "50" )
+    .set('lng', "20");
     return this.http.get<any[]>('/api/searchByLocation', { params: params });
   }
 }

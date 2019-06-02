@@ -35,7 +35,6 @@ export class GeoLocationService {
   }
 
   public getPositions = (address: string): Observable<any[]> => {
-    console.log(address);
     return Observable.create((observer: Observer<Position>) => {
       this.geoCoder.geocode({ 'address': address }, function (results, status) {
         observer.next(results);

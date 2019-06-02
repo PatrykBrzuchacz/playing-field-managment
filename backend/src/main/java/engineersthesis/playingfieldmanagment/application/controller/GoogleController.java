@@ -22,7 +22,7 @@ public class GoogleController {
         return ResponseEntity.ok(googleService.getPlayingFieldsByCity(city));
     }
 
-    @GetMapping(" ")
+    @GetMapping("/searchByLocation")
     public ResponseEntity<List<GoogleMapDto>> getPFsByLocation(@RequestParam("lat") Double lat,
                                                                @RequestParam("lng") Double lng){
 return ResponseEntity.ok(googleService.getPlayingFieldsByLocation(lat, lng));

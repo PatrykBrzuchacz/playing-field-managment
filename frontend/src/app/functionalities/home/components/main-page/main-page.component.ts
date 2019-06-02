@@ -22,16 +22,14 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
-  selectedUserLocation: GoogleLocation = {
-    lat: 52.00,
-    lng: 22.00,
-    zoom: 13
-  };
+
   userLocation: GoogleLocation = {
     lat: 0,
     lng: 0,
     zoom: 13
   };
+
+  selectedLocation: GoogleLocation;
   selectedLocationControl = new FormControl();
   locations: Observable<any[]>;
   searchedLocations: any[];
@@ -43,14 +41,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
   shopMapIcon = 'assets/icons/shop-map-marker.svg';
   registeredIcon = 'assets/icons/registered-map-maker.svg';
   googlePlace: GooglePlaceMap[];
-  isRegistered: boolean;
 
   subscription: Subscription;
   public geoCoder: any;
   userQuery = '';
-  @Input()
-  isOpen: boolean;
-  private sidenavOpened = false;
 
   constructor(private googleService: GoogleService, private dialogService: DialogService,
               private geoLocationService: GeoLocationService, private authService: AuthService,
@@ -73,9 +67,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.initUserLocation();
     this.subscription = this.subscribeUserSelectedLocation();
     this.locations = this.handleSelectedLocationChange();
+    this.selectedLocation =  this.userLocation;
   }
 
   private subscribeUserSelectedLocation(): Subscription {
@@ -85,10 +79,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   private setSelectedLocation = (location: GoogleLocation) => {
     if (location) {
-      this.selectedUserLocation = {
+      this.selectedLocation = {
         lat: location.lat,
         lng: location.lng,
-        zoom: 15
+        zoom: 13
       };
     }
   }
@@ -97,65 +91,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  // sidenavToggle() {
-  //   this.sidenavOpened = !this.sidenavOpened;
-  //   this.sidenavService.setSidenavOpened(this.sidenavOpened);
+  // private handleSuccessResponse = (response: GooglePlaceMap[]) => {
+  //   this.googlePlace = response;
+  //   if (!this.googlePlace.length) {
+  //     this.toastr.info('Nie znaleziono żadnych miejsc o podanym kryterium');
+  //   }
   // }
 
-  findPlacesByCity() {
-    console.log(this.selectedUserLocation.lat + 'dupa');
-    this.googleService.getGooglePlaces({
-      query: this.selectedLocationControl.value
-    })
-    .subscribe(this.handleSuccessResponse);
-  }
 
-  private handleSuccessResponse = (response: GooglePlaceMap[]) => {
-    console.log(response[0].name);
-    this.googlePlace = response;
-    if (!this.googlePlace.length) {
-      this.toastr.info('Nie znaleziono żadnych miejsc o podanym kryterium');
-    }
-  }
-
-  private initUserLocation() {
-    this.geoLocationService.getCurrentPosition()
-      .subscribe((position: Position) => {
-        this.selectedUserLocation.lat = position.coords.latitude;
-        this.selectedUserLocation.lng = position.coords.longitude;
-      });
-  }
-
-  getIcon(isRegistered: boolean) {
-    if (isRegistered === true) {
-      return this.registeredIcon;
-    } else {
-      return this.shopMapIcon;
-    }
-  }
-
-  getMarkerLabel(name: string) {
-    return {
-      color: 'red',
-      text: name
-    };
-  }
-
-  reservationDialog(venueId: string) {
-    this.dialogService.openReservationDialog(venueId);
-  }
-
-  isLogged(): boolean {
-    return this.authService.isLogged();
-  }
-  setCurrentLocation() {
-    const userLocation: GoogleLocation = {
-      lat: this.userLocation.lat,
-      lng: this.userLocation.lng,
-      zoom: 15
-    };
-    this.sideNavService.setSelectedLocation(userLocation);
-  }
 
   private handleSelectedLocationChange = (): Observable<any[]> => {
     return this.selectedLocationControl.valueChanges
@@ -186,9 +129,40 @@ export class MainPageComponent implements OnInit, OnDestroy {
       const selectedLocation: GoogleLocation = {
         lat: loc.geometry.location.lat(),
         lng: loc.geometry.location.lng(),
-        zoom: 15
+        zoom: 13
       };
       this.sideNavService.setSelectedLocation(selectedLocation);
+    }}
+    
+//   findPlacesByCity() {
+//     console.log(this.selectedLocation.lat + 'dupa');
+//     this.googleService.getGooglePlaces(this.selectedLocation.lat, this.selectedLocation.lng)
+// //to jest zle
+//     .subscribe(this.handleSuccessResponse);
+//     console.log(this.searchedLocations[0].lat, this.searchedLocations[0].lng)
+//   }
+
+
+  getIcon(isRegistered: boolean) {
+    if (isRegistered === true) {
+      return this.registeredIcon;
+    } else {
+      return this.shopMapIcon;
     }
+  }
+
+  getMarkerLabel(name: string) {
+    return {
+      color: 'red',
+      text: name
+    };
+  
+  }
+  reservationDialog(venueId: string) {
+    this.dialogService.openReservationDialog(venueId);
+  }
+
+  isLogged(): boolean {
+    return this.authService.isLogged();
   }
 }
