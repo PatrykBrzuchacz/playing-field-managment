@@ -1,5 +1,5 @@
 
-
+import { AgmCoreModule } from '@agm/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app-component/app.component';
 import {MatButtonModule} from '@angular/material';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
@@ -24,6 +23,9 @@ import {FileUploadModule} from 'ng2-file-upload';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDeOn1yZdl6o6xUyv17VLAW1A0szWaRcMY'
+    }),
     AppRoutingModule,
     MatButtonModule,
     SharedModule,

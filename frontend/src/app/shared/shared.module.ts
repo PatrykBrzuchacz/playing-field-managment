@@ -27,16 +27,35 @@ import {
   MatTabsModule,
   MatSliderModule,
   MatToolbarModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatAutocompleteModule,
+
   
 } from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
 
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+
+import {
+  faSearch,
+  faWrench,
+  faEnvelope
+} from '@fortawesome/free-solid-svg-icons';
+// Add an icon to the library for convenient access in other components
+library.add(
+  faSearch,
+  faWrench,
+  faEnvelope
+);
 
 @NgModule({
   exports: [
     CommonModule,
+    // FontAwesomeModule,
+    MatAutocompleteModule,
+    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,

@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <form [formGroup]="reservationForm" (ngSubmit)="sendReservation()" class="form-container">
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Ilość rezerwowanych miejsc" formControlName="numberOfPersons" type="number" min="1"
+          max="1000" />
+        <mat-error *ngIf="reservationForm.controls['numberOfPersons'].hasError('required')">Pole wymagane</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Data" formControlName="date" type="datetime-local" />
+        <mat-error *ngIf="reservationForm.controls['date'].hasError('required')">Pole wymagane</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <textarea formControlName="clientMessage" matInput placeholder="Wiadomość (opcionalnie)"></textarea>
+      </mat-form-field>
+
+      <div class="text-center">
+        <button mat-raised-button color="primary" type="submit" [disabled]="reservationForm.invalid">Rezerwuj</button>
+      </div>
+    </form>
+  </div>
+</div>

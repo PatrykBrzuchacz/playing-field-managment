@@ -1,4 +1,4 @@
-package engineersthesis.playingfieldmanagment.common.config;
+package engineersthesis.playingfieldmanagment.application.config;
 
 import engineersthesis.playingfieldmanagment.common.security.model.User;
 import engineersthesis.playingfieldmanagment.common.security.model.WorkerRequest;
