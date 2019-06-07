@@ -16,6 +16,18 @@
               <p class="info-content bold">Tu jesteś</p>
             </agm-info-window>
           </agm-marker>
+          <span *ngIf="playingFieldList">
+            <agm-marker *ngFor="let pf of playingFieldList" [iconUrl]="{url:getIcon(pf?.location?.isRegistered), labelOrigin:{x:15,y:-8}}"
+              [latitude]="pf?.location?.lat" [longitude]="pf?.location?.lng" [label]="pf?.name">
+
+              <agm-info-window>
+                <p>GITARA SIEMA</p>
+                <button mat-raised-button color="primary" *ngIf="pf.isRegistered" (click)="isLogged() && reservationDialog(venue.id)"
+                  matTooltip="Zaloguj się aby dokonać akcji" matTooltipClass="tooltip-reservation" >Rezerwacja</button>
+              </agm-info-window>
+            </agm-marker>
+          </span>
+
         </agm-map>
       </div>
 
@@ -32,38 +44,41 @@
                     <mat-option *ngFor="let option of locations | async" [value]="option.formatted_address">
                       {{option.formatted_address}}
                     </mat-option>
-                  
+
                   </mat-autocomplete>
                 </mat-form-field>
 
               </div>
-            
+
               <div class="row">
-                <agm-map [latitude]="selectedLocation.lat" [longitude]="selectedLocation.lng" [zoom]="selectedLocation.zoom">
+                <agm-map [latitude]="selectedLocation.lat" [longitude]="selectedLocation.lng" [zoom]="selectedLocation.zoom"
+                 (mapReady)="mapReady($event)" (centerChange)="centerChange($event)">
                   <agm-marker [iconUrl]="{url:customerMapIcon, labelOrigin:{x:15,y:-8}}" [latitude]="userLocation.lat"
                     [longitude]="userLocation.lng" [label]="customerLabel">
                     <agm-info-window>
                       <p class="info-content bold">Tu jesteś</p>
                     </agm-info-window>
                   </agm-marker>
-                  <!-- <span *ngIf="arrVenues"> -->
-                    <!-- <agm-marker *ngFor="let venue of arrVenues" [iconUrl]="{url:getIcon(venue.isRegistered), labelOrigin:{x:15,y:-8}}"
-                      [latitude]="venue.location.lat" [longitude]="venue.location.lng" [label]="venue.name">
+
+                  <span *ngIf="playingFieldList">
+                    <agm-marker *ngFor="let pf of playingFieldList" [iconUrl]="{url:getIcon(pf?.location?.isRegistered), labelOrigin:{x:15,y:-8}}"
+                      [latitude]="pf?.location?.lat" [longitude]="pf?.location?.lng" [label]="pf?.name">
+
                       <agm-info-window>
-                        <p class="info-content bold">{{venue.name}}</p>
-                        <p class="info-content" *ngIf="venue.location.address">Adres: {{venue.location.address}}</p>
-                        <p class="info-content" *ngIf="venue.location.city">Miasto: {{venue.location.city}}</p>
-                        <p class="info-content" *ngIf="venue.location.country">Kraj:{{venue.location.country}}</p>
-                        <button mat-raised-button color="primary" *ngIf="venue.isRegistered" (click)="isLogged() && reservationDialog(venue.id)"
-                          matTooltip="Zaloguj się aby dokonać rezerwacji" matTooltipClass="tooltip-reservation" [matTooltipDisabled]="isLogged()">Rezerwacja</button>
+                        <p>GITARA SIEMA</p>
+                        <!-- <button mat-raised-button color="primary"  (click)="isLogged() && reservationDialog(venue.id)"
+                          matTooltip="Zaloguj się aby dokonać akcji" matTooltipClass="tooltip-reservation" >Rezerwacja</button> -->
                       </agm-info-window>
                     </agm-marker>
-                  </span> -->
+
+                  </span>
+
+
                 </agm-map>
               </div>
-      
-            
-  
+
+
+
       </ng-container>
     </div>
   </div>

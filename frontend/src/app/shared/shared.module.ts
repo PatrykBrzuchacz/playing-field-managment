@@ -30,7 +30,7 @@ import {
   MatSidenavModule,
   MatAutocompleteModule,
 
-  
+
 } from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
@@ -63,6 +63,7 @@ library.add(
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    ReactiveFormsModule,
     MatCheckboxModule,
     MatRadioModule,
     MatIconModule,

@@ -54,6 +54,7 @@ public class GoogleService {
     }
 
 
+
     public ResponseFromGoogle getResponseFromGoogle(String url,Map<String, Object> uriVariables){
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(url, ResponseFromGoogle.class, uriVariables);

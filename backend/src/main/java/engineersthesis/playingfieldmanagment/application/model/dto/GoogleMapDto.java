@@ -13,12 +13,12 @@ public class GoogleMapDto {
 
     private String apiId;
     private String name;
-    private GooglePlaceLocationDto googlePlaceLocationDto;
+    private GooglePlaceLocationDto location;
     private boolean isRegistered = false;
 
-    public GoogleMapDto(String apiId, String name, GooglePlaceLocationDto googlePlaceLocationDto) {
+    public GoogleMapDto(String apiId, String name, GooglePlaceLocationDto location) {
         this.apiId = apiId;
         this.name = name;
-        this.googlePlaceLocationDto = googlePlaceLocationDto;
+        this.location=location;
     }
 }

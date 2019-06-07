@@ -1,10 +1,10 @@
 import { AgmMap, MapsAPILoader } from '@agm/core';
-import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 
 import { Subscription, Observable, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { GoogleLocation } from '@app/shared/model/google-location';
-import { GooglePlaceMap } from '@app/shared/model/google-map';
+import {  PlayingFieldDetails } from '@app/shared/model/google-map';
 import { GoogleService } from '@app/shared/service/google.service';
 import { GeoLocationService } from '@app/shared/service/geo-location.service';
 import { AuthService } from '@app/core/service';
@@ -13,6 +13,7 @@ import { SidenavService } from '@app/shared/service/sidenav.service';
 import { FormControl } from '@angular/forms';
 import { delay, startWith, switchMap, map, catchError, tap } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main-page',
@@ -23,6 +24,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 export class MainPageComponent implements OnInit, OnDestroy {
 
 
+
   userLocation: GoogleLocation = {
     lat: 0,
     lng: 0,
@@ -30,21 +32,27 @@ export class MainPageComponent implements OnInit, OnDestroy {
   };
 
   selectedLocation: GoogleLocation;
+  selectedLocation2: GoogleLocation ={
+    lat: 50.00,
+    lng: 20.00,
+    zoom: 13
+  };
   selectedLocationControl = new FormControl();
   locations: Observable<any[]>;
   searchedLocations: any[];
   @ViewChild(AgmMap) map: AgmMap;
 
-  geo = navigator.geolocation;
+
   customerLabel = 'Tu jesteś';
   customerMapIcon = 'assets/icons/customer-map-marker.svg';
   shopMapIcon = 'assets/icons/shop-map-marker.svg';
   registeredIcon = 'assets/icons/registered-map-maker.svg';
-  googlePlace: GooglePlaceMap[];
+
 
   subscription: Subscription;
   public geoCoder: any;
-  userQuery = '';
+  playingFieldList: PlayingFieldDetails[] =[];
+  isRegistered: boolean;
 
   constructor(private googleService: GoogleService, private dialogService: DialogService,
               private geoLocationService: GeoLocationService, private authService: AuthService,
@@ -58,19 +66,35 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.geoCoder = new google.maps.Geocoder();
       });
 
-      if (navigator) {
-    navigator.geolocation.getCurrentPosition( pos => {
-        this.userLocation.lng = +pos.coords.longitude;
-        this.userLocation.lat = +pos.coords.latitude;
-      });
-    }
+
   }
+
 
   ngOnInit() {
     this.subscription = this.subscribeUserSelectedLocation();
     this.locations = this.handleSelectedLocationChange();
-    this.selectedLocation =  this.userLocation;
+    this.selectedLocation = this.userLocation;
+    if (navigator) {
+      navigator.geolocation.getCurrentPosition( pos => {
+          this.userLocation.lng = pos.coords.longitude;
+          this.userLocation.lat = pos.coords.latitude;
+          this.findPlaces(pos.coords.latitude, pos.coords.longitude);
+        });
+      }
+
   }
+
+  mapReady(map) {
+    map.addListener("dragend", () => {
+    this.findPlaces(this.selectedLocation2.lat,this.selectedLocation2.lng)
+    });
+    }
+
+  centerChange(e) {
+    this.selectedLocation2.lat = e.lat;
+    this.selectedLocation2.lng = e.lng;
+
+    }
 
   private subscribeUserSelectedLocation(): Subscription {
     return this.sidenavService.selectedLocation
@@ -88,15 +112,21 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+   this.subscription.unsubscribe();
   }
 
-  // private handleSuccessResponse = (response: GooglePlaceMap[]) => {
-  //   this.googlePlace = response;
-  //   if (!this.googlePlace.length) {
-  //     this.toastr.info('Nie znaleziono żadnych miejsc o podanym kryterium');
-  //   }
-  // }
+  private findPlaces(lat: number, lng: number) {
+    this.googleService.getGooglePlaces(lat, lng)
+    .subscribe(this.handleSuccessResponse);
+  }
+
+
+  private handleSuccessResponse = (response: PlayingFieldDetails[]) => {
+    this.playingFieldList = response;
+    if (!this.playingFieldList.length) {
+      this.toastr.info('Nie znaleziono żadnych orlików w tym miejscu!');
+    }
+  }
 
 
 
@@ -132,15 +162,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
         zoom: 13
       };
       this.sideNavService.setSelectedLocation(selectedLocation);
-    }}
-    
-//   findPlacesByCity() {
-//     console.log(this.selectedLocation.lat + 'dupa');
-//     this.googleService.getGooglePlaces(this.selectedLocation.lat, this.selectedLocation.lng)
-// //to jest zle
-//     .subscribe(this.handleSuccessResponse);
-//     console.log(this.searchedLocations[0].lat, this.searchedLocations[0].lng)
-//   }
+      this.selectedLocation = selectedLocation;
+    }
+
+  }
 
 
   getIcon(isRegistered: boolean) {
@@ -156,7 +181,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
       color: 'red',
       text: name
     };
-  
+
   }
   reservationDialog(venueId: string) {
     this.dialogService.openReservationDialog(venueId);

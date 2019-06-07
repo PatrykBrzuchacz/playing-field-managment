@@ -1,22 +1,21 @@
 .input-row-container {
-    background-color: rgba(92, 92, 92, 0.356);
-  }
-  
-  agm-map {
-    height: 500px;
-    width: 100%;
-  }
-  
-  .info-content {
-    color: black !important;
-  }
-  
-  .bold {
-    font-weight: bold;
-  }
-  
-  .tooltip-reservation {
-    font-size: 0.8rem;
-    background-color: #b71c1c;
-  }
-  
+  background-color: rgba(92, 92, 92, 0.356);
+}
+
+agm-map {
+  height: 500px;
+  width: 100%;
+}
+
+.info-content {
+  color: black !important;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.tooltip-reservation {
+  font-size: 0.8rem;
+  background-color: #b71c1c;
+}

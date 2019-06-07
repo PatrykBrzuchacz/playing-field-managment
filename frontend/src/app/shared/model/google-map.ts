@@ -1,11 +1,11 @@
-export interface GooglePlaceMap {
+export interface PlayingFieldDetails {
     id?: number;
-    lat?: number;
-    lng?: number;
-    query: string;
+    lat: number;
+    lng: number;
+    query?: string;
     location?: GooglePlaceLocation;
     name?: string;
-    isRegistered?: boolean
+    registered?: boolean
 }
 
 interface GooglePlaceLocation {
