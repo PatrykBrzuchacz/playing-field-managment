@@ -103,11 +103,12 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   private setSelectedLocation = (location: GoogleLocation) => {
     if (location) {
-      this.selectedLocation = {
+      this.selectedLocation2 = {
         lat: location.lat,
         lng: location.lng,
         zoom: 13
       };
+      this.findPlaces(this.selectedLocation2.lat,this.selectedLocation2.lng)
     }
   }
 
