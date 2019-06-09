@@ -4,6 +4,8 @@ import {MatDialog} from '@angular/material';
 import { LoginDialogComponent } from '@app/functionalities/home/components/login-dialog/login-dialog.component';
 import { RegisterDialogComponent } from '@app/functionalities/home/components/register-dialog/register-dialog.component';
 import { ReservationDialogComponent } from '@app/functionalities/home/components/reservation-dialog/reservation-dialog.component';
+import { PlayingFieldDetails } from '../model/google-map';
+import { AssignPlayingFieldDialogComponent } from '@app/functionalities/home/components/assign-playing-field-dialog/assign-playing-field-dialog.component';
 
 
 @Injectable({
@@ -31,11 +33,18 @@ export class DialogService {
   closeAllDialogs() {
     this.dialog.closeAll();
   }
-  
-  openReservationDialog(restaurantApiId: string) {
-    this.dialog.open(ReservationDialogComponent, {
+
+  // openReservationDialog(pf: PlayingFieldDetails) {
+  //   this.dialog.open(ReservationDialogComponent, {
+  //     width: '350px',
+  //     data: {playingField: pf}
+  //   });
+  // }
+
+  openAssignPFDialogDialog(playingField: PlayingFieldDetails) {
+    this.dialog.open(AssignPlayingFieldDialogComponent, {
       width: '350px',
-      data: {restaurantApiId: restaurantApiId}
+      data: {playingField: playingField}
     });
   }
 }

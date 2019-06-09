@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class GoogleMapDto {
 
     private String apiId;
@@ -16,9 +15,10 @@ public class GoogleMapDto {
     private GooglePlaceLocationDto location;
     private boolean isRegistered = false;
 
-    public GoogleMapDto(String apiId, String name, GooglePlaceLocationDto location) {
+    public GoogleMapDto(String apiId, String name, GooglePlaceLocationDto location, boolean isRegistered) {
         this.apiId = apiId;
         this.name = name;
         this.location=location;
+        this.isRegistered=isRegistered;
     }
 }

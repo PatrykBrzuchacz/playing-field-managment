@@ -13,17 +13,19 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { GoogleService } from '@app/shared/service/google.service';
 import { GeoLocationService } from '@app/shared/service/geo-location.service';
+import { AssignPlayingFieldDialogComponent } from './components/assign-playing-field-dialog/assign-playing-field-dialog.component';
 
 
 @NgModule({
-  declarations: 
+  declarations:
   [
     MainPageComponent,
     LoginDialogComponent,
     RegisterDialogComponent,
     NavbarComponent,
     ReservationDialogComponent,
-    LayoutComponent
+    LayoutComponent,
+    AssignPlayingFieldDialogComponent
   ],
 
   imports: [
@@ -42,7 +44,8 @@ import { GeoLocationService } from '@app/shared/service/geo-location.service';
   entryComponents: [
     LoginDialogComponent,
     RegisterDialogComponent,
-    ReservationDialogComponent
+    ReservationDialogComponent,
+    AssignPlayingFieldDialogComponent
 
   ]
 })

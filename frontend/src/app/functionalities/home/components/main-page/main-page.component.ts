@@ -65,8 +65,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
       this.mapsApiLoader.load().then(() => {
         this.geoCoder = new google.maps.Geocoder();
       });
-
-
   }
 
 
@@ -93,7 +91,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
   centerChange(e) {
     this.selectedLocation2.lat = e.lat;
     this.selectedLocation2.lng = e.lng;
-
     }
 
   private subscribeUserSelectedLocation(): Subscription {
@@ -184,8 +181,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     };
 
   }
-  reservationDialog(venueId: string) {
-    this.dialogService.openReservationDialog(venueId);
+  assignPFDialog(pf: PlayingFieldDetails) {
+    this.dialogService.openAssignPFDialogDialog(pf);
   }
 
   isLogged(): boolean {

@@ -1,6 +1,7 @@
 package engineersthesis.playingfieldmanagment.common.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import engineersthesis.playingfieldmanagment.application.model.PlayingField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
@@ -30,8 +31,7 @@ public class User {
 
     private boolean banned = false;
     private boolean active = true;
-    @Column(name = "is_active_worker")
-    private boolean isActiveWorker = false;
+
 
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private LocalDateTime registered;
@@ -46,6 +46,8 @@ public class User {
     @JoinColumn(name = "id_role")
     private Role role;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private PlayingField playingField;
     @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)

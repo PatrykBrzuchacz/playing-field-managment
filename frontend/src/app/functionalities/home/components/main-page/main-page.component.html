@@ -1,4 +1,4 @@
-
+<app-navbar></app-navbar>
   <div nav-list-items>
     <div class="mt-4 container">
       <h3 class="mat-h2">Wybierz lokalizacje</h3>
@@ -17,15 +17,25 @@
             </agm-info-window>
           </agm-marker>
           <span *ngIf="playingFieldList">
-            <agm-marker *ngFor="let pf of playingFieldList" [iconUrl]="{url:getIcon(pf?.location?.isRegistered), labelOrigin:{x:15,y:-8}}"
-              [latitude]="pf?.location?.lat" [longitude]="pf?.location?.lng" [label]="pf?.name">
 
               <agm-info-window>
-                <p>GITARA SIEMA</p>
-                <button mat-raised-button color="primary" *ngIf="pf.isRegistered" (click)="isLogged() && reservationDialog(venue.id)"
-                  matTooltip="Zaloguj się aby dokonać akcji" matTooltipClass="tooltip-reservation" >Rezerwacja</button>
+
+
+                  <agm-marker *ngFor="let pf of playingFieldList" [iconUrl]="{url:getIcon(pf?.registered), labelOrigin:{x:15,y:-8}}"
+                    [latitude]="pf?.location?.lat" [longitude]="pf?.location?.lng" [label]="pf?.name">
+
+                    <agm-info-window>
+                      <p class="info-content bold">{{pf?.name}}</p>
+                      <p class="info-content" *ngIf="pf?.location?.formattedAddress">Adres: {{pf?.location?.formattedAddress}}</p>
+                      <button mat-raised-button color="primary" *ngIf="pf?.registered">Rezerwuj orlik</button>
+                      <button mat-raised-button color="primary" *ngIf="!pf?.registered">Zarejestruj się jako pracownik</button>
+                    </agm-info-window>
+                  </agm-marker>
+
+
+
               </agm-info-window>
-            </agm-marker>
+
           </span>
 
         </agm-map>
@@ -61,13 +71,20 @@
                   </agm-marker>
 
                   <span *ngIf="playingFieldList">
-                    <agm-marker *ngFor="let pf of playingFieldList" [iconUrl]="{url:getIcon(pf?.location?.isRegistered), labelOrigin:{x:15,y:-8}}"
+                    <agm-marker *ngFor="let pf of playingFieldList" [iconUrl]="{url:getIcon(pf?.registered), labelOrigin:{x:15,y:-8}}"
                       [latitude]="pf?.location?.lat" [longitude]="pf?.location?.lng" [label]="pf?.name">
 
                       <agm-info-window>
-                        <p>GITARA SIEMA</p>
-                        <!-- <button mat-raised-button color="primary"  (click)="isLogged() && reservationDialog(venue.id)"
-                          matTooltip="Zaloguj się aby dokonać akcji" matTooltipClass="tooltip-reservation" >Rezerwacja</button> -->
+                        <p class="info-content bold">{{pf?.name}}</p>
+                        <p class="info-content" *ngIf="pf?.location?.formattedAddress">Adres: {{pf?.location?.formattedAddress}}</p>
+
+                        <button mat-raised-button color="primary" *ngIf="pf?.registered">Rezerwuj orlik
+                        </button>
+
+                        <button mat-raised-button color="primary" *ngIf="!pf?.registered"
+                         (click)="isLogged() && assignPFDialog(pf)">Zarejestruj się jako pracownik
+                        </button>
+
                       </agm-info-window>
                     </agm-marker>
 

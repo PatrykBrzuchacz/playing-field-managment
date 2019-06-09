@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,12 +29,12 @@ public class RequestController {
         workerRequestService.createWorker(userCred, file);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/workerRequests")
     public ResponseEntity<List<WorkerRequest>> getRequestByStatusSended() {
         return ResponseEntity.ok(workerRequestService.findRequestBySendedStatus());
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/workerRequests/{id}")
     public ResponseEntity<?> manageRequest(@PathVariable("id") Long id, @RequestParam("decision") boolean decision) {
         workerRequestService.manageRequest(id, decision);

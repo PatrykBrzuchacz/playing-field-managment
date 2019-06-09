@@ -1,5 +1,6 @@
 export interface PlayingFieldDetails {
     id?: number;
+    apiId?:number;
     lat: number;
     lng: number;
     query?: string;
@@ -8,8 +9,8 @@ export interface PlayingFieldDetails {
     registered?: boolean
 }
 
-interface GooglePlaceLocation {
-    address: string;
+export interface GooglePlaceLocation {
+  formattedAddress: string;
     lat: number;
     lng: number;
 }

@@ -52,7 +52,8 @@ public class WorkerRequestService {
         WorkerRequest workerRequest = requestRepository.getOne(id);
         if (decision) {
             workerRequest.setStatus(Status.ACCEPTED);
-            workerRequest.getUser().setActiveWorker(true);
+            workerRequest.getUser().setRole(roleRepository.findByName(RoleName.ROLE_WORKER));
+            workerRequest.getPlayingField().setRegistered(true);
         } else {
             workerRequest.setStatus(Status.DECLINED);
         }

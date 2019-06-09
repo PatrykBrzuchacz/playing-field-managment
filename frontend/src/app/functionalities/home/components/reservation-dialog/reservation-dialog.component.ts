@@ -11,8 +11,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ReservationDialogComponent implements OnInit {
 
-  public reservationForm: FormGroup;
+  // public reservationForm: FormGroup;
   sendError = false;
+  selectedFile: File;
+
 
   constructor(
     private dialogRef: MatDialogRef<ReservationDialogComponent>,
@@ -21,17 +23,17 @@ export class ReservationDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reservationForm = new FormGroup({
-      numberOfPersons: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(1000)]),
-      date: new FormControl(null, [Validators.required]),
-      clientMessage: new FormControl(null)
-    });
+    // this.reservationForm = new FormGroup({
+    //   numberOfPersons: new FormControl(null, [Validators.required, Validators.min(1), Validators.max(1000)]),
+    //   date: new FormControl(null, [Validators.required]),
+    //   clientMessage: new FormControl(null)
+    // });
   }
+  processFile(event){
+    this.selectedFile = event.target.files[0]
+  }
+  sendRequest() {
 
-  sendReservation() {
-    const numberOfPersons: number = this.reservationForm.controls['numberOfPersons'].value;
-    const dateAndTime: Date = this.reservationForm.controls['date'].value;
-    const clientMessage: string = this.reservationForm.controls['clientMessage'].value;
   }
 
 }

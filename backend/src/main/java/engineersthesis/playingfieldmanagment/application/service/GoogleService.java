@@ -5,6 +5,7 @@ import engineersthesis.playingfieldmanagment.application.model.dto.GoogleMapDto;
 import engineersthesis.playingfieldmanagment.application.model.dto.GooglePlaceLocationDto;
 import engineersthesis.playingfieldmanagment.application.model.dto.Response.ResponseFromGoogle;
 import engineersthesis.playingfieldmanagment.application.model.dto.Response.Result;
+import engineersthesis.playingfieldmanagment.application.repository.PlayingFieldRepository;
 import engineersthesis.playingfieldmanagment.application.service.helper.GoogleApiComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ public class GoogleService {
 
     @Autowired
     private GoogleApiComponent googleApiComponent;
+    @Autowired
+    private PlayingFieldRepository playingFieldRepository;
 
     public List<GoogleMapDto> getPlayingFieldsByCity(String city) {
         String url = googleApiComponent.getSearchedUrlByCity();
@@ -41,18 +44,22 @@ public class GoogleService {
         return responseFromGoogle.getResult().stream().map(this::getPlayingFieldFromResult).collect(Collectors.toList());
     }
 
-    public GoogleMapDto getPlayingFieldFromResult(Result result){
+    public GoogleMapDto getPlayingFieldFromResult(Result result) {
         GooglePlaceLocationDto googlePlaceLocationDto =
                 new GooglePlaceLocationDto(
                         result.getGeometry().location.lat,
                         result.getGeometry().location.lng,
                         result.getFormatted_address()
-                        );
-
-        return new GoogleMapDto(result.getApiId(),result.getName(),
-                googlePlaceLocationDto);
+                );
+        if (playingFieldRepository.existsPlayingFieldByApiId(result.getApiId()) &&
+        playingFieldRepository.findByApiId(result.getApiId()).isRegistered()) {
+            return new GoogleMapDto(result.getApiId(), result.getName(),
+                    googlePlaceLocationDto, true);
+        } else {
+            return new GoogleMapDto(result.getApiId(), result.getName(),
+                    googlePlaceLocationDto, false);
+        }
     }
-
 
 
     public ResponseFromGoogle getResponseFromGoogle(String url,Map<String, Object> uriVariables){

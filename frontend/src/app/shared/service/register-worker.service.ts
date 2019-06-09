@@ -7,6 +7,7 @@ import { User, UserCredentials} from '../model';
 import {HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { WorkerRequest } from '../model/worker-request';
+import { PlayingFieldDetails } from '../model/google-map';
 
 
 const API_URL = environment.apiUrl;
@@ -39,5 +40,13 @@ export class RegisterWorkerService {
   declineWorkerRequest(id: number) {
     const params = { "decision" : "false"};
     return this.http.put<any>(`${API_URL}/workerRequests/` + id, null, {params} );
+  }
+  sendRequestToAssignPF(pf: PlayingFieldDetails, file:File){
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('playingField', '{ "apiId": "'+  pf.apiId +'",'+ '"name": "'+ pf.name + '",'+'"lat":"'+pf.location.lat+ '",'+
+    '"lng":"'+pf.location.lng +'",'+  '"formattedAddress":"'+pf.location.formattedAddress + '"}');
+
+    return this.http.post(`${API_URL}/assignToWorker`, formData);
   }
 }

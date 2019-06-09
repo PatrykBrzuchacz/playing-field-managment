@@ -39,9 +39,6 @@ public class UserService implements UserDetailsService {
         if (user.isBanned()) {
             throw new UsernameNotFoundException("Your account has been banned");
         }
-        if (user.getRole().getName() == RoleName.ROLE_WORKER && !user.isActiveWorker()) {
-            throw new WorkerIsNotActiveException();
-        }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
     }
 

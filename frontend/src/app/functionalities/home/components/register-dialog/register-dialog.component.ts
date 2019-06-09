@@ -54,7 +54,7 @@ export class RegisterDialogComponent implements OnInit {
     this.isWorker = event.checked;
     }
 
-    
+
   private getRegistrationDetails(): UserCredentials {
     const formValue = this.registerForm.value;
 
