@@ -45,7 +45,7 @@ public class User {
     @NonNull
     @JoinColumn(name = "id_role")
     private Role role;
-
+    @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private PlayingField playingField;
     @JsonIgnore

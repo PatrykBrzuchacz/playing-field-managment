@@ -1,5 +1,6 @@
 package engineersthesis.playingfieldmanagment.application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.maps.model.Geometry;
 import engineersthesis.playingfieldmanagment.application.model.dto.PlayingFieldSaveDto;
@@ -34,10 +35,12 @@ public class PlayingField {
     @Column(name = "is_registered")
     private boolean isRegistered = false;
 
+
     @JoinColumn(name = "user_id")
     @OneToOne
     private User user;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "playingField", cascade = CascadeType.ALL)
     private WorkerRequest workerRequest;
 

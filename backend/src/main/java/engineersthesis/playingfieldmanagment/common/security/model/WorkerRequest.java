@@ -36,6 +36,7 @@ public class WorkerRequest {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "playing_field_id")
     private PlayingField playingField;
+
     public WorkerRequest() {
     }
 
