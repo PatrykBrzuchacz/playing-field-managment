@@ -29,11 +29,8 @@ public class WorkerRequest {
     @Lob
     private byte[] proofOfWork;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User user;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade =CascadeType.ALL)
     @JoinColumn(name = "playing_field_id")
     private PlayingField playingField;
 
@@ -41,28 +38,21 @@ public class WorkerRequest {
     }
 
     public WorkerRequest(Status status, String fileName, String fileType,
-                         byte[] proofOfWork, User user, PlayingField playingField) {
+                         byte[] proofOfWork, PlayingField playingField) {
         this.status = status;
         this.fileName = fileName;
         this.fileType = fileType;
         this.proofOfWork = proofOfWork;
-        this.user = user;
+
         this.playingField= playingField;
     }
     public WorkerRequest(Status status, String fileName, String fileType,
-                         byte[] proofOfWork, User user) {
+                         byte[] proofOfWork) {
         this.status = status;
         this.fileName = fileName;
         this.fileType = fileType;
         this.proofOfWork = proofOfWork;
-        this.user = user;
 
-    }
-    public WorkerRequest(Status status, String fileName, String fileType, byte[] proofOfWork) {
-        this.status = status;
-        this.fileName = fileName;
-        this.fileType = fileType;
-        this.proofOfWork = proofOfWork;
 
     }
 }

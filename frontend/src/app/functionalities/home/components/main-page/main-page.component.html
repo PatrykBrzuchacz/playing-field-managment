@@ -23,12 +23,20 @@
 
                   <agm-marker *ngFor="let pf of playingFieldList" [iconUrl]="{url:getIcon(pf?.registered), labelOrigin:{x:15,y:-8}}"
                     [latitude]="pf?.location?.lat" [longitude]="pf?.location?.lng" [label]="pf?.name">
-
                     <agm-info-window>
                       <p class="info-content bold">{{pf?.name}}</p>
                       <p class="info-content" *ngIf="pf?.location?.formattedAddress">Adres: {{pf?.location?.formattedAddress}}</p>
-                      <button mat-raised-button color="primary" *ngIf="pf?.registered">Rezerwuj orlik</button>
-                      <button mat-raised-button color="primary" *ngIf="!pf?.registered">Zarejestruj się jako pracownik</button>
+
+                      <button mat-raised-button color="primary" *ngIf="pf?.registered">Rezerwuj orlik
+                      </button>
+
+                      <button mat-raised-button color="primary" *ngIf="!pf?.registered && isLogged()"
+                       (click)="assignPFDialog(pf)">Przypisz orlik do konta
+                      </button>
+
+                      <button mat-raised-button color="primary" *ngIf="!pf?.registered && !isLogged()"
+                      (click)="assignPFAndRegisterDialog(pf)">Zarejestruj się jako pracownik
+                     </button>
                     </agm-info-window>
                   </agm-marker>
 
@@ -70,25 +78,29 @@
                     </agm-info-window>
                   </agm-marker>
 
-                  <span *ngIf="playingFieldList">
-                    <agm-marker *ngFor="let pf of playingFieldList" [iconUrl]="{url:getIcon(pf?.registered), labelOrigin:{x:15,y:-8}}"
+
+
+                    <agm-marker (markerClick)="markerClick(infoWindow)" *ngFor="let pf of playingFieldList" [iconUrl]="{url:getIcon(pf?.registered), labelOrigin:{x:15,y:-8}}"
                       [latitude]="pf?.location?.lat" [longitude]="pf?.location?.lng" [label]="pf?.name">
 
-                      <agm-info-window>
+                      <agm-info-window #infoWindow>
                         <p class="info-content bold">{{pf?.name}}</p>
                         <p class="info-content" *ngIf="pf?.location?.formattedAddress">Adres: {{pf?.location?.formattedAddress}}</p>
 
                         <button mat-raised-button color="primary" *ngIf="pf?.registered">Rezerwuj orlik
                         </button>
 
-                        <button mat-raised-button color="primary" *ngIf="!pf?.registered"
-                         (click)="isLogged() && assignPFDialog(pf)">Zarejestruj się jako pracownik
+                        <button mat-raised-button color="primary" *ngIf="!pf?.registered && isLogged()"
+                         (click)="assignPFDialog(pf)">Przypisz orlik do konta
                         </button>
 
+                        <button mat-raised-button color="primary" *ngIf="!pf?.registered && !isLogged()"
+                        (click)="assignPFDialog(pf)">Zarejestruj się jako pracownik
+                       </button>
                       </agm-info-window>
                     </agm-marker>
 
-                  </span>
+
 
 
                 </agm-map>

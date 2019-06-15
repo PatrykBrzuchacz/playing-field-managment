@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { ToastrService } from 'ngx-toastr';
 import { RegisterWorkerService } from '@app/shared/service/register-worker.service';
-import { PlayingFieldDetails } from '@app/shared/model/google-map';
+import { PlayingField } from '@app/shared/model/google-map';
 
 @Component({
   selector: 'app-assign-playing-field-dialog',

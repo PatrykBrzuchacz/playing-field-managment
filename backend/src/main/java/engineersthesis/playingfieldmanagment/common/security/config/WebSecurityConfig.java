@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/searchByCity"};
 
     private final String[] PUBLIC_POST_PATHS = {"/api/users/signup", "/api/login",
-            "/api/workerRequests/worker/signup"};
+            "/api/workerRequests/worker/signup","/api/assignToWorkerAndRegister"};
 
     private UserDetailsService userDetailsService;
 

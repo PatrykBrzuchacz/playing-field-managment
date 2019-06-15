@@ -51,8 +51,7 @@ public class GoogleService {
                         result.getGeometry().location.lng,
                         result.getFormatted_address()
                 );
-        if (playingFieldRepository.existsPlayingFieldByApiId(result.getApiId()) &&
-        playingFieldRepository.findByApiId(result.getApiId()).isRegistered()) {
+        if (playingFieldRepository.findByApiIdAndIsRegisteredIsTrue(result.getApiId())!= null) {
             return new GoogleMapDto(result.getApiId(), result.getName(),
                     googlePlaceLocationDto, true);
         } else {

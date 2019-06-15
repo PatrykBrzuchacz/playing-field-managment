@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PlayingFieldRepository extends JpaRepository<PlayingField, Long> {
-    PlayingField findByApiId(String apiId);
-    boolean existsPlayingFieldByApiId(String apiId);
+    PlayingField findByApiIdAndIsRegisteredIsTrue(String apiId);
 }

@@ -29,6 +29,7 @@ public class RequestController {
         workerRequestService.createWorker(userCred, file);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/workerRequests")
     public ResponseEntity<List<WorkerRequest>> getRequestByStatusSended() {

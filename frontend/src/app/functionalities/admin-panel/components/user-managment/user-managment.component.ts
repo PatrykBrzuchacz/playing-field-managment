@@ -4,6 +4,7 @@ import { UserService } from '@app/shared/service/user.service';
 import { RegisterWorkerService } from '@app/shared/service/register-worker.service';
 import { WorkerRequest } from '@app/shared/model/worker-request';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DialogService } from '@app/shared/service/dialog.service';
 
 @Component({
   selector: 'app-user-managment',
@@ -12,10 +13,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class UserManagmentComponent implements OnInit {
   displayedColumns: string[] = ['id', 'username', 'zbanowany', 'akcje'];
-  displayedRequestColumns: string[] = ['username', 'status', 'fileName', 'proofOfWork','options'];
+  displayedRequestColumns: string[] = ['username', 'status', 'fileName', 'PFApiId', 'proofOfWork','options'];
   users: User[];
   workerRequest: WorkerRequest[];
-  constructor(private sanitizer: DomSanitizer,private userService: UserService, private registerWorkerService: RegisterWorkerService) { }
+  constructor(private sanitizer: DomSanitizer,
+    private userService: UserService,
+    private registerWorkerService: RegisterWorkerService,
+    private dialogService: DialogService) { }
 
   ngOnInit() {
   this.getUsersForAdm();
@@ -36,13 +40,13 @@ export class UserManagmentComponent implements OnInit {
     })
   }
 
-  private acceptWorkerRequest(id: number) {
+   acceptWorkerRequest(id: number) {
     this.registerWorkerService.acceptWorkerRequest(id).subscribe(() => {
       this.getWorkerRequests();
     })
   }
 
-  private declineWorkerRequest(id: number) {
+   declineWorkerRequest(id: number) {
     this.registerWorkerService.declineWorkerRequest(id).subscribe(() => {
       this.getWorkerRequests();
     })
@@ -66,5 +70,8 @@ export class UserManagmentComponent implements OnInit {
     .subscribe((resp: any) => {
       this.getUsersForAdm();
     });
+  }
+  openImage(image: File) {
+    this.dialogService.openEnlargeImageDialog(image);
   }
 }

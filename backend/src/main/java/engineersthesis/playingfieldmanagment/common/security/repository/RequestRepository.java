@@ -1,5 +1,6 @@
 package engineersthesis.playingfieldmanagment.common.security.repository;
 
+import engineersthesis.playingfieldmanagment.application.model.PlayingField;
 import engineersthesis.playingfieldmanagment.common.security.model.Status;
 import engineersthesis.playingfieldmanagment.common.security.model.WorkerRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,4 +11,5 @@ import java.util.List;
 @RepositoryRestResource
 public interface RequestRepository extends JpaRepository<WorkerRequest, Long> {
     List<WorkerRequest> findAllByStatus(Status status);
+
 }

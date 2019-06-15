@@ -4,7 +4,7 @@ import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation, Input, OnCh
 import { Subscription, Observable, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { GoogleLocation } from '@app/shared/model/google-location';
-import {  PlayingFieldDetails } from '@app/shared/model/google-map';
+import {  PlayingField } from '@app/shared/model/google-map';
 import { GoogleService } from '@app/shared/service/google.service';
 import { GeoLocationService } from '@app/shared/service/geo-location.service';
 import { AuthService } from '@app/core/service';
@@ -14,6 +14,7 @@ import { FormControl } from '@angular/forms';
 import { delay, startWith, switchMap, map, catchError, tap } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { debounceTime } from 'rxjs/operators';
+import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-main-page',
@@ -21,7 +22,7 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./main-page.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MainPageComponent implements OnInit, OnDestroy {
+export class MainPageComponent implements OnInit {
 
 
 
@@ -37,6 +38,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     lng: 20.00,
     zoom: 13
   };
+  lastSelectedInfoWindow: any;
   selectedLocationControl = new FormControl();
   locations: Observable<any[]>;
   searchedLocations: any[];
@@ -51,12 +53,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   public geoCoder: any;
-  playingFieldList: PlayingFieldDetails[] =[];
+  playingFieldList: PlayingField[] =[];
   isRegistered: boolean;
 
   constructor(private googleService: GoogleService, private dialogService: DialogService,
               private geoLocationService: GeoLocationService, private authService: AuthService,
-              private sidenavService: SidenavService,
               private toastr: ToastrService,
               private mapsApiLoader: MapsAPILoader,
               private sideNavService: SidenavService) {
@@ -82,6 +83,19 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   }
 
+
+  markerClick(infoWindow: any) {
+          if (infoWindow == this.lastSelectedInfoWindow) {
+              return;
+          }
+          if (this.lastSelectedInfoWindow != null) {
+           try{
+              this.lastSelectedInfoWindow.close();
+            } catch {} //in case if you reload your markers
+          }
+          this.lastSelectedInfoWindow = infoWindow;
+      }
+
   mapReady(map) {
     map.addListener("dragend", () => {
     this.findPlaces(this.selectedLocation2.lat,this.selectedLocation2.lng)
@@ -93,8 +107,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.selectedLocation2.lng = e.lng;
     }
 
-  private subscribeUserSelectedLocation(): Subscription {
-    return this.sidenavService.selectedLocation
+  private subscribeUserSelectedLocation() {
+    return this.sideNavService.selectedLocation
       .subscribe(this.setSelectedLocation);
   }
 
@@ -109,9 +123,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-   this.subscription.unsubscribe();
-  }
+
 
   private findPlaces(lat: number, lng: number) {
     this.googleService.getGooglePlaces(lat, lng)
@@ -119,7 +131,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
 
-  private handleSuccessResponse = (response: PlayingFieldDetails[]) => {
+  private handleSuccessResponse = (response: PlayingField[]) => {
     this.playingFieldList = response;
     if (!this.playingFieldList.length) {
       this.toastr.info('Nie znaleziono żadnych orlików w tym miejscu!');
@@ -181,8 +193,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
     };
 
   }
-  assignPFDialog(pf: PlayingFieldDetails) {
+  assignPFDialog(pf: PlayingField) {
     this.dialogService.openAssignPFDialogDialog(pf);
+  }
+  assignPFAndRegisterDialog(pf: PlayingField) {
+    this.dialogService.openAssignPFAndRegisterDialogDialog(pf);
   }
 
   isLogged(): boolean {

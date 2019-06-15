@@ -46,12 +46,12 @@ public class User {
     @JoinColumn(name = "id_role")
     private Role role;
     @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PlayingField playingField;
-    @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
-    private WorkerRequest workerRequest;
+//    @JsonIgnore
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY)
+//    private WorkerRequest workerRequest;
 
     public User() {
     }

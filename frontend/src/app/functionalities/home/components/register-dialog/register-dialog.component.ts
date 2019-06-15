@@ -36,23 +36,13 @@ export class RegisterDialogComponent implements OnInit {
   }
 
   register() {
-    if(this.isWorker && this.registerForm.valid){
-      console.log(this.selectedFile);
-      this.registerWorkerService.registerWorker(this.getRegistrationDetails(), this.selectedFile).subscribe(
-        this.onSuccess, this.onFail
-      )
-
-    }
-    else if (this.registerForm.valid) {
       this.authService
         .register(this.getRegistrationDetails())
         .subscribe(this.onSuccess, this.onFail);
-    }
+
   }
 
-  getCheckBoxvalue(event){
-    this.isWorker = event.checked;
-    }
+
 
 
   private getRegistrationDetails(): UserCredentials {

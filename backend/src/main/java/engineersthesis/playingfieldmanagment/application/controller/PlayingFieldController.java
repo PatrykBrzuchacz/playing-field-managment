@@ -29,4 +29,15 @@ public class PlayingFieldController {
         workerService.assignPFToWorker(playingFieldSaveDto, file);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+
+    @PostMapping(value = "/assignToWorkerAndRegister")
+    public ResponseEntity<?> assignPlayingFieldToWorker(@RequestParam("playingField") String playingFieldDto,
+                                                        @RequestParam("file") MultipartFile file,
+                                                        @RequestParam("username") String username,
+                                                        @RequestParam("password") String password) throws IOException {
+        PlayingFieldSaveDto playingFieldSaveDto = new ObjectMapper().readValue(playingFieldDto, PlayingFieldSaveDto.class);
+        workerService.assignPFAndRegisterWorker(playingFieldSaveDto, file, username, password);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }

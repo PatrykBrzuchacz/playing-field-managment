@@ -1,4 +1,4 @@
-export interface PlayingFieldDetails {
+export interface PlayingField {
     id?: number;
     apiId?:number;
     lat: number;

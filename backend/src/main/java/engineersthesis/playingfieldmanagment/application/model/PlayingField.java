@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -41,8 +42,8 @@ public class PlayingField {
     private User user;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "playingField", cascade = CascadeType.ALL)
-    private WorkerRequest workerRequest;
+    @OneToMany(mappedBy = "playingField", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WorkerRequest> workerRequest;
 
     public PlayingField(String apiId, String name, double lat, double lng, String address){
         this.apiId=apiId;

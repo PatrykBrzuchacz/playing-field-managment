@@ -14,7 +14,7 @@
 
   <mat-form-field>
       <input matInput type="password" name="password" formControlName="password" placeholder="Hasło" [type]="hidingPassword ? 'password' : 'text'">
-     
+
       <mat-icon matSuffix (click)="hidingPassword = !hidingPassword">{{hidingPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
       <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
         Hasło jest <strong>wymagane</strong>
@@ -32,19 +32,6 @@
         Hasła muszą być <strong>takie same</strong>
       </mat-error>
     </mat-form-field>
-  
 
-
-    <mat-checkbox  (change)="getCheckBoxvalue($event)">Pracownik</mat-checkbox>
-    
-    <div *ngIf="isWorker">
-      <label class="image-upload-container btn btn-bwm">
-        <span>Wybierz dowód potwierdzający pracę</span>
-        <input 
-               type="file"
-               accept="image/*"
-               (change)="processFile($event)">
-      </label>
-    </div>
   <button mat-raised-button type="submit">Zarejestruj</button>
 </form>

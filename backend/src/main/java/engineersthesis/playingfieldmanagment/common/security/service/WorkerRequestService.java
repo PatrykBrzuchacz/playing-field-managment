@@ -1,5 +1,7 @@
 package engineersthesis.playingfieldmanagment.common.security.service;
 
+import engineersthesis.playingfieldmanagment.application.model.PlayingField;
+import engineersthesis.playingfieldmanagment.application.repository.PlayingFieldRepository;
 import engineersthesis.playingfieldmanagment.common.security.exception.FileStorageException;
 import engineersthesis.playingfieldmanagment.common.security.model.*;
 import engineersthesis.playingfieldmanagment.common.security.repository.RequestRepository;
@@ -7,6 +9,7 @@ import engineersthesis.playingfieldmanagment.common.security.repository.RoleRepo
 import engineersthesis.playingfieldmanagment.common.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +27,8 @@ public class WorkerRequestService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private PlayingFieldRepository playingFieldRepository;
 
     public WorkerRequest createWorker(UserCredentials userCredentials, MultipartFile file) {
         User worker = userService.assignUserData(userCredentials);
@@ -38,7 +43,7 @@ public class WorkerRequestService {
             }
 
             WorkerRequest workerRequest = new WorkerRequest(Status.SENDED, fileName, file.getContentType(),
-                    file.getBytes(), worker);
+                    file.getBytes());
 
             return requestRepository.save(workerRequest);
 
@@ -48,17 +53,28 @@ public class WorkerRequestService {
     }
 
 
-    public User manageRequest(Long id, boolean decision) {
+    public void manageRequest(Long id, boolean decision) {
         WorkerRequest workerRequest = requestRepository.getOne(id);
         if (decision) {
+            for(WorkerRequest request: requestRepository.findAll()) {
+                if (request.getPlayingField().getApiId()
+                        .equals(workerRequest.getPlayingField().getApiId()) &&
+                        !request.equals(workerRequest)) {
+                    request.setStatus(Status.DECLINED);
+                    requestRepository.save(request);
+                }
+            }
+
+            workerRequest.getPlayingField().getUser().setActive(true);
             workerRequest.setStatus(Status.ACCEPTED);
-            workerRequest.getUser().setRole(roleRepository.findByName(RoleName.ROLE_WORKER));
+            workerRequest.getPlayingField().getUser().setRole(roleRepository.findByName(RoleName.ROLE_WORKER));
             workerRequest.getPlayingField().setRegistered(true);
         } else {
             workerRequest.setStatus(Status.DECLINED);
         }
+
         requestRepository.save(workerRequest);
-        return userRepository.save(workerRequest.getUser());
+
     }
 
     public List<WorkerRequest> findRequestBySendedStatus() {
