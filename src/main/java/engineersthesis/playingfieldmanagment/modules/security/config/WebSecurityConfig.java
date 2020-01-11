@@ -27,7 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/searchByCity", "/api/playingField/availabilities/{senderId}", "/api/playingField/{senderId}/setup",
             "/api/match/{senderId}/teams", "/api/users/{senderId}", "/api/users/getLoggedUserWithAvatar", "/api/match/users/{senderId" +
             "}/getAllMatches", "/api/users/{senderId}/username",
-            "/api/matches/{id}/invites","/api/matches/users/{id}/getAllMatches", "/api/playingField/{id}/getRate"};
+            "/api/matches/{id}/invites","/api/matches/users/{id}/getAllMatches", "/api/playingField/{id}/getRate",
+            "/*"};
 
     private final String[] PUBLIC_POST_PATHS = {"/api/users/signup", "/api/users", "/api/login",
             "/api/workerRequests/worker/signup", "/api/assignToWorkerAndRegister",

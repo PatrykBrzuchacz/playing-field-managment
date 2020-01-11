@@ -1115,17 +1115,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _env_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @env/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _app_shared_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @app/shared/model */ "./src/app/shared/model/index.ts");
-/* harmony import */ var _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @app/shared/service/user.service */ "./src/app/shared/service/user.service.ts");
+/* harmony import */ var _app_shared_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @app/shared/model */ "./src/app/shared/model/index.ts");
+/* harmony import */ var _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @app/shared/service/user.service */ "./src/app/shared/service/user.service.ts");
 
 
 
 
 
 
-
-var API_URL = _env_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].apiUrl;
+var API_URL = '/api';
 var AUTHORIZATION_HEADER = "Authorization";
 var AUTHORIZATION_KEY = "authorization";
 var USERNAME_KEY = "username";
@@ -1182,13 +1180,13 @@ var AuthService = /** @class */ (function () {
         return localStorage.getItem(AUTHORIZATION_KEY) !== null;
     };
     AuthService.prototype.isAdmin = function () {
-        return this.hasRole(_app_shared_model__WEBPACK_IMPORTED_MODULE_5__["Role"].ADMIN);
+        return this.hasRole(_app_shared_model__WEBPACK_IMPORTED_MODULE_4__["Role"].ADMIN);
     };
     AuthService.prototype.isUser = function () {
-        return this.hasRole(_app_shared_model__WEBPACK_IMPORTED_MODULE_5__["Role"].USER);
+        return this.hasRole(_app_shared_model__WEBPACK_IMPORTED_MODULE_4__["Role"].USER);
     };
     AuthService.prototype.isWorker = function () {
-        return this.hasRole(_app_shared_model__WEBPACK_IMPORTED_MODULE_5__["Role"].WORKER);
+        return this.hasRole(_app_shared_model__WEBPACK_IMPORTED_MODULE_4__["Role"].WORKER);
     };
     AuthService.prototype.hasRole = function (role) {
         return localStorage.getItem("role") === role.toString();
@@ -1202,13 +1200,13 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
-        { type: _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"] }
+        { type: _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"] }
     ]; };
     AuthService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: "root"
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
     ], AuthService);
     return AuthService;
 }());
@@ -3522,12 +3520,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _env_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @env/environment */ "./src/environments/environment.ts");
 
 
 
-
-var API_URL = _env_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl;
+var API_URL = '/api';
 var BanService = /** @class */ (function () {
     function BanService(http) {
         this.http = http;
@@ -3676,12 +3672,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _env_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @env/environment */ "./src/environments/environment.ts");
 
 
 
-
-var API_URL = _env_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl;
+var API_URL = '/api';
 var FriendsService = /** @class */ (function () {
     function FriendsService(http) {
         this.http = http;
@@ -3741,12 +3735,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _env_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @env/environment */ "./src/environments/environment.ts");
 
 
 
-
-var API_URL = _env_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl;
+var API_URL = '/api';
 var InviteService = /** @class */ (function () {
     function InviteService(http) {
         this.http = http;
@@ -3800,12 +3792,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _env_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @env/environment */ "./src/environments/environment.ts");
 
 
 
-
-var API_URL = _env_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl;
+var API_URL = '/api';
 var MatchService = /** @class */ (function () {
     function MatchService(http) {
         this.http = http;
@@ -3881,12 +3871,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _env_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @env/environment */ "./src/environments/environment.ts");
 
 
 
-
-var API_URL = _env_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl;
+var API_URL = '/api';
 var MessageService = /** @class */ (function () {
     function MessageService(http) {
         this.http = http;
@@ -3933,12 +3921,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _env_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @env/environment */ "./src/environments/environment.ts");
 
 
 
-
-var API_URL = _env_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl;
+var API_URL = '/api';
 var NotificationService = /** @class */ (function () {
     function NotificationService(http) {
         this.http = http;
@@ -3983,12 +3969,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _env_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @env/environment */ "./src/environments/environment.ts");
 
 
 
-
-var API_URL = _env_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl;
+var API_URL = '/api';
 var TeamService = /** @class */ (function () {
     function TeamService(http) {
         this.http = http;
@@ -4038,12 +4022,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _env_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @env/environment */ "./src/environments/environment.ts");
 
 
 
-
-var API_URL = _env_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl;
+var API_URL = '/api';
 var UserService = /** @class */ (function () {
     function UserService(http) {
         this.http = http;
