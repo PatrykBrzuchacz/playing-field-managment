@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -27,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/searchByCity", "/api/playingField/availabilities/{senderId}", "/api/playingField/{senderId}/setup",
             "/api/match/{senderId}/teams", "/api/users/{senderId}", "/api/users/getLoggedUserWithAvatar", "/api/match/users/{senderId" +
             "}/getAllMatches", "/api/users/{senderId}/username",
-            "/api/matches/{id}/invites","/api/matches/users/{id}/getAllMatches", "/api/playingField/{id}/getRate"};
+            "/api/matches/{id}/invites","/api/matches/users/{id}/getAllMatches", "/api/playingField/{id}/getRate","/*"};
 
     private final String[] PUBLIC_POST_PATHS = {"/api/users/signup", "/api/users", "/api/login",
             "/api/workerRequests/worker/signup", "/api/assignToWorkerAndRegister",
@@ -66,21 +67,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addExposedHeader("Authorization");
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("PATCH");
-        config.addAllowedMethod("DELETE");
-        source.registerCorsConfiguration("/**", config);
-        return source;
-    }
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration config = new CorsConfiguration();
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        config.setAllowCredentials(true);
+//        config.addAllowedOrigin("*");
+//        config.addAllowedHeader("*");
+//        config.addExposedHeader("Authorization");
+//        config.addAllowedMethod("OPTIONS");
+//        config.addAllowedMethod("GET");
+//        config.addAllowedMethod("POST");
+//        config.addAllowedMethod("PUT");
+//        config.addAllowedMethod("PATCH");
+//        config.addAllowedMethod("DELETE");
+//        source.registerCorsConfiguration("/**", config);
+//        return source;
+//    }
 }
