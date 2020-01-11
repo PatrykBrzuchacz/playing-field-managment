@@ -9,6 +9,7 @@ import engineersthesis.playingfieldmanagment.modules.team.Team;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
+import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ import java.util.List;
 @Data
 @Entity
 @AllArgsConstructor
+@Table(name = "pf_user")
 public class User {
 
     @Id
@@ -33,8 +35,8 @@ public class User {
     @NonNull
     private String password;
 
-    private boolean banned = false;
-    private boolean active = true;
+    private Boolean banned = false;
+    private Boolean active = true;
 
 
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
@@ -53,6 +55,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Position position;
 
+    @Type(type="org.hibernate.type.BinaryType")
     @Lob
     private byte[] avatar;
     private Integer age;

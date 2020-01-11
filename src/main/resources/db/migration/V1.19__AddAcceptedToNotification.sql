@@ -1,1 +1,1 @@
-alter table notifications add column accepted bit(1) default false;
+alter table notifications add column accepted Boolean default false;

@@ -1,13 +1,13 @@
 create table playing_field
 (
-    id            bigint not null auto_increment,
+    id           SERIAL,
     api_id        varchar(255),
     name          varchar(100),
-    lat           double,
-    lng           double,
+    lat           double precision,
+    lng           double precision,
     address       varchar(100),
-    is_registered bit(1) default false,
+    is_registered BOOLEAN default false,
     user_id       bigint,
     primary key (id),
-    foreign key (user_id) references user (id)
+    foreign key (user_id) references pf_user (id)
 );

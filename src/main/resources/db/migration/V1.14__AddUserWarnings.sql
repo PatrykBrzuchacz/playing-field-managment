@@ -1,1 +1,1 @@
-alter table user add column warning int default 0;
+alter table pf_user add column warning int default 0;

@@ -1,5 +1,5 @@
 create table if not exists match_contact (
-    id bigint not null auto_increment,
+    id SERIAL,
     match_id bigint not null,
     phone_number varchar(50),
     email varchar(100),

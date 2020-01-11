@@ -1,8 +1,8 @@
 create table playing_field_setup (
-                         id bigint not null auto_increment,
+                         id SERIAL,
 team_size int not null,
 description varchar(3000) not null,
-playing_field_photo LONGBLOB,
+playing_field_photo BYTEA,
 playing_field_id bigint,
 name varchar(100),
 primary key(id),

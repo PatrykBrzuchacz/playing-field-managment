@@ -3,6 +3,7 @@ package engineersthesis.playingfieldmanagment.modules.security.model;
 import engineersthesis.playingfieldmanagment.modules.playingField.PlayingField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -27,6 +28,7 @@ public class WorkerRequest {
 
     @Column(name = "proof_of_work")
     @Lob
+    @Type(type="org.hibernate.type.BinaryType")
     private byte[] proofOfWork;
 
     @ManyToOne(fetch = FetchType.EAGER)
