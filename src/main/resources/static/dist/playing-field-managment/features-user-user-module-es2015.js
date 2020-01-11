@@ -866,3 +866,4 @@ UserModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /***/ })
 
 }]);
+//# sourceMappingURL=features-user-user-module-es2015.js.map
