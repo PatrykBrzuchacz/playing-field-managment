@@ -3,6 +3,7 @@ package engineersthesis.playingfieldmanagment.modules.playingField.setup;
 import engineersthesis.playingfieldmanagment.modules.playingField.PlayingField;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -21,6 +22,7 @@ public class PlayingFieldSetup {
 
     @Column(name = "playing_field_photo")
     @Lob
+    @Type(type="org.hibernate.type.BinaryType")
     private byte[] pfPhoto;
     @OneToOne
     @JoinColumn(name = "playing_field_id")
