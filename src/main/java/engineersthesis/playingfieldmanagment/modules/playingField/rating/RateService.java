@@ -30,6 +30,9 @@ public class RateService {
 
             rateRepository.save(new Rate(playingField,loggedUser,rate));
             Integer numberOfVotes = playingField.getNumberOfVotes();
+            if(numberOfVotes==null) {
+                numberOfVotes=0;
+            }
             if(rate==1 || rate==2 ||rate==3 ||rate==4 ||rate==5) {
                 double newRating;
                 if(playingField.getRating()!=null) {
