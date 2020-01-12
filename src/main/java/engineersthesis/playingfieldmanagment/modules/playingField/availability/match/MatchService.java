@@ -466,7 +466,7 @@ public class MatchService {
         User loggedUser = securityUserHelper.getLoggedUser();
 
         return  matchAssembler.toDtoList(matchRepository.findAllByTeams_PlayersAndTeams_PlayersNotAndMatchFromDateGreaterThanEqual(loggedUser,userRepository.getOne(id),
-                pageable, LocalDate.now()), loggedUser, pageable);
+                LocalDate.now(), pageable ), loggedUser, pageable);
 
     }
 }

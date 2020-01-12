@@ -25,6 +25,7 @@ public class MatchAssembler {
     private BanRepository banRepository;
 
     public Page<MatchWithLocationDto> toDtoList(Page<Match> matches, User user, Pageable pageable) {
+        System.out.println(matches);
         return new PageImpl<>(matches.stream().map(val -> {
             if (!(val.getMatchFromDate().equals(LocalDate.now()) && val.getMatchToTime().isBefore(LocalTime.now()))) {
                 return toDto(val, user);
