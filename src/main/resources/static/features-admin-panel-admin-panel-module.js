@@ -242,7 +242,6 @@ var UserManagmentComponent = /** @class */ (function () {
     UserManagmentComponent.prototype.getWorkerRequests = function () {
         var _this = this;
         this.registerWorkerService.getWorkerRequests().subscribe(function (workers) {
-            console.log(workers);
             workers.forEach(function (val) {
                 if (val.status === "SENDED") {
                     val.status = "Oczekujące";

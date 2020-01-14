@@ -318,7 +318,7 @@ var SearchMatchComponent = /** @class */ (function () {
     SearchMatchComponent.prototype.getLoggedUser = function () {
         var _this = this;
         if (this.authService.isLogged()) {
-            this.userService.getLoggedUser().subscribe(function (response) {
+            this.dataSharingService.currentLoggedUser.subscribe(function (response) {
                 _this.loggedUser = response;
             });
         }
@@ -410,7 +410,7 @@ var SearchMatchComponent = /** @class */ (function () {
     };
     SearchMatchComponent.prototype.goToUserProfile = function (id) {
         this.dataSharingService.changeUser(id.toString());
-        this.router.navigate(["users/" + id]);
+        this.router.navigate(["user/" + id]);
     };
     SearchMatchComponent.ctorParameters = function () { return [
         { type: _app_shared_service_location_service__WEBPACK_IMPORTED_MODULE_6__["LocationService"] },
