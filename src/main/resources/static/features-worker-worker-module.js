@@ -418,16 +418,15 @@ var WorkerPFMenuComponent = /** @class */ (function () {
         var _this = this;
         this.userService.getUserByUsername(username).subscribe(function (val) {
             _this.dataSharingService.changeUser(val.id.toString());
-            _this.router.navigate(["users/" + val.id]);
+            _this.router.navigate(["user/" + val.id]);
         });
     };
     WorkerPFMenuComponent.prototype.getLoggedUser = function () {
         var _this = this;
-        if (this.authService.isLogged) {
-            this.userService.getLoggedUser().subscribe(function (val) {
-                _this.loggedUser = val;
-            });
-        }
+        this.dataSharingService.currentLoggedUser.subscribe(function (val) {
+            console.log(val);
+            _this.loggedUser = val;
+        });
     };
     WorkerPFMenuComponent.prototype.getBannedUsers = function () {
         var _this = this;

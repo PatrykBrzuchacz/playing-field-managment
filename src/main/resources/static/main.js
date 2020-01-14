@@ -334,7 +334,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main\">\n  <div class=\"d-flex\" [class.is-not-logged]=\"!loggedUser || !data.editable\">\n    <div class=\"team\" *ngIf=\"teamsDto\">\n      <div class=\"d-flex justify-content-center\">\n        <h4>{{ teamsDto[0]?.teamName }}</h4>\n        <label [class.is-full]=\"teamsDto[0]?.size === teamsDto[0]?.maxSize\"\n          >{{ teamsDto[0]?.size }}/{{ teamsDto[0]?.maxSize }}</label\n        >\n      </div>\n      <table #teamTable1 mat-table [dataSource]=\"teamsDto[0]?.players\">\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef>Numer</th>\n          <td mat-cell *matCellDef=\"let user; let i = index\">{{ i + 1 }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              class=\"d-flex justify-content-center flex-row\"\n              *ngIf=\"user.username\"\n            >\n              <span\n                class=\"link-to-profile\"\n                [class.owner]=\"user?.id === data?.ownerId\"\n                (click)=\"goToUserProfile(user.username)\"\n                >{{ user.username }}</span\n              >\n              <div\n                class=\"ban-icon\"\n                *ngIf=\"\n                  loggedUser?.playingFieldId == data.pfId &&\n                  loggedUser?.id != user.id &&\n                  user.username !== 'Admin'\n                \"\n                (click)=\"banUser(user.id, 0)\"\n              >\n                <svg-icon src=\"assets/icons/ban-solid.svg\"></svg-icon>\n              </div>\n            </div>\n          </td>\n        </ng-container>\n        <ng-container matColumnDef=\"position\">\n          <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n          <td mat-cell *matCellDef=\"let user\">{{ user?.position }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"options\">\n          <th mat-header-cell *matHeaderCellDef></th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              *ngIf=\"loggedUser?.username === user?.username && data.editable\"\n              class=\"times-icon doors\"\n              matTooltip=\"opuść drużynę\"\n              (click)=\"exitTeam(teamsDto[0])\"\n            >\n              <svg-icon src=\"assets/icons/door-open-solid.svg\"></svg-icon>\n            </div>\n            <div\n              *ngIf=\"\n                loggedUser?.username !== user?.username &&\n                loggedUser?.id === data?.ownerId\n              \"\n              class=\"times-icon\"\n              (click)=\"removeFromTeam(0, user)\"\n            >\n              <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n            </div>\n          </td>\n        </ng-container>\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n      </table>\n\n      <div\n        *ngIf=\"\n          loggedUser &&\n          data.editable &&\n          ((!isPrivate && !existInTeam(teamsDto[0])) ||\n            (isPrivate && !existInTeam(teamsDto[0])))\n        \"\n        class=\"point-icon\"\n        [class.is-full]=\"teamsDto[0]?.size === teamsDto[0]?.maxSize\"\n        (click)=\"joinTeam(teamsDto[0])\"\n      >\n        <svg-icon src=\"assets/icons/hand-point-up-solid.svg\"></svg-icon>\n      </div>\n    </div>\n    <div class=\"team\" *ngIf=\"teamsDto\">\n      <div class=\"d-flex justify-content-center\">\n        <h4>{{ teamsDto[1].teamName }}</h4>\n        <label [class.is-full]=\"teamsDto[1]?.size === teamsDto[1]?.maxSize\"\n          >{{ teamsDto[1]?.size }}/{{ teamsDto[1]?.maxSize }}</label\n        >\n      </div>\n      <table #teamTable2 mat-table [dataSource]=\"teamsDto[1]?.players\">\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef>Numer</th>\n          <td mat-cell *matCellDef=\"let user; let i = index\">{{ i + 1 }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              class=\"d-flex justify-content-center  flex-row\"\n              *ngIf=\"user.username\"\n            >\n              <span\n                class=\"link-to-profile\"\n                (click)=\"goToUserProfile(user?.username)\"\n                [class.owner]=\"user?.id === data?.ownerId\"\n                >{{ user?.username }}</span\n              >\n              <div\n                class=\"ban-icon\"\n                *ngIf=\"\n                  loggedUser?.playingFieldId == data.pfId &&\n                  loggedUser?.id != user.id\n                \"\n                (click)=\"banUser(user.id, 0)\"\n              >\n                <svg-icon src=\"assets/icons/ban-solid.svg\"></svg-icon>\n              </div>\n            </div>\n          </td>\n        </ng-container>\n        <ng-container matColumnDef=\"position\">\n          <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n          <td mat-cell *matCellDef=\"let user\">{{ user?.position }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"options\">\n          <th mat-header-cell *matHeaderCellDef></th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              *ngIf=\"loggedUser?.username === user?.username && data.editable\"\n              class=\"times-icon\"\n              (click)=\"exitTeam(teamsDto[1])\"\n            >\n              <svg-icon src=\"assets/icons/door-open-solid.svg\"></svg-icon>\n            </div>\n            <div\n              *ngIf=\"\n                loggedUser?.username !== user?.username &&\n                loggedUser?.id === data?.ownerId\n              \"\n              class=\"times-icon\"\n              (click)=\"removeFromTeam(1, user)\"\n            >\n              <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n            </div>\n          </td>\n        </ng-container>\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n      </table>\n\n      <div\n        *ngIf=\"\n          loggedUser &&\n          data.editable &&\n          ((!isPrivate && !existInTeam(teamsDto[1])) ||\n            (isPrivate && !existInTeam(teamsDto[1])))\n        \"\n        class=\"point-icon\"\n        [class.is-full]=\"teamsDto[1]?.size === teamsDto[1]?.maxSize\"\n        (click)=\"joinTeam(teamsDto[1])\"\n      >\n        <svg-icon src=\"assets/icons/hand-point-up-solid.svg\"></svg-icon>\n      </div>\n    </div>\n  </div>\n  <mat-accordion *ngIf=\"loggedUser && data.editable\">\n    <mat-expansion-panel>\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          Zaproszenia\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"d-flex flex-column\">\n          <label style=\"margin:5px 0 -2px 0\">Dodaj graczy:</label>\n          <mat-form-field class=\"autocomplete-form\">\n            <input\n              matInput\n              placeholder=\"Nazwa użytkownika\"\n              [matAutocomplete]=\"auto\"\n              [formControl]=\"usernameForm\"\n            />\n            <mat-autocomplete #auto=\"matAutocomplete\">\n              <mat-option\n                *ngFor=\"let user of filteredUsers | async\"\n                [value]=\"user.username\"\n                (click)=\"sendInvite(user.id)\"\n              >\n                <span>{{ user.username }}</span>\n              </mat-option>\n            </mat-autocomplete>\n          </mat-form-field>\n          <mat-checkbox color=\"primary\" [formControl]=\"onlyFriends\">\n            Tylko znajomi\n          </mat-checkbox>\n        </div>\n        <table\n          #invitesTable\n          class=\"invites-table\"\n          mat-table\n          [dataSource]=\"usersInvited\"\n        >\n          <ng-container matColumnDef=\"username\">\n            <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n            <td mat-cell *matCellDef=\"let user\">\n              <div class=\"d-flex justify-content-center flex-row\">\n                <span\n                  class=\"link-to-profile\"\n                  (click)=\"goToUserProfile(user.user.username)\"\n                  >{{ user.user.username }}</span\n                >\n              </div>\n            </td>\n          </ng-container>\n          <ng-container matColumnDef=\"position\">\n            <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n            <td mat-cell *matCellDef=\"let user\">{{ user?.user?.position }}</td>\n          </ng-container>\n          <ng-container matColumnDef=\"options\">\n            <th mat-header-cell *matHeaderCellDef></th>\n            <td mat-cell *matCellDef=\"let user\">\n              <div\n                *ngIf=\"\n                  loggedUser?.id === data.ownerId ||\n                  loggedUser?.id === user?.user?.id\n                \"\n                class=\"times-icon\"\n                (click)=\"deleteRequest(user)\"\n              >\n                <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n              </div>\n            </td>\n          </ng-container>\n          <tr mat-header-row *matHeaderRowDef=\"displayedInvitesColumns\"></tr>\n          <tr\n            mat-row\n            *matRowDef=\"let row; columns: displayedInvitesColumns\"\n          ></tr>\n        </table>\n      </div>\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main\">\n  <div class=\"d-flex\" [class.is-not-logged]=\"!loggedUser || !data.editable\">\n    <div class=\"team\" *ngIf=\"teamsDto\">\n      <div class=\"d-flex justify-content-center\">\n        <h4>{{ teamsDto[0]?.teamName }}</h4>\n        <label [class.is-full]=\"teamsDto[0]?.size === teamsDto[0]?.maxSize\"\n          >{{ teamsDto[0]?.size }}/{{ teamsDto[0]?.maxSize }}</label\n        >\n      </div>\n      <table #teamTable1 mat-table [dataSource]=\"teamsDto[0]?.players\">\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef>Numer</th>\n          <td mat-cell *matCellDef=\"let user; let i = index\">{{ i + 1 }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              class=\"d-flex justify-content-center flex-row\"\n              *ngIf=\"user.username\"\n            >\n              <span\n                class=\"link-to-profile\"\n                [class.owner]=\"user?.id === data?.ownerId\"\n                (click)=\"goToUserProfile(user.username)\"\n                >{{ user.username }}</span\n              >\n              <div\n                class=\"ban-icon\"\n                *ngIf=\"\n                  loggedUser?.playingFieldId == data.pfId &&\n                  loggedUser?.id != user.id &&\n                  user.username !== 'Admin'\n                \"\n                (click)=\"banUser(user.id, 0)\"\n              >\n                <svg-icon src=\"assets/icons/ban-solid.svg\"></svg-icon>\n              </div>\n            </div>\n          </td>\n        </ng-container>\n        <ng-container matColumnDef=\"position\">\n          <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n          <td mat-cell *matCellDef=\"let user\">{{ user?.position }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"options\">\n          <th mat-header-cell *matHeaderCellDef></th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              *ngIf=\"loggedUser?.username === user?.username && data.editable\"\n              class=\"times-icon doors\"\n              matTooltip=\"opuść drużynę\"\n              (click)=\"exitTeam(teamsDto[0])\"\n            >\n              <svg-icon src=\"assets/icons/door-open-solid.svg\"></svg-icon>\n            </div>\n            <div\n              *ngIf=\"\n                loggedUser?.username !== user?.username &&\n                loggedUser?.id === data?.ownerId\n              \"\n              class=\"times-icon\"\n              (click)=\"removeFromTeam(0, user)\"\n            >\n              <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n            </div>\n          </td>\n        </ng-container>\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n      </table>\n\n      <div\n        *ngIf=\"\n          loggedUser &&\n          data.editable &&\n          ((!isPrivate && !existInTeam(teamsDto[0])) ||\n            (isPrivate && !existInTeam(teamsDto[0])))\n        \"\n        class=\"point-icon\"\n        [class.is-full]=\"teamsDto[0]?.size === teamsDto[0]?.maxSize\"\n        (click)=\"joinTeam(teamsDto[0])\"\n      >\n        <svg-icon src=\"assets/icons/hand-point-up-solid.svg\"></svg-icon>\n      </div>\n    </div>\n    <div class=\"team\" *ngIf=\"teamsDto\">\n      <div class=\"d-flex justify-content-center\">\n        <h4>{{ teamsDto[1].teamName }}</h4>\n        <label [class.is-full]=\"teamsDto[1]?.size === teamsDto[1]?.maxSize\"\n          >{{ teamsDto[1]?.size }}/{{ teamsDto[1]?.maxSize }}</label\n        >\n      </div>\n      <table #teamTable2 mat-table [dataSource]=\"teamsDto[1]?.players\">\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef>Numer</th>\n          <td mat-cell *matCellDef=\"let user; let i = index\">{{ i + 1 }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              class=\"d-flex justify-content-center  flex-row\"\n              *ngIf=\"user.username\"\n            >\n              <span\n                class=\"link-to-profile\"\n                (click)=\"goToUserProfile(user?.username)\"\n                [class.owner]=\"user?.id === data?.ownerId\"\n                >{{ user?.username }}</span\n              >\n              <div\n                class=\"ban-icon\"\n                *ngIf=\"\n                  loggedUser?.playingFieldId == data.pfId &&\n                  loggedUser?.id != user.id\n                \"\n                (click)=\"banUser(user.id, 0)\"\n              >\n                <svg-icon src=\"assets/icons/ban-solid.svg\"></svg-icon>\n              </div>\n            </div>\n          </td>\n        </ng-container>\n        <ng-container matColumnDef=\"position\">\n          <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n          <td mat-cell *matCellDef=\"let user\">{{ user?.position }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"options\">\n          <th mat-header-cell *matHeaderCellDef></th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              *ngIf=\"loggedUser?.username === user?.username && data.editable\"\n              class=\"times-icon doors\"\n              (click)=\"exitTeam(teamsDto[1])\"\n            >\n              <svg-icon src=\"assets/icons/door-open-solid.svg\"></svg-icon>\n            </div>\n            <div\n              *ngIf=\"\n                loggedUser?.username !== user?.username &&\n                loggedUser?.id === data?.ownerId\n              \"\n              class=\"times-icon\"\n              (click)=\"removeFromTeam(1, user)\"\n            >\n              <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n            </div>\n          </td>\n        </ng-container>\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n      </table>\n\n      <div\n        *ngIf=\"\n          loggedUser &&\n          data.editable &&\n          ((!isPrivate && !existInTeam(teamsDto[1])) ||\n            (isPrivate && !existInTeam(teamsDto[1])))\n        \"\n        class=\"point-icon\"\n        [class.is-full]=\"teamsDto[1]?.size === teamsDto[1]?.maxSize\"\n        (click)=\"joinTeam(teamsDto[1])\"\n      >\n        <svg-icon src=\"assets/icons/hand-point-up-solid.svg\"></svg-icon>\n      </div>\n    </div>\n  </div>\n  <mat-accordion *ngIf=\"loggedUser && data.editable\">\n    <mat-expansion-panel>\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          Zaproszenia\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"d-flex flex-column\">\n          <label style=\"margin:5px 0 -2px 0\">Dodaj graczy:</label>\n          <mat-form-field class=\"autocomplete-form\">\n            <input\n              matInput\n              placeholder=\"Nazwa użytkownika\"\n              [matAutocomplete]=\"auto\"\n              [formControl]=\"usernameForm\"\n            />\n            <mat-autocomplete #auto=\"matAutocomplete\">\n              <mat-option\n                *ngFor=\"let user of filteredUsers | async\"\n                [value]=\"user.username\"\n                (click)=\"sendInvite(user.id)\"\n              >\n                <span>{{ user.username }}</span>\n              </mat-option>\n            </mat-autocomplete>\n          </mat-form-field>\n          <mat-checkbox color=\"primary\" [formControl]=\"onlyFriends\">\n            Tylko znajomi\n          </mat-checkbox>\n        </div>\n        <table\n          #invitesTable\n          class=\"invites-table\"\n          mat-table\n          [dataSource]=\"usersInvited\"\n        >\n          <ng-container matColumnDef=\"username\">\n            <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n            <td mat-cell *matCellDef=\"let user\">\n              <div class=\"d-flex justify-content-center flex-row\">\n                <span\n                  class=\"link-to-profile\"\n                  (click)=\"goToUserProfile(user.user.username)\"\n                  >{{ user.user.username }}</span\n                >\n              </div>\n            </td>\n          </ng-container>\n          <ng-container matColumnDef=\"position\">\n            <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n            <td mat-cell *matCellDef=\"let user\">{{ user?.user?.position }}</td>\n          </ng-container>\n          <ng-container matColumnDef=\"options\">\n            <th mat-header-cell *matHeaderCellDef></th>\n            <td mat-cell *matCellDef=\"let user\">\n              <div\n                *ngIf=\"\n                  loggedUser?.id === data.ownerId ||\n                  loggedUser?.id === user?.user?.id\n                \"\n                class=\"times-icon\"\n                (click)=\"deleteRequest(user)\"\n              >\n                <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n              </div>\n            </td>\n          </ng-container>\n          <tr mat-header-row *matHeaderRowDef=\"displayedInvitesColumns\"></tr>\n          <tr\n            mat-row\n            *matRowDef=\"let row; columns: displayedInvitesColumns\"\n          ></tr>\n        </table>\n      </div>\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n");
 
 /***/ }),
 
@@ -347,7 +347,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"d-flex justify-content-center flex-column\">\n<h3>Wybierz mecz</h3>\n<table\n#availabilityTable\nmat-table\nmatSort\n[dataSource]=\"matchesDto\"\nclass=\"mat-elevation-z8\"\n>\n<ng-container matColumnDef=\"date\">\n  <th mat-header-cell *matHeaderCellDef>Data</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchFrom | date: \"dd MMMM yyyy\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"fromTime\">\n  <th mat-header-cell *matHeaderCellDef>Początek meczu</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchFrom | date: \"HH:mm\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"toTime\">\n  <th mat-header-cell *matHeaderCellDef>Koniec meczu</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchTo | date: \"HH:mm\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"reservation\">\n  <th mat-header-cell *matHeaderCellDef>Rezerwacja</th>\n  <td mat-cell *matCellDef=\"let match\">\n      <span class=\"link-to-profile\" (click)=\"goToUserProfile(match.ownerUsername)\">\n    {{ match.ownerUsername }}\n    </span>\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"private\">\n  <th mat-header-cell *matHeaderCellDef>Prywatny</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.isPrivate ? \"Tak\" : \"Nie\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"size\">\n  <th mat-header-cell *matHeaderCellDef>Liczba miejsc</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.size }}/{{ match.maxSize }}\n  </td>\n</ng-container>\n\n<tr mat-header-row *matHeaderRowDef=\"displayedMatchColumns\"></tr>\n<tr\n  mat-row\n  *matRowDef=\"let row; columns: displayedMatchColumns\" (click)=\"selectMatch(row)\" [class.is-selected]=\"row.id===selectedRowId\"\n></tr>\n</table>\n<mat-paginator\n#matchPaginator\n[length]=\"matchLength\"\n[pageSizeOptions]=\"[5, 10, 20]\"\n></mat-paginator>\n<ng-container *ngIf=\"matchesDto?.length===0\"\n        >\n      <h5 class=\"not-found\">W tej chwili nie bierzesz udziału w żadnym meczu</h5>\n      </ng-container>\n<div class=\"d-flex justify-content-center\">\n<button mat-raised-button color=\"primary\" [class.disable]=\"!selectedRowId\"\n(click)=\"sendRequest()\">\n  Wyślij\n</button>\n</div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"d-flex justify-content-center flex-column\">\n<h3>Wybierz mecz</h3>\n<table\n#availabilityTable\nmat-table\nmatSort\n[dataSource]=\"matchesDto\"\nclass=\"mat-elevation-z8\"\n>\n<ng-container matColumnDef=\"date\">\n  <th mat-header-cell *matHeaderCellDef>Data</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchFrom | date: \"dd MMMM yyyy\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"fromTime\">\n  <th mat-header-cell *matHeaderCellDef>Początek meczu</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchFrom | date: \"HH:mm\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"toTime\">\n  <th mat-header-cell *matHeaderCellDef>Koniec meczu</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchTo | date: \"HH:mm\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"reservation\">\n  <th mat-header-cell *matHeaderCellDef>Rezerwacja</th>\n  <td mat-cell *matCellDef=\"let match\">\n      <span class=\"link-to-profile\" (click)=\"goToUserProfile(match.ownerUsername)\">\n    {{ match.ownerUsername }}\n    </span>\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"private\">\n  <th mat-header-cell *matHeaderCellDef>Prywatny</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.isPrivate ? \"Tak\" : \"Nie\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"size\">\n  <th mat-header-cell *matHeaderCellDef>Liczba miejsc</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.size }}/{{ match.maxSize }}\n  </td>\n</ng-container>\n\n<tr mat-header-row *matHeaderRowDef=\"displayedMatchColumns\"></tr>\n<tr\n  mat-row\n  *matRowDef=\"let row; columns: displayedMatchColumns\" (click)=\"selectMatch(row)\" [class.is-selected]=\"row.id===selectedRowId\"\n></tr>\n</table>\n<mat-paginator\n#matchPaginator\n[length]=\"matchLength\"\n[pageSizeOptions]=\"[5, 10, 20]\"\n></mat-paginator>\n<ng-container *ngIf=\"matchesDto?.length===0\"\n        >\n      <h5 class=\"not-found\">W tej chwili nie bierzesz udziału w żadnym meczu</h5>\n      </ng-container>\n<div class=\"d-flex justify-content-center\">\n<button mat-raised-button color=\"primary\" [class.disable]=\"!selectedRowId\"\n(click)=\"sendRequest()\">\n  Wyślij\n</button>\n</div>\n</div>\n<mat-spinner *ngIf=\"spinner\"></mat-spinner>>\n");
 
 /***/ }),
 
@@ -373,7 +373,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-step\">\r\n  <h3>{{ headerName }}</h3>\r\n  <div *ngIf=\"isLoggedField\">\r\n  <div class=\"user-wrapper\" >\r\n  <div class=\"user-info\">\r\n    <label>Zalogowany jako:</label>\r\n    <span>{{username}}</span>\r\n  </div>\r\n  <a (click)=\"logout()\">Wyloguj</a>\r\n</div>\r\n</div>\r\n\r\n<div class=\"bell-wrapper\" *ngIf=\"isLoggedField\" >\r\n  <button\r\n    class=\"bell-btn-round\"\r\n    matTooltip=\"Pokaż powiadomienia\"\r\n    [matMenuTriggerFor]=\"notificationMenu\"\r\n  >\r\n <div class=\"bell-icon\" >\r\n  <svg-icon src=\"assets/icons/bell-solid.svg\"></svg-icon>\r\n</div>\r\n<mat-chip *ngIf=\"count>0\">{{count}}</mat-chip>\r\n  </button>\r\n</div>\r\n</div>\r\n\r\n<mat-menu #notificationMenu xPosition=\"before\">\r\n  <app-notifications [loggedUser]=\"loggedUser\" *ngIf=\"loggedUser\"></app-notifications>\r\n</mat-menu>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-step\">\r\n  <h3>{{ headerName }}</h3>\r\n  <div *ngIf=\"loggedUser\">\r\n  <div class=\"user-wrapper\" >\r\n  <div class=\"user-info\">\r\n    <label>Zalogowany jako:</label>\r\n    <span>{{loggedUser?.username}}</span>\r\n  </div>\r\n  <a (click)=\"logout()\">Wyloguj</a>\r\n</div>\r\n</div>\r\n\r\n<div class=\"bell-wrapper\" *ngIf=\"loggedUser\" >\r\n  <button\r\n    class=\"bell-btn-round\"\r\n    matTooltip=\"Pokaż powiadomienia\"\r\n    [matMenuTriggerFor]=\"notificationMenu\"\r\n  >\r\n <div class=\"bell-icon\" >\r\n  <svg-icon src=\"assets/icons/bell-solid.svg\"></svg-icon>\r\n</div>\r\n<mat-chip *ngIf=\"count>0\">{{count}}</mat-chip>\r\n  </button>\r\n</div>\r\n</div>\r\n\r\n<mat-menu #notificationMenu xPosition=\"before\">\r\n  <app-notifications [loggedUser]=\"loggedUser\" *ngIf=\"loggedUser\"></app-notifications>\r\n</mat-menu>\r\n");
 
 /***/ }),
 
@@ -732,18 +732,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @app/shared/service/user.service */ "./src/app/shared/service/user.service.ts");
+/* harmony import */ var _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @app/shared/service/data-sharing.service */ "./src/app/shared/service/data-sharing.service.ts");
+/* harmony import */ var _service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../service */ "./src/app/core/service/index.ts");
+
+
+
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
-        this.title = 'playing-field-managment';
+    function AppComponent(userService, dataSharingService, authService) {
+        this.userService = userService;
+        this.dataSharingService = dataSharingService;
+        this.authService = authService;
+        this.title = "playing-field-managment";
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        if (this.authService.isLogged()) {
+            this.userService.getLoggedUser().subscribe(function (val) {
+                console.log("xd");
+                _this.dataSharingService.setLoggedUser(val);
+            });
+        }
+    };
+    AppComponent.ctorParameters = function () { return [
+        { type: _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"] },
+        { type: _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_3__["DataSharingService"] },
+        { type: _service__WEBPACK_IMPORTED_MODULE_4__["AuthService"] }
+    ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-root',
+            selector: "app-root",
             template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/core/app-component/app.component.html")).default,
             styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./app.component.scss */ "./src/app/core/app-component/app.component.scss")).default]
-        })
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"],
+            _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_3__["DataSharingService"],
+            _service__WEBPACK_IMPORTED_MODULE_4__["AuthService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -793,7 +819,7 @@ var appRoutes = [
     {
         path: "worker/playingField/:id",
         loadChildren: function () { return Promise.all(/*! import() | features-worker-worker-module */[__webpack_require__.e("common"), __webpack_require__.e("features-worker-worker-module")]).then(__webpack_require__.bind(null, /*! @features/worker/worker.module */ "./src/app/functionalities/worker/worker.module.ts")).then(function (m) { return m.WorkerModule; }); },
-        canLoad: [_service_auth_guard_worker_service__WEBPACK_IMPORTED_MODULE_4__["AuthGuardWorkerService"]]
+        canActivate: [_service_auth_guard_worker_service__WEBPACK_IMPORTED_MODULE_4__["AuthGuardWorkerService"]]
     },
     {
         path: "findMatch",
@@ -804,7 +830,7 @@ var appRoutes = [
         loadChildren: function () { return Promise.all(/*! import() | features-playing-field-playing-field-module */[__webpack_require__.e("common"), __webpack_require__.e("features-playing-field-playing-field-module")]).then(__webpack_require__.bind(null, /*! @features/playing-field/playing-field.module */ "./src/app/functionalities/playing-field/playing-field.module.ts")).then(function (m) { return m.PlayingFieldModule; }); }
     },
     {
-        path: "users",
+        path: "user",
         loadChildren: function () { return Promise.all(/*! import() | features-user-user-module */[__webpack_require__.e("default~features-home-home-module~features-search-match-search-match-module~features-search-user-sea~8cfb4148"), __webpack_require__.e("features-user-user-module")]).then(__webpack_require__.bind(null, /*! @features/user/user.module */ "./src/app/functionalities/user/user.module.ts")).then(function (m) { return m.UserModule; }); }
     },
     {
@@ -996,18 +1022,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./auth.service */ "./src/app/core/service/auth.service.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @app/shared/service/data-sharing.service */ "./src/app/shared/service/data-sharing.service.ts");
+
 
 
 
 
 
 var AuthGuardWorkerService = /** @class */ (function () {
-    function AuthGuardWorkerService(auth, router) {
+    function AuthGuardWorkerService(auth, router, dataSharingService) {
         this.auth = auth;
         this.router = router;
+        this.dataSharingService = dataSharingService;
         this.subscription = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subscription"]();
     }
     AuthGuardWorkerService.prototype.canActivate = function () {
+        var _this = this;
+        this.dataSharingService.currentLoggedUser.subscribe(function (val) {
+            if (!val) {
+                _this.router.navigate(["/search"]);
+            }
+        });
         if (!this.auth.isLogged()) {
             this.router.navigate(["/search"]);
             return false;
@@ -1034,11 +1069,14 @@ var AuthGuardWorkerService = /** @class */ (function () {
     };
     AuthGuardWorkerService.ctorParameters = function () { return [
         { type: _auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+        { type: _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_5__["DataSharingService"] }
     ]; };
     AuthGuardWorkerService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_5__["DataSharingService"]])
     ], AuthGuardWorkerService);
     return AuthGuardWorkerService;
 }());
@@ -1117,21 +1155,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _app_shared_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @app/shared/model */ "./src/app/shared/model/index.ts");
 /* harmony import */ var _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @app/shared/service/user.service */ "./src/app/shared/service/user.service.ts");
+/* harmony import */ var _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @app/shared/service/data-sharing.service */ "./src/app/shared/service/data-sharing.service.ts");
 
 
 
 
 
 
-var API_URL = '/api';
+
+var API_URL = "/api";
 var AUTHORIZATION_HEADER = "Authorization";
 var AUTHORIZATION_KEY = "authorization";
 var USERNAME_KEY = "username";
 var ROLE_KEY = "role";
 var AuthService = /** @class */ (function () {
-    function AuthService(http, userService) {
+    function AuthService(http, userService, dataSharingService) {
         this.http = http;
         this.userService = userService;
+        this.dataSharingService = dataSharingService;
     }
     AuthService.prototype.login = function (userCredentials) {
         var _this = this;
@@ -1158,14 +1199,11 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.logout = function () {
         var pfId = localStorage.getItem("playingFieldId");
+        this.dataSharingService.setLoggedUser(null);
         if (pfId) {
-            this.checkWarnings(pfId).subscribe(function () {
-            }, function () { }, function () {
-                window.location.reload();
-            });
+            this.checkWarnings(pfId).subscribe();
         }
         else {
-            window.location.reload();
         }
         localStorage.removeItem(AUTHORIZATION_KEY);
         localStorage.removeItem(USERNAME_KEY);
@@ -1200,13 +1238,16 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
-        { type: _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"] }
+        { type: _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"] },
+        { type: _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_6__["DataSharingService"] }
     ]; };
     AuthService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: "root"
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"],
+            _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_6__["DataSharingService"]])
     ], AuthService);
     return AuthService;
 }());
@@ -1658,8 +1699,8 @@ var TeamsDialogComponent = /** @class */ (function () {
     };
     TeamsDialogComponent.prototype.getLoggedUser = function () {
         var _this = this;
-        if (this.authService.isLogged()) {
-            this.userService.getLoggedUser().subscribe(function (response) {
+        this.dataSharingService.currentLoggedUser.subscribe(function (response) {
+            if (response) {
                 _this.loggedUser = response;
                 if (_this.loggedUser.position === "GOALKEEPER") {
                     _this.loggedUser.position = "Bramkarz";
@@ -1680,8 +1721,8 @@ var TeamsDialogComponent = /** @class */ (function () {
                 _this.onlyFriends.valueChanges.subscribe(function (val) {
                     _this.getAllUsersUsername();
                 });
-            });
-        }
+            }
+        });
     };
     TeamsDialogComponent.prototype.getMatchInvites = function () {
         var _this = this;
@@ -1714,7 +1755,7 @@ var TeamsDialogComponent = /** @class */ (function () {
         this.userService.getUserByUsername(username).subscribe(function (val) {
             _this.dialogRef.close();
             _this.dataSharingService.changeUser(val.id.toString());
-            _this.router.navigate(["users/" + val.id]);
+            _this.router.navigate(["user/" + val.id]);
         });
     };
     TeamsDialogComponent.prototype.sendInvite = function (id) {
@@ -1803,7 +1844,9 @@ var TeamsDialogComponent = /** @class */ (function () {
     };
     TeamsDialogComponent.prototype.removeFromTeam = function (teamIndex, player) {
         var _this = this;
-        this.teamService.deleteUserFromTeam(this.teamsDto[teamIndex].id, player.id).subscribe(function (val) {
+        this.teamService
+            .deleteUserFromTeam(this.teamsDto[teamIndex].id, player.id)
+            .subscribe(function (val) {
             _this.teamsDto[teamIndex].players.splice(_this.teamsDto[teamIndex].players.indexOf(player), 1);
             _this.teamTable1.renderRows();
             _this.teamTable2.renderRows();
@@ -1928,6 +1971,7 @@ var ChooseMatchDialogComponent = /** @class */ (function () {
         this.userService = userService;
         this.router = router;
         this.inviteService = inviteService;
+        this.spinner = false;
         this.matchesDto = [];
         this.arleadyRequestedMatchIds = [];
         this.displayedMatchColumns = [
@@ -1940,6 +1984,7 @@ var ChooseMatchDialogComponent = /** @class */ (function () {
         ];
     }
     ChooseMatchDialogComponent.prototype.ngOnInit = function () {
+        this.spinner = true;
         this.getMatches();
     };
     ChooseMatchDialogComponent.prototype.getMatches = function () {
@@ -1976,7 +2021,7 @@ var ChooseMatchDialogComponent = /** @class */ (function () {
         var _this = this;
         this.userService.getUserByUsername(username).subscribe(function (val) {
             _this.dialogRef.close();
-            _this.router.navigate(["users/" + val.id]);
+            _this.router.navigate(["user/" + val.id]);
         });
     };
     ChooseMatchDialogComponent.prototype.selectMatch = function (row) {
@@ -1993,6 +2038,7 @@ var ChooseMatchDialogComponent = /** @class */ (function () {
                 }
             });
             _this.matchesDto = matchesDto;
+            _this.spinner = false;
             _this.matchWithLocationDtoTable.renderRows();
         });
     };
@@ -2102,7 +2148,7 @@ var EnlargeImageDialogComponent = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (":host {\n  position: relative; }\n\n.main-step {\n  display: flex;\n  justify-content: center;\n  color: #26c6da;\n  font-style: italic;\n  border-bottom: 2.5px solid #5c7886;\n  height: 64.5px;\n  padding-top: 10px;\n  position: relative;\n  box-shadow: 0 1px 2px 0 #5c7886; }\n\n.main-step .user-wrapper {\n    display: flex;\n    position: absolute;\n    top: 2px;\n    right: 20px;\n    flex-direction: column; }\n\n.main-step .user-wrapper .user-info {\n      display: flex;\n      margin-top: 8px; }\n\n.main-step .user-wrapper .user-info label {\n        color: #5c7886;\n        font-size: 12px; }\n\n.main-step .user-wrapper .user-info span {\n        margin-left: 4px;\n        font-weight: 600;\n        transition: 0.3s;\n        font-size: 14px; }\n\n.main-step .user-wrapper .user-info span:hover {\n          transition: 0.3s;\n          transform: scale(1.02);\n          cursor: pointer;\n          color: #22b4c4; }\n\n.main-step .user-wrapper a {\n      font-size: 14px;\n      margin-top: -3px;\n      font-weight: 500;\n      transition: 0.3s;\n      display: flex;\n      align-self: flex-end; }\n\n.main-step .user-wrapper a:hover {\n        transition: 0.3s;\n        transform: scale(1.02);\n        cursor: pointer; }\n\n.bell-wrapper {\n  position: absolute;\n  right: 200px;\n  bottom: 12px; }\n\n.bell-wrapper .bell-btn-round {\n    position: relative;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width: 36px;\n    height: 36px;\n    border: 0;\n    border-radius: 100px;\n    background-color: #26c6da;\n    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);\n    cursor: pointer; }\n\n.bell-wrapper .bell-btn-round::after {\n      content: \"\";\n      display: block;\n      border-radius: 100px;\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      opacity: 0;\n      transition: 0.3s;\n      background: black; }\n\n.bell-wrapper .bell-btn-round:hover::after {\n      opacity: 0.1;\n      transition: 0.3s; }\n\n.bell-wrapper .bell-btn-round.active {\n      background: #5c7886; }\n\n.bell-wrapper .bell-btn-round .bell-icon {\n      margin: 0 5px;\n      width: 18px;\n      color: white;\n      transition: 0.3s; }\n\n.bell-wrapper .bell-btn-round .bell-icon:hover {\n        cursor: pointer;\n        transition: 0.3s;\n        transform: scale(1.1); }\n\n.bell-wrapper .bell-btn-round mat-chip {\n      background: #5c7886;\n      color: white;\n      position: absolute;\n      right: 0;\n      bottom: -10px;\n      border-radius: 100px;\n      width: 22px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbXBvbmVudHMvaGVhZGVyL0Q6XFxtdnBcXHBsYXlpbmdmaWVsZG1hbmFnbWVudFxcZnJvbnRlbmQvc3JjXFxhcHBcXHNoYXJlZFxcY29tcG9uZW50c1xcaGVhZGVyXFxoZWFkZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2hlYWRlci9EOlxcbXZwXFxwbGF5aW5nZmllbGRtYW5hZ21lbnRcXGZyb250ZW5kL3NyY1xcc3R5bGVzXFx2YXJpYWJsZXMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFLGtCQUFpQixFQUFBOztBQUVuQjtFQUNFLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsY0NSZTtFRFNmLGtCQUFrQjtFQUNsQixrQ0NKd0I7RURLeEIsY0FBYztFQUNkLGlCQUFpQjtFQUNqQixrQkFBa0I7RUFDbEIsK0JBQStCLEVBQUE7O0FBVGpDO0lBWUksYUFBYTtJQUNiLGtCQUFrQjtJQUNsQixRQUFRO0lBQ1IsV0FBVztJQUNYLHNCQUFzQixFQUFBOztBQWhCMUI7TUFvQk0sYUFBYTtNQUNiLGVBQWMsRUFBQTs7QUFyQnBCO1FBdUJRLGNDdEJrQjtRRHVCcEIsZUFBYyxFQUFBOztBQXhCcEI7UUEyQlEsZ0JBQWdCO1FBQ2hCLGdCQUFnQjtRQUNoQixnQkFBZ0I7UUFDaEIsZUFBYyxFQUFBOztBQTlCdEI7VUFnQ1UsZ0JBQWdCO1VBQ2hCLHNCQUFzQjtVQUN0QixlQUFlO1VBQ2YsY0N2Q1ksRUFBQTs7QURJdEI7TUF5Q00sZUFBYztNQUVkLGdCQUFlO01BQ2YsZ0JBQWdCO01BQ2hCLGdCQUFnQjtNQUNoQixhQUFZO01BQ1osb0JBQW9CLEVBQUE7O0FBL0MxQjtRQWlEUSxnQkFBZ0I7UUFDaEIsc0JBQXNCO1FBQ3RCLGVBQWUsRUFBQTs7QUFNdkI7RUFDRSxrQkFBa0I7RUFDbEIsWUFBWTtFQUNaLFlBQVksRUFBQTs7QUFIZDtJQU1JLGtCQUFpQjtJQUVqQixhQUFhO0lBQ2IsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixXQUFXO0lBQ1gsWUFBWTtJQUNaLFNBQVM7SUFDVCxvQkFBb0I7SUFDcEIseUJDN0VhO0lEOEViLGlIQUNvRTtJQUNwRSxlQUFlLEVBQUE7O0FBbEJuQjtNQXFCTSxXQUFXO01BQ1gsY0FBYztNQUNkLG9CQUFvQjtNQUNwQixrQkFBa0I7TUFDbEIsTUFBTTtNQUNOLE9BQU87TUFDUCxXQUFXO01BQ1gsWUFBWTtNQUNaLFVBQVU7TUFDVixnQkFBZ0I7TUFDaEIsaUJBQWlCLEVBQUE7O0FBL0J2QjtNQW1DTSxZQUFZO01BQ1osZ0JBQWdCLEVBQUE7O0FBcEN0QjtNQXVDTSxtQkMvRm9CLEVBQUE7O0FEd0QxQjtNQTBDTSxhQUFhO01BQ2IsV0FBVztNQUNYLFlBQWE7TUFDYixnQkFBZ0IsRUFBQTs7QUE3Q3RCO1FBK0NRLGVBQWU7UUFDZixnQkFBZ0I7UUFDaEIscUJBQXFCLEVBQUE7O0FBakQ3QjtNQXFETSxtQkM3R29CO01EOEdwQixZQUFZO01BQ2Qsa0JBQWlCO01BQ2pCLFFBQVE7TUFDUixhQUFhO01BQ2Isb0JBQW1CO01BQ25CLFdBQVUsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2hlYWRlci9oZWFkZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi4vLi4vLi4vLi4vc3R5bGVzL3ZhcmlhYmxlcy5zY3NzXCI7XHJcblxyXG46aG9zdCB7XHJcbiAgcG9zaXRpb246cmVsYXRpdmU7XHJcbn1cclxuLm1haW4tc3RlcCB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICBjb2xvcjogJHByaW1hcnk7XHJcbiAgZm9udC1zdHlsZTogaXRhbGljO1xyXG4gIGJvcmRlci1ib3R0b206IDIuNXB4IHNvbGlkICRhY2NlbnRDb2xvckFscGhhO1xyXG4gIGhlaWdodDogNjQuNXB4O1xyXG4gIHBhZGRpbmctdG9wOiAxMHB4O1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICBib3gtc2hhZG93OiAwIDFweCAycHggMCAjNWM3ODg2O1xyXG5cclxuICAudXNlci13cmFwcGVyIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICB0b3A6IDJweDtcclxuICAgIHJpZ2h0OiAyMHB4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuXHJcblxyXG4gICAgLnVzZXItaW5mbyB7XHJcbiAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgIG1hcmdpbi10b3A6OHB4O1xyXG4gICAgICBsYWJlbCB7XHJcbiAgICAgICAgY29sb3I6ICRhY2NlbnRDb2xvckFscGhhO1xyXG4gICAgICBmb250LXNpemU6MTJweDtcclxuICAgICAgfVxyXG4gICAgICBzcGFuIHtcclxuICAgICAgICBtYXJnaW4tbGVmdDogNHB4O1xyXG4gICAgICAgIGZvbnQtd2VpZ2h0OiA2MDA7XHJcbiAgICAgICAgdHJhbnNpdGlvbjogMC4zcztcclxuICAgICAgICBmb250LXNpemU6MTRweDtcclxuICAgICAgICAmOmhvdmVyIHtcclxuICAgICAgICAgIHRyYW5zaXRpb246IDAuM3M7XHJcbiAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMDIpO1xyXG4gICAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gICAgICAgICAgY29sb3I6ICRwcmltYXJ5SG92ZXI7XHJcblxyXG4gICAgICAgIH1cclxuICAgICAgfVxyXG4gICAgfVxyXG4gICAgYSB7XHJcbiAgICAgIGZvbnQtc2l6ZToxNHB4O1xyXG5cclxuICAgICAgbWFyZ2luLXRvcDotM3B4O1xyXG4gICAgICBmb250LXdlaWdodDogNTAwO1xyXG4gICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgICBkaXNwbGF5OmZsZXg7XHJcbiAgICAgIGFsaWduLXNlbGY6IGZsZXgtZW5kO1xyXG4gICAgICAmOmhvdmVyIHtcclxuICAgICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMS4wMik7XHJcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcblxyXG4uYmVsbC13cmFwcGVyIHtcclxuICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgcmlnaHQ6IDIwMHB4O1xyXG4gIGJvdHRvbTogMTJweDtcclxuXHJcbiAgLmJlbGwtYnRuLXJvdW5kIHtcclxuICAgIHBvc2l0aW9uOnJlbGF0aXZlO1xyXG5cclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICB3aWR0aDogMzZweDtcclxuICAgIGhlaWdodDogMzZweDtcclxuICAgIGJvcmRlcjogMDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDEwMHB4O1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogJHByaW1hcnk7XHJcbiAgICBib3gtc2hhZG93OiAwIDNweCA1cHggLTFweCByZ2JhKDAsIDAsIDAsIDAuMiksXHJcbiAgICAgIDAgNnB4IDEwcHggMCByZ2JhKDAsIDAsIDAsIDAuMTQpLCAwIDFweCAxOHB4IDAgcmdiYSgwLCAwLCAwLCAwLjEyKTtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuXHJcbiAgICAmOjphZnRlciB7XHJcbiAgICAgIGNvbnRlbnQ6IFwiXCI7XHJcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgICBib3JkZXItcmFkaXVzOiAxMDBweDtcclxuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgICB0b3A6IDA7XHJcbiAgICAgIGxlZnQ6IDA7XHJcbiAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICAgIG9wYWNpdHk6IDA7XHJcbiAgICAgIHRyYW5zaXRpb246IDAuM3M7XHJcbiAgICAgIGJhY2tncm91bmQ6IGJsYWNrO1xyXG4gICAgfVxyXG5cclxuICAgICY6aG92ZXI6OmFmdGVyIHtcclxuICAgICAgb3BhY2l0eTogMC4xO1xyXG4gICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgfVxyXG4gICAgJi5hY3RpdmUge1xyXG4gICAgICBiYWNrZ3JvdW5kOiRhY2NlbnRDb2xvckFscGhhO1xyXG4gICAgfVxyXG4gICAgLmJlbGwtaWNvbiB7XHJcbiAgICAgIG1hcmdpbjogMCA1cHg7XHJcbiAgICAgIHdpZHRoOiAxOHB4O1xyXG4gICAgICBjb2xvcjogIHdoaXRlO1xyXG4gICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgICAmOmhvdmVyIHtcclxuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgICAgICAgdHJhbnNpdGlvbjogMC4zcztcclxuICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMSk7XHJcbiAgICAgIH1cclxuICAgIH1cclxuICAgIG1hdC1jaGlwIHtcclxuICAgICAgYmFja2dyb3VuZDogJGFjY2VudENvbG9yQWxwaGE7XHJcbiAgICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgIHBvc2l0aW9uOmFic29sdXRlO1xyXG4gICAgcmlnaHQ6IDA7XHJcbiAgICBib3R0b206IC0xMHB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czoxMDBweDtcclxuICAgIHdpZHRoOjIycHg7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuXHJcblxyXG59XHJcblxyXG4iLCIkcHJpbWFyeTogIzI2YzZkYTtcclxuJHByaW1hcnlIb3ZlcjogIzIyYjRjNDtcclxuJHByaW1hcnlCZXRhOiAjOTJlZWZhO1xyXG4kcHJpbWFyeUxpZ2h0OiNhN2YwZmE7XHJcbiRwcmltYXJ5TGlnaHRlcjogI2NmZjlmZjtcclxuJGFjY2VudENvbG9yOiAjNDU1YTY0O1xyXG4kYWNjZW50Q29sb3JBbHBoYTogIzVjNzg4NjtcclxuJGFjY2VudENvbG9yQWxwaGFIb3ZlcjogIzQ1NWE2NDtcclxuJGRyb3Bkb3duQXJyb3dDb2xvcjogIzQ0NDQ0NDtcclxuJHRleHRCdXR0b25Db2xvcjogd2hpdGU7XHJcbiR0ZXh0Q29sb3I6IGJsYWNrO1xyXG4kaW5wdXRUeXBlSG92ZXI6ICNlYmViZWI7XHJcbiRjaGVja1RydWU6IHJnYig1LCAyMDcsIDUpO1xyXG4kZmFsc2VJY29uOiByZWQ7XHJcbiRkcm9wem9uZTogI2FhYWFhYTtcclxuJHNjcm9sbEJhY2tncm91bmQ6IGxpZ2h0Z3JleTtcclxuJGNvbG9yLWRlZmF1bHQtYmc6IGxpZ2h0Z3JleTtcclxuJHRoLXByaW1hcnk6IGJsYWNrO1xyXG4kY29sb3Itc2VwYXJhdG9yLWxpZ2h0ZXI6IGxpZ2h0Z3JleTtcclxuJGNvbG9yLXRleHQtaW52ZXJzZTogd2hpdGU7XHJcbiRjb2xvci10ZXh0LWRpc2FibGVkOiAjYWFhYWFhO1xyXG4kY29sb3ItaG92ZXI6ICMwY2E4YmM7XHJcbkBpbXBvcnQgXCJub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvX2Z1bmN0aW9uc1wiO1xyXG5AaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL192YXJpYWJsZXNcIjtcclxuQGltcG9ydCBcIm5vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy9fbWl4aW5zXCI7XHJcblxyXG4kYnJlYWtwb2ludHM6ICh4czogMCxcclxuICBzbTogNjAwcHgsXHJcbiAgbWQ6IDgwMHB4LFxyXG4gIGxnOiAxMDAwcHgsXHJcbiAgeGw6IDEyODBweCk7XHJcblxyXG4vLyBAaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL2Jvb3RzdHJhcFwiO1xyXG4kY29udGFpbmVyLW1heC13aWR0aHM6IChzbTogNjAwcHgsXHJcbiAgbWQ6IDgwMHB4LFxyXG4gIGxnOiAxMDAwcHgsXHJcbiAgeGw6IDEyMjBweCk7XHJcbiJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (":host {\n  position: relative; }\n\n.main-step {\n  display: flex;\n  justify-content: center;\n  color: #26c6da;\n  font-style: italic;\n  border-bottom: 2.5px solid #5c7886;\n  height: 64.5px;\n  padding-top: 10px;\n  position: relative;\n  box-shadow: 0 1px 2px 0 #5c7886; }\n\n.main-step .user-wrapper {\n    display: flex;\n    position: absolute;\n    top: 2px;\n    right: 20px;\n    flex-direction: column; }\n\n.main-step .user-wrapper .user-info {\n      display: flex;\n      margin-top: 8px; }\n\n.main-step .user-wrapper .user-info label {\n        color: #5c7886;\n        font-size: 12px; }\n\n.main-step .user-wrapper .user-info span {\n        margin-left: 4px;\n        font-weight: 600;\n        transition: 0.3s;\n        font-size: 14px; }\n\n.main-step .user-wrapper .user-info span:hover {\n          transition: 0.3s;\n          transform: scale(1.02);\n          cursor: pointer;\n          color: #22b4c4; }\n\n.main-step .user-wrapper a {\n      font-size: 14px;\n      margin-top: -3px;\n      font-weight: 500;\n      transition: 0.3s;\n      display: flex;\n      align-self: flex-end; }\n\n.main-step .user-wrapper a:hover {\n        transition: 0.3s;\n        transform: scale(1.02);\n        cursor: pointer; }\n\n.bell-wrapper {\n  position: absolute;\n  right: 250px;\n  bottom: 12px; }\n\n.bell-wrapper .bell-btn-round {\n    position: relative;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width: 36px;\n    height: 36px;\n    border: 0;\n    border-radius: 100px;\n    background-color: #26c6da;\n    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);\n    cursor: pointer; }\n\n.bell-wrapper .bell-btn-round::after {\n      content: \"\";\n      display: block;\n      border-radius: 100px;\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      opacity: 0;\n      transition: 0.3s;\n      background: black; }\n\n.bell-wrapper .bell-btn-round:hover::after {\n      opacity: 0.1;\n      transition: 0.3s; }\n\n.bell-wrapper .bell-btn-round.active {\n      background: #5c7886; }\n\n.bell-wrapper .bell-btn-round .bell-icon {\n      margin: 0 5px;\n      width: 18px;\n      color: white;\n      transition: 0.3s; }\n\n.bell-wrapper .bell-btn-round .bell-icon:hover {\n        cursor: pointer;\n        transition: 0.3s;\n        transform: scale(1.1); }\n\n.bell-wrapper .bell-btn-round mat-chip {\n      background: #5c7886;\n      color: white;\n      position: absolute;\n      right: 0;\n      bottom: -10px;\n      border-radius: 100px;\n      width: 22px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbXBvbmVudHMvaGVhZGVyL0Q6XFxtdnBcXHBsYXlpbmdmaWVsZG1hbmFnbWVudFxcZnJvbnRlbmQvc3JjXFxhcHBcXHNoYXJlZFxcY29tcG9uZW50c1xcaGVhZGVyXFxoZWFkZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2hlYWRlci9EOlxcbXZwXFxwbGF5aW5nZmllbGRtYW5hZ21lbnRcXGZyb250ZW5kL3NyY1xcc3R5bGVzXFx2YXJpYWJsZXMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFLGtCQUFpQixFQUFBOztBQUVuQjtFQUNFLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsY0NSZTtFRFNmLGtCQUFrQjtFQUNsQixrQ0NKd0I7RURLeEIsY0FBYztFQUNkLGlCQUFpQjtFQUNqQixrQkFBa0I7RUFDbEIsK0JBQStCLEVBQUE7O0FBVGpDO0lBWUksYUFBYTtJQUNiLGtCQUFrQjtJQUNsQixRQUFRO0lBQ1IsV0FBVztJQUNYLHNCQUFzQixFQUFBOztBQWhCMUI7TUFvQk0sYUFBYTtNQUNiLGVBQWMsRUFBQTs7QUFyQnBCO1FBdUJRLGNDdEJrQjtRRHVCcEIsZUFBYyxFQUFBOztBQXhCcEI7UUEyQlEsZ0JBQWdCO1FBQ2hCLGdCQUFnQjtRQUNoQixnQkFBZ0I7UUFDaEIsZUFBYyxFQUFBOztBQTlCdEI7VUFnQ1UsZ0JBQWdCO1VBQ2hCLHNCQUFzQjtVQUN0QixlQUFlO1VBQ2YsY0N2Q1ksRUFBQTs7QURJdEI7TUF5Q00sZUFBYztNQUVkLGdCQUFlO01BQ2YsZ0JBQWdCO01BQ2hCLGdCQUFnQjtNQUNoQixhQUFZO01BQ1osb0JBQW9CLEVBQUE7O0FBL0MxQjtRQWlEUSxnQkFBZ0I7UUFDaEIsc0JBQXNCO1FBQ3RCLGVBQWUsRUFBQTs7QUFNdkI7RUFDRSxrQkFBa0I7RUFDbEIsWUFBWTtFQUNaLFlBQVksRUFBQTs7QUFIZDtJQU1JLGtCQUFpQjtJQUVqQixhQUFhO0lBQ2IsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixXQUFXO0lBQ1gsWUFBWTtJQUNaLFNBQVM7SUFDVCxvQkFBb0I7SUFDcEIseUJDN0VhO0lEOEViLGlIQUNvRTtJQUNwRSxlQUFlLEVBQUE7O0FBbEJuQjtNQXFCTSxXQUFXO01BQ1gsY0FBYztNQUNkLG9CQUFvQjtNQUNwQixrQkFBa0I7TUFDbEIsTUFBTTtNQUNOLE9BQU87TUFDUCxXQUFXO01BQ1gsWUFBWTtNQUNaLFVBQVU7TUFDVixnQkFBZ0I7TUFDaEIsaUJBQWlCLEVBQUE7O0FBL0J2QjtNQW1DTSxZQUFZO01BQ1osZ0JBQWdCLEVBQUE7O0FBcEN0QjtNQXVDTSxtQkMvRm9CLEVBQUE7O0FEd0QxQjtNQTBDTSxhQUFhO01BQ2IsV0FBVztNQUNYLFlBQWE7TUFDYixnQkFBZ0IsRUFBQTs7QUE3Q3RCO1FBK0NRLGVBQWU7UUFDZixnQkFBZ0I7UUFDaEIscUJBQXFCLEVBQUE7O0FBakQ3QjtNQXFETSxtQkM3R29CO01EOEdwQixZQUFZO01BQ2Qsa0JBQWlCO01BQ2pCLFFBQVE7TUFDUixhQUFhO01BQ2Isb0JBQW1CO01BQ25CLFdBQVUsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2hlYWRlci9oZWFkZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi4vLi4vLi4vLi4vc3R5bGVzL3ZhcmlhYmxlcy5zY3NzXCI7XHJcblxyXG46aG9zdCB7XHJcbiAgcG9zaXRpb246cmVsYXRpdmU7XHJcbn1cclxuLm1haW4tc3RlcCB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICBjb2xvcjogJHByaW1hcnk7XHJcbiAgZm9udC1zdHlsZTogaXRhbGljO1xyXG4gIGJvcmRlci1ib3R0b206IDIuNXB4IHNvbGlkICRhY2NlbnRDb2xvckFscGhhO1xyXG4gIGhlaWdodDogNjQuNXB4O1xyXG4gIHBhZGRpbmctdG9wOiAxMHB4O1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICBib3gtc2hhZG93OiAwIDFweCAycHggMCAjNWM3ODg2O1xyXG5cclxuICAudXNlci13cmFwcGVyIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICB0b3A6IDJweDtcclxuICAgIHJpZ2h0OiAyMHB4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuXHJcblxyXG4gICAgLnVzZXItaW5mbyB7XHJcbiAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgIG1hcmdpbi10b3A6OHB4O1xyXG4gICAgICBsYWJlbCB7XHJcbiAgICAgICAgY29sb3I6ICRhY2NlbnRDb2xvckFscGhhO1xyXG4gICAgICBmb250LXNpemU6MTJweDtcclxuICAgICAgfVxyXG4gICAgICBzcGFuIHtcclxuICAgICAgICBtYXJnaW4tbGVmdDogNHB4O1xyXG4gICAgICAgIGZvbnQtd2VpZ2h0OiA2MDA7XHJcbiAgICAgICAgdHJhbnNpdGlvbjogMC4zcztcclxuICAgICAgICBmb250LXNpemU6MTRweDtcclxuICAgICAgICAmOmhvdmVyIHtcclxuICAgICAgICAgIHRyYW5zaXRpb246IDAuM3M7XHJcbiAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMDIpO1xyXG4gICAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gICAgICAgICAgY29sb3I6ICRwcmltYXJ5SG92ZXI7XHJcblxyXG4gICAgICAgIH1cclxuICAgICAgfVxyXG4gICAgfVxyXG4gICAgYSB7XHJcbiAgICAgIGZvbnQtc2l6ZToxNHB4O1xyXG5cclxuICAgICAgbWFyZ2luLXRvcDotM3B4O1xyXG4gICAgICBmb250LXdlaWdodDogNTAwO1xyXG4gICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgICBkaXNwbGF5OmZsZXg7XHJcbiAgICAgIGFsaWduLXNlbGY6IGZsZXgtZW5kO1xyXG4gICAgICAmOmhvdmVyIHtcclxuICAgICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMS4wMik7XHJcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcblxyXG4uYmVsbC13cmFwcGVyIHtcclxuICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgcmlnaHQ6IDI1MHB4O1xyXG4gIGJvdHRvbTogMTJweDtcclxuXHJcbiAgLmJlbGwtYnRuLXJvdW5kIHtcclxuICAgIHBvc2l0aW9uOnJlbGF0aXZlO1xyXG5cclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICB3aWR0aDogMzZweDtcclxuICAgIGhlaWdodDogMzZweDtcclxuICAgIGJvcmRlcjogMDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDEwMHB4O1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogJHByaW1hcnk7XHJcbiAgICBib3gtc2hhZG93OiAwIDNweCA1cHggLTFweCByZ2JhKDAsIDAsIDAsIDAuMiksXHJcbiAgICAgIDAgNnB4IDEwcHggMCByZ2JhKDAsIDAsIDAsIDAuMTQpLCAwIDFweCAxOHB4IDAgcmdiYSgwLCAwLCAwLCAwLjEyKTtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuXHJcbiAgICAmOjphZnRlciB7XHJcbiAgICAgIGNvbnRlbnQ6IFwiXCI7XHJcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgICBib3JkZXItcmFkaXVzOiAxMDBweDtcclxuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgICB0b3A6IDA7XHJcbiAgICAgIGxlZnQ6IDA7XHJcbiAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICAgIG9wYWNpdHk6IDA7XHJcbiAgICAgIHRyYW5zaXRpb246IDAuM3M7XHJcbiAgICAgIGJhY2tncm91bmQ6IGJsYWNrO1xyXG4gICAgfVxyXG5cclxuICAgICY6aG92ZXI6OmFmdGVyIHtcclxuICAgICAgb3BhY2l0eTogMC4xO1xyXG4gICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgfVxyXG4gICAgJi5hY3RpdmUge1xyXG4gICAgICBiYWNrZ3JvdW5kOiRhY2NlbnRDb2xvckFscGhhO1xyXG4gICAgfVxyXG4gICAgLmJlbGwtaWNvbiB7XHJcbiAgICAgIG1hcmdpbjogMCA1cHg7XHJcbiAgICAgIHdpZHRoOiAxOHB4O1xyXG4gICAgICBjb2xvcjogIHdoaXRlO1xyXG4gICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgICAmOmhvdmVyIHtcclxuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgICAgICAgdHJhbnNpdGlvbjogMC4zcztcclxuICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMSk7XHJcbiAgICAgIH1cclxuICAgIH1cclxuICAgIG1hdC1jaGlwIHtcclxuICAgICAgYmFja2dyb3VuZDogJGFjY2VudENvbG9yQWxwaGE7XHJcbiAgICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgIHBvc2l0aW9uOmFic29sdXRlO1xyXG4gICAgcmlnaHQ6IDA7XHJcbiAgICBib3R0b206IC0xMHB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czoxMDBweDtcclxuICAgIHdpZHRoOjIycHg7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuXHJcblxyXG59XHJcblxyXG4iLCIkcHJpbWFyeTogIzI2YzZkYTtcclxuJHByaW1hcnlIb3ZlcjogIzIyYjRjNDtcclxuJHByaW1hcnlCZXRhOiAjOTJlZWZhO1xyXG4kcHJpbWFyeUxpZ2h0OiNhN2YwZmE7XHJcbiRwcmltYXJ5TGlnaHRlcjogI2NmZjlmZjtcclxuJGFjY2VudENvbG9yOiAjNDU1YTY0O1xyXG4kYWNjZW50Q29sb3JBbHBoYTogIzVjNzg4NjtcclxuJGFjY2VudENvbG9yQWxwaGFIb3ZlcjogIzQ1NWE2NDtcclxuJGRyb3Bkb3duQXJyb3dDb2xvcjogIzQ0NDQ0NDtcclxuJHRleHRCdXR0b25Db2xvcjogd2hpdGU7XHJcbiR0ZXh0Q29sb3I6IGJsYWNrO1xyXG4kaW5wdXRUeXBlSG92ZXI6ICNlYmViZWI7XHJcbiRjaGVja1RydWU6IHJnYig1LCAyMDcsIDUpO1xyXG4kZmFsc2VJY29uOiByZWQ7XHJcbiRkcm9wem9uZTogI2FhYWFhYTtcclxuJHNjcm9sbEJhY2tncm91bmQ6IGxpZ2h0Z3JleTtcclxuJGNvbG9yLWRlZmF1bHQtYmc6IGxpZ2h0Z3JleTtcclxuJHRoLXByaW1hcnk6IGJsYWNrO1xyXG4kY29sb3Itc2VwYXJhdG9yLWxpZ2h0ZXI6IGxpZ2h0Z3JleTtcclxuJGNvbG9yLXRleHQtaW52ZXJzZTogd2hpdGU7XHJcbiRjb2xvci10ZXh0LWRpc2FibGVkOiAjYWFhYWFhO1xyXG4kY29sb3ItaG92ZXI6ICMwY2E4YmM7XHJcbkBpbXBvcnQgXCJub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvX2Z1bmN0aW9uc1wiO1xyXG5AaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL192YXJpYWJsZXNcIjtcclxuQGltcG9ydCBcIm5vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy9fbWl4aW5zXCI7XHJcblxyXG4kYnJlYWtwb2ludHM6ICh4czogMCxcclxuICBzbTogNjAwcHgsXHJcbiAgbWQ6IDgwMHB4LFxyXG4gIGxnOiAxMDAwcHgsXHJcbiAgeGw6IDEyODBweCk7XHJcblxyXG4vLyBAaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL2Jvb3RzdHJhcFwiO1xyXG4kY29udGFpbmVyLW1heC13aWR0aHM6IChzbTogNjAwcHgsXHJcbiAgbWQ6IDgwMHB4LFxyXG4gIGxnOiAxMDAwcHgsXHJcbiAgeGw6IDEyMjBweCk7XHJcbiJdfQ== */");
 
 /***/ }),
 
@@ -2141,7 +2187,6 @@ var HeaderComponent = /** @class */ (function () {
     }
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.isLogged();
         this.getLoggedUser();
         this.subscription.add(this.router.events.subscribe(function (val) {
             if (val instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"]) {
@@ -2162,7 +2207,7 @@ var HeaderComponent = /** @class */ (function () {
                         _this.dataSharingService.name.subscribe(function (val) { return (_this.headerName = val); });
                     }
                     else if (window.location.pathname ===
-                        "/users/" + tree.root.children[_angular_router__WEBPACK_IMPORTED_MODULE_2__["PRIMARY_OUTLET"]].segments[1].path) {
+                        "/user/" + tree.root.children[_angular_router__WEBPACK_IMPORTED_MODULE_2__["PRIMARY_OUTLET"]].segments[1].path) {
                         _this.userService
                             .getUserUsername(tree.root.children[_angular_router__WEBPACK_IMPORTED_MODULE_2__["PRIMARY_OUTLET"]].segments[1].path)
                             .subscribe(function (val) {
@@ -2187,25 +2232,18 @@ var HeaderComponent = /** @class */ (function () {
                 }
             }
         }));
-        this.username = localStorage.getItem("username");
         this.dataSharingService.count.subscribe(function (val) {
             _this.count = val;
-            console.log(val);
         });
     };
     HeaderComponent.prototype.getLoggedUser = function () {
         var _this = this;
-        if (this.authService.isLogged()) {
-            this.userService.getLoggedUser().subscribe(function (val) {
-                _this.loggedUser = val;
-            });
-        }
+        this.dataSharingService.currentLoggedUser.subscribe(function (val) {
+            _this.loggedUser = val;
+        });
     };
     HeaderComponent.prototype.logout = function () {
         this.authService.logout();
-    };
-    HeaderComponent.prototype.isLogged = function () {
-        this.isLoggedField = this.authService.isLogged();
     };
     HeaderComponent.prototype.toggleActive = function () {
         this.activeNotifications = !this.activeNotifications;
@@ -2542,7 +2580,7 @@ var NotificationsComponent = /** @class */ (function () {
     };
     NotificationsComponent.prototype.goToUserProfile = function (user) {
         this.dataSharingService.changeUser(user.id);
-        this.router.navigate(["users/" + user.id]);
+        this.router.navigate(["user/" + user.id]);
     };
     NotificationsComponent.prototype.acceptFriendRequest = function (event, notification) {
         var _this = this;
@@ -2718,6 +2756,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_core_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @app/core/service */ "./src/app/core/service/index.ts");
 /* harmony import */ var _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @app/shared/service/user.service */ "./src/app/shared/service/user.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @app/shared/service/data-sharing.service */ "./src/app/shared/service/data-sharing.service.ts");
+
 
 
 
@@ -2727,27 +2767,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LoginDialogComponent = /** @class */ (function () {
-    function LoginDialogComponent(authService, dialogRef, toastr, userService, router) {
+    function LoginDialogComponent(authService, dialogRef, toastr, userService, dataSharingService, router) {
         var _this = this;
         this.authService = authService;
         this.dialogRef = dialogRef;
         this.toastr = toastr;
         this.userService = userService;
+        this.dataSharingService = dataSharingService;
         this.router = router;
         this.onSuccess = function () {
             _this.userService.getLoggedUser().subscribe(function (val) {
                 localStorage.setItem("userId", val.id.toString());
                 if (val.playingFieldId) {
                     localStorage.setItem("playingFieldId", val.playingFieldId.toString());
+                    _this.dataSharingService.setLoggedUser(val);
                 }
                 _this.router.navigate(["/users/" + val.id]);
-            }, function () { }, function () {
-                window.location.reload();
-            });
+            }, function () { }, function () { });
             _this.dialogRef.close();
         };
         this.onFail = function (error) {
-            if (error.status === 403) {
+            if (error.status === 403 || error.status === 401) {
                 _this.toastr.error("Podano nieprawidłowe dane", "Błąd");
             }
         };
@@ -2776,6 +2816,7 @@ var LoginDialogComponent = /** @class */ (function () {
         { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"] },
         { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] },
         { type: _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"] },
+        { type: _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_8__["DataSharingService"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"] }
     ]; };
     LoginDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2788,6 +2829,7 @@ var LoginDialogComponent = /** @class */ (function () {
             _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"],
             ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"],
             _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"],
+            _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_8__["DataSharingService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]])
     ], LoginDialogComponent);
     return LoginDialogComponent;
@@ -3026,13 +3068,9 @@ var SidebarComponent = /** @class */ (function () {
     };
     SidebarComponent.prototype.getLoggedUser = function () {
         var _this = this;
-        if (this.isLogged()) {
-            this.userService.getLoggedUser().subscribe(function (val) {
-                if (val) {
-                    _this.loggedUser = val;
-                }
-            });
-        }
+        this.dataSharingService.currentLoggedUser.subscribe(function (val) {
+            _this.loggedUser = val;
+        });
     };
     SidebarComponent.prototype.changeSidebar = function () {
         this.hideSidebar = !this.hideSidebar;
@@ -3073,7 +3111,7 @@ var SidebarComponent = /** @class */ (function () {
         this.reset();
         this.userPanel = true;
         this.dataSharingService.changeUser(localStorage.getItem("userId"));
-        this.router.navigate(["users/" + localStorage.getItem("userId")]);
+        this.router.navigate(["user/" + localStorage.getItem("userId")]);
     };
     SidebarComponent.prototype.setMenuActive = function () {
         var _this = this;
@@ -3092,7 +3130,7 @@ var SidebarComponent = /** @class */ (function () {
                 else if (tree.root.children.primary &&
                     tree.root.children.primary.segments[1]) {
                     if (window.location.pathname ===
-                        "/users/" + tree.root.children[_angular_router__WEBPACK_IMPORTED_MODULE_2__["PRIMARY_OUTLET"]].segments[1].path) {
+                        "/user/" + tree.root.children[_angular_router__WEBPACK_IMPORTED_MODULE_2__["PRIMARY_OUTLET"]].segments[1].path) {
                         _this.reset();
                         if (_this.loggedUser &&
                             tree.root.children[_angular_router__WEBPACK_IMPORTED_MODULE_2__["PRIMARY_OUTLET"]].segments[1].path ===
@@ -3582,11 +3620,16 @@ var DataSharingService = /** @class */ (function () {
         this.isClosed = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.count = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.getUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]('default');
+        this.loggedUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
         this.currentUser = this.getUser.asObservable();
+        this.currentLoggedUser = this.loggedUser.asObservable();
         this.name = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]('');
     }
     DataSharingService.prototype.changeUser = function (message) {
         this.getUser.next(message);
+    };
+    DataSharingService.prototype.setLoggedUser = function (userDto) {
+        this.loggedUser.next(userDto);
     };
     DataSharingService.prototype.push = function (item) {
         this._stack.push(item);

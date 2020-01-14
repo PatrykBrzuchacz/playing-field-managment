@@ -5,13 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Lob;
+
 @Data
 @AllArgsConstructor
 public class EditUserDto {
     Long id;
     String age;
     String phoneNumber;
-    MultipartFile avatar;
+    @Lob
+    private byte[] avatar;
     Position position;
     String city;
     String firstName;

@@ -67,7 +67,7 @@ public class UserService {
     }
 
     public UserDto getUser(Long id) {
-        return userAssembler.toDto(userRepository.getOne(id));
+        return userAssembler.toDtoWithAvatar(userRepository.getOne(id));
     }
 
     @Transactional
@@ -83,15 +83,7 @@ public class UserService {
         user.setPhoneNumber(editUserDto.getPhoneNumber());
         user.setCity(editUserDto.getCity());
         if (editUserDto.getAvatar() != null) {
-            String fileName = StringUtils.cleanPath(editUserDto.getAvatar().getOriginalFilename());
-            try {
-                if (fileName.contains("..")) {
-                    throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
-                }
-                user.setAvatar(editUserDto.getAvatar().getBytes());
-            } catch (IOException ex) {
-                throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
-            }
+                user.setAvatar(editUserDto.getAvatar());
         }
     }
 

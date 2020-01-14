@@ -43,6 +43,11 @@ public class PlayingFieldAvailabilityService {
         }
         return playingFieldAvailabilityAssembler.toDtoList(playingFieldAvailabilities)
                 .stream().sorted(Comparator.comparing(AvailabilityWithMatchesDto::getFromDate)).collect(Collectors.toList());
+//        List<AvailabilityWithMatchesDto>  dto =
+//                playingFieldAvailabilityAssembler.toDtoList(playingFieldAvailabilities);
+//        dto.sort(Comparator.comparing(AvailabilityWithMatchesDto::getFromDate));
+////                .stream().sorted(Comparator.comparing(AvailabilityWithMatchesDto::getFromDate)).collect(Collectors.toList());
+//        return dto;
     }
 
     @Transactional

@@ -30,6 +30,7 @@ public class PlayingFieldService {
     public PlayingFieldSetupDto getPlayingFieldSetup(Long id) {
         PlayingField playingField = playingFieldRepository.getOne(id);
         if (playingField.getPlayingFieldSetup() != null) {
+
             return new PlayingFieldSetupDto(playingField.getPlayingFieldSetup().getDescription(),
                     playingField.getPlayingFieldSetup().getTeamSize(), playingField.getPlayingFieldSetup().getPfPhoto(),
                     playingField.getName());
@@ -41,7 +42,7 @@ public class PlayingFieldService {
     public void updatePFSetup(Long id, PlayingFieldSetupDto playingFieldSetupDto) {
         PlayingField playingField = playingFieldRepository.getOne(id);
         playingField.setName(playingFieldSetupDto.getName());
-        playingField.setName(playingFieldSetupDto.getName());
+        System.out.println(playingFieldSetupDto.getPfPhoto().toString());
         if (playingField.getPlayingFieldSetup() == null) {
             playingFieldSetupRepository.save(new PlayingFieldSetup(playingFieldSetupDto.getTeamSize(),
                     playingFieldSetupDto.getDescription(), playingFieldSetupDto.getPfPhoto(), playingField,
@@ -53,10 +54,6 @@ public class PlayingFieldService {
             playingField.getPlayingFieldSetup().setName(playingFieldSetupDto.getName());
 
         }
-    }
-
-    public Long getPlayingFieldOwnerId(Long id) {
-        return playingFieldRepository.getOne(id).getUser().getId();
     }
 
     @Transactional

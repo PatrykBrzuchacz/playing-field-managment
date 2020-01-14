@@ -14,6 +14,7 @@ public class UserAssembler {
 
     @Autowired
     private TeamRepository teamRepository;
+
     public UserDto toDto(User user) {
         return new UserDto(user.getId(), user.getUsername(), user.isBanned(), user.isActive(), user.getRegistered(),
                 user.getLastLogin(), user.getEmail(), user.getPhoneNumber(), user.getLastName(),
