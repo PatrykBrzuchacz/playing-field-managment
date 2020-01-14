@@ -334,7 +334,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main\">\n  <div class=\"d-flex\" [class.is-not-logged]=\"!loggedUser || !data.editable\">\n    <div class=\"team\" *ngIf=\"teamsDto\">\n      <div class=\"d-flex justify-content-center\">\n        <h4>{{ teamsDto[0]?.teamName }}</h4>\n        <label [class.is-full]=\"teamsDto[0]?.size === teamsDto[0]?.maxSize\"\n          >{{ teamsDto[0]?.size }}/{{ teamsDto[0]?.maxSize }}</label\n        >\n      </div>\n      <table #teamTable1 mat-table [dataSource]=\"teamsDto[0]?.players\">\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef>Numer</th>\n          <td mat-cell *matCellDef=\"let user; let i = index\">{{ i + 1 }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              class=\"d-flex justify-content-center flex-row\"\n              *ngIf=\"user.username\"\n            >\n              <span\n                class=\"link-to-profile\"\n                [class.owner]=\"user?.id === data?.ownerId\"\n                (click)=\"goToUserProfile(user.username)\"\n                >{{ user.username }}</span\n              >\n              <div\n                class=\"ban-icon\"\n                *ngIf=\"\n                  loggedUser?.playingFieldId == data.pfId &&\n                  loggedUser?.id != user.id &&\n                  user.username !== 'Admin'\n                \"\n                (click)=\"banUser(user.id, 0)\"\n              >\n                <svg-icon src=\"assets/icons/ban-solid.svg\"></svg-icon>\n              </div>\n            </div>\n          </td>\n        </ng-container>\n        <ng-container matColumnDef=\"position\">\n          <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n          <td mat-cell *matCellDef=\"let user\">{{ user?.position }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"options\">\n          <th mat-header-cell *matHeaderCellDef></th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              *ngIf=\"loggedUser?.username === user?.username && data.editable\"\n              class=\"times-icon doors\"\n              matTooltip=\"opuść drużynę\"\n              (click)=\"exitTeam(teamsDto[0])\"\n            >\n              <svg-icon src=\"assets/icons/door-open-solid.svg\"></svg-icon>\n            </div>\n            <div\n              *ngIf=\"\n                loggedUser?.username !== user?.username &&\n                loggedUser?.id === data?.ownerId\n              \"\n              class=\"times-icon\"\n              (click)=\"removeFromTeam(0, user)\"\n            >\n              <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n            </div>\n          </td>\n        </ng-container>\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n      </table>\n\n      <div\n        *ngIf=\"\n          loggedUser &&\n          data.editable &&\n          ((!isPrivate && !existInTeam(teamsDto[0])) ||\n            (isPrivate && !existInTeam(teamsDto[0])))\n        \"\n        class=\"point-icon\"\n        [class.is-full]=\"teamsDto[0]?.size === teamsDto[0]?.maxSize\"\n        (click)=\"joinTeam(teamsDto[0])\"\n      >\n        <svg-icon src=\"assets/icons/hand-point-up-solid.svg\"></svg-icon>\n      </div>\n    </div>\n    <div class=\"team\" *ngIf=\"teamsDto\">\n      <div class=\"d-flex justify-content-center\">\n        <h4>{{ teamsDto[1].teamName }}</h4>\n        <label [class.is-full]=\"teamsDto[1]?.size === teamsDto[1]?.maxSize\"\n          >{{ teamsDto[1]?.size }}/{{ teamsDto[1]?.maxSize }}</label\n        >\n      </div>\n      <table #teamTable2 mat-table [dataSource]=\"teamsDto[1]?.players\">\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef>Numer</th>\n          <td mat-cell *matCellDef=\"let user; let i = index\">{{ i + 1 }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              class=\"d-flex justify-content-center  flex-row\"\n              *ngIf=\"user.username\"\n            >\n              <span\n                class=\"link-to-profile\"\n                (click)=\"goToUserProfile(user?.username)\"\n                [class.owner]=\"user?.id === data?.ownerId\"\n                >{{ user?.username }}</span\n              >\n              <div\n                class=\"ban-icon\"\n                *ngIf=\"\n                  loggedUser?.playingFieldId == data.pfId &&\n                  loggedUser?.id != user.id\n                \"\n                (click)=\"banUser(user.id, 0)\"\n              >\n                <svg-icon src=\"assets/icons/ban-solid.svg\"></svg-icon>\n              </div>\n            </div>\n          </td>\n        </ng-container>\n        <ng-container matColumnDef=\"position\">\n          <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n          <td mat-cell *matCellDef=\"let user\">{{ user?.position }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"options\">\n          <th mat-header-cell *matHeaderCellDef></th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              *ngIf=\"loggedUser?.username === user?.username && data.editable\"\n              class=\"times-icon doors\"\n              (click)=\"exitTeam(teamsDto[1])\"\n            >\n              <svg-icon src=\"assets/icons/door-open-solid.svg\"></svg-icon>\n            </div>\n            <div\n              *ngIf=\"\n                loggedUser?.username !== user?.username &&\n                loggedUser?.id === data?.ownerId\n              \"\n              class=\"times-icon\"\n              (click)=\"removeFromTeam(1, user)\"\n            >\n              <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n            </div>\n          </td>\n        </ng-container>\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n      </table>\n\n      <div\n        *ngIf=\"\n          loggedUser &&\n          data.editable &&\n          ((!isPrivate && !existInTeam(teamsDto[1])) ||\n            (isPrivate && !existInTeam(teamsDto[1])))\n        \"\n        class=\"point-icon\"\n        [class.is-full]=\"teamsDto[1]?.size === teamsDto[1]?.maxSize\"\n        (click)=\"joinTeam(teamsDto[1])\"\n      >\n        <svg-icon src=\"assets/icons/hand-point-up-solid.svg\"></svg-icon>\n      </div>\n    </div>\n  </div>\n  <mat-accordion *ngIf=\"loggedUser && data.editable\">\n    <mat-expansion-panel>\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          Zaproszenia\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"d-flex flex-column\">\n          <label style=\"margin:5px 0 -2px 0\">Dodaj graczy:</label>\n          <mat-form-field class=\"autocomplete-form\">\n            <input\n              matInput\n              placeholder=\"Nazwa użytkownika\"\n              [matAutocomplete]=\"auto\"\n              [formControl]=\"usernameForm\"\n            />\n            <mat-autocomplete #auto=\"matAutocomplete\">\n              <mat-option\n                *ngFor=\"let user of filteredUsers | async\"\n                [value]=\"user.username\"\n                (click)=\"sendInvite(user.id)\"\n              >\n                <span>{{ user.username }}</span>\n              </mat-option>\n            </mat-autocomplete>\n          </mat-form-field>\n          <mat-checkbox color=\"primary\" [formControl]=\"onlyFriends\">\n            Tylko znajomi\n          </mat-checkbox>\n        </div>\n        <table\n          #invitesTable\n          class=\"invites-table\"\n          mat-table\n          [dataSource]=\"usersInvited\"\n        >\n          <ng-container matColumnDef=\"username\">\n            <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n            <td mat-cell *matCellDef=\"let user\">\n              <div class=\"d-flex justify-content-center flex-row\">\n                <span\n                  class=\"link-to-profile\"\n                  (click)=\"goToUserProfile(user.user.username)\"\n                  >{{ user.user.username }}</span\n                >\n              </div>\n            </td>\n          </ng-container>\n          <ng-container matColumnDef=\"position\">\n            <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n            <td mat-cell *matCellDef=\"let user\">{{ user?.user?.position }}</td>\n          </ng-container>\n          <ng-container matColumnDef=\"options\">\n            <th mat-header-cell *matHeaderCellDef></th>\n            <td mat-cell *matCellDef=\"let user\">\n              <div\n                *ngIf=\"\n                  loggedUser?.id === data.ownerId ||\n                  loggedUser?.id === user?.user?.id\n                \"\n                class=\"times-icon\"\n                (click)=\"deleteRequest(user)\"\n              >\n                <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n              </div>\n            </td>\n          </ng-container>\n          <tr mat-header-row *matHeaderRowDef=\"displayedInvitesColumns\"></tr>\n          <tr\n            mat-row\n            *matRowDef=\"let row; columns: displayedInvitesColumns\"\n          ></tr>\n        </table>\n      </div>\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main\">\n  <div class=\"d-flex\" [class.is-not-logged]=\"!loggedUser || !data.editable\">\n    <div class=\"team\" *ngIf=\"teamsDto\">\n      <div class=\"d-flex justify-content-center\">\n        <h4>{{ teamsDto[0]?.teamName }}</h4>\n        <label [class.is-full]=\"teamsDto[0]?.size === teamsDto[0]?.maxSize\"\n          >{{ teamsDto[0]?.size }}/{{ teamsDto[0]?.maxSize }}</label\n        >\n      </div>\n      <table #teamTable1 mat-table [dataSource]=\"teamsDto[0]?.players\">\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef>Numer</th>\n          <td mat-cell *matCellDef=\"let user; let i = index\">{{ i + 1 }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              class=\"d-flex justify-content-center flex-row\"\n              *ngIf=\"user.username\"\n            >\n              <span\n                class=\"link-to-profile\"\n                [class.owner]=\"user?.id === data?.ownerId\"\n                (click)=\"goToUserProfile(user.username)\"\n                >{{ user.username }}</span\n              >\n              <div\n                class=\"ban-icon\"\n                *ngIf=\"\n                  loggedUser?.playingFieldId == data.pfId &&\n                  loggedUser?.id != user.id &&\n                  user.username !== 'Admin'\n                \"\n                (click)=\"banUser(user.id, 0)\"\n              >\n                <svg-icon src=\"assets/icons/ban-solid.svg\"></svg-icon>\n              </div>\n            </div>\n          </td>\n        </ng-container>\n        <ng-container matColumnDef=\"position\">\n          <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n          <td mat-cell *matCellDef=\"let user\">{{ user?.position }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"options\">\n          <th mat-header-cell *matHeaderCellDef></th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              *ngIf=\"loggedUser?.username === user?.username && data.editable\"\n              class=\"times-icon\"\n              (click)=\"exitTeam(teamsDto[0])\"\n            >\n              <svg-icon src=\"assets/icons/door-open-solid.svg\"></svg-icon>\n            </div>\n            <div\n              *ngIf=\"\n                loggedUser?.username !== user?.username &&\n                loggedUser?.id === data?.ownerId\n              \"\n              class=\"times-icon\"\n              (click)=\"removeFromTeam(0, user)\"\n            >\n              <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n            </div>\n          </td>\n        </ng-container>\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n      </table>\n\n      <div\n        *ngIf=\"\n          loggedUser &&\n          data.editable &&\n          ((!isPrivate && !existInTeam(teamsDto[0])) ||\n            (isPrivate && !existInTeam(teamsDto[0])))\n        \"\n        class=\"point-icon\"\n        [class.is-full]=\"teamsDto[0]?.size === teamsDto[0]?.maxSize\"\n        (click)=\"joinTeam(teamsDto[0])\"\n      >\n        <svg-icon src=\"assets/icons/hand-point-up-solid.svg\"></svg-icon>\n      </div>\n    </div>\n    <div class=\"team\" *ngIf=\"teamsDto\">\n      <div class=\"d-flex justify-content-center\">\n        <h4>{{ teamsDto[1].teamName }}</h4>\n        <label [class.is-full]=\"teamsDto[1]?.size === teamsDto[1]?.maxSize\"\n          >{{ teamsDto[1]?.size }}/{{ teamsDto[1]?.maxSize }}</label\n        >\n      </div>\n      <table #teamTable2 mat-table [dataSource]=\"teamsDto[1]?.players\">\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef>Numer</th>\n          <td mat-cell *matCellDef=\"let user; let i = index\">{{ i + 1 }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              class=\"d-flex justify-content-center  flex-row\"\n              *ngIf=\"user.username\"\n            >\n              <span\n                class=\"link-to-profile\"\n                (click)=\"goToUserProfile(user?.username)\"\n                [class.owner]=\"user?.id === data?.ownerId\"\n                >{{ user?.username }}</span\n              >\n              <div\n                class=\"ban-icon\"\n                *ngIf=\"\n                  loggedUser?.playingFieldId == data.pfId &&\n                  loggedUser?.id != user.id\n                \"\n                (click)=\"banUser(user.id, 0)\"\n              >\n                <svg-icon src=\"assets/icons/ban-solid.svg\"></svg-icon>\n              </div>\n            </div>\n          </td>\n        </ng-container>\n        <ng-container matColumnDef=\"position\">\n          <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n          <td mat-cell *matCellDef=\"let user\">{{ user?.position }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"options\">\n          <th mat-header-cell *matHeaderCellDef></th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              *ngIf=\"loggedUser?.username === user?.username && data.editable\"\n              class=\"times-icon\"\n              (click)=\"exitTeam(teamsDto[1])\"\n            >\n              <svg-icon src=\"assets/icons/door-open-solid.svg\"></svg-icon>\n            </div>\n            <div\n              *ngIf=\"\n                loggedUser?.username !== user?.username &&\n                loggedUser?.id === data?.ownerId\n              \"\n              class=\"times-icon\"\n              (click)=\"removeFromTeam(1, user)\"\n            >\n              <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n            </div>\n          </td>\n        </ng-container>\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n      </table>\n\n      <div\n        *ngIf=\"\n          loggedUser &&\n          data.editable &&\n          ((!isPrivate && !existInTeam(teamsDto[1])) ||\n            (isPrivate && !existInTeam(teamsDto[1])))\n        \"\n        class=\"point-icon\"\n        [class.is-full]=\"teamsDto[1]?.size === teamsDto[1]?.maxSize\"\n        (click)=\"joinTeam(teamsDto[1])\"\n      >\n        <svg-icon src=\"assets/icons/hand-point-up-solid.svg\"></svg-icon>\n      </div>\n    </div>\n  </div>\n  <mat-accordion *ngIf=\"loggedUser && data.editable\">\n    <mat-expansion-panel>\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          Zaproszenia\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"d-flex flex-column\">\n          <label style=\"margin:5px 0 -2px 0\">Dodaj graczy:</label>\n          <mat-form-field class=\"autocomplete-form\">\n            <input\n              matInput\n              placeholder=\"Nazwa użytkownika\"\n              [matAutocomplete]=\"auto\"\n              [formControl]=\"usernameForm\"\n            />\n            <mat-autocomplete #auto=\"matAutocomplete\">\n              <mat-option\n                *ngFor=\"let user of filteredUsers | async\"\n                [value]=\"user.username\"\n                (click)=\"sendInvite(user.id)\"\n              >\n                <span>{{ user.username }}</span>\n              </mat-option>\n            </mat-autocomplete>\n          </mat-form-field>\n          <mat-checkbox color=\"primary\" [formControl]=\"onlyFriends\">\n            Tylko znajomi\n          </mat-checkbox>\n        </div>\n        <table\n          #invitesTable\n          class=\"invites-table\"\n          mat-table\n          [dataSource]=\"usersInvited\"\n        >\n          <ng-container matColumnDef=\"username\">\n            <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n            <td mat-cell *matCellDef=\"let user\">\n              <div class=\"d-flex justify-content-center flex-row\">\n                <span\n                  class=\"link-to-profile\"\n                  (click)=\"goToUserProfile(user.user.username)\"\n                  >{{ user.user.username }}</span\n                >\n              </div>\n            </td>\n          </ng-container>\n          <ng-container matColumnDef=\"position\">\n            <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n            <td mat-cell *matCellDef=\"let user\">{{ user?.user?.position }}</td>\n          </ng-container>\n          <ng-container matColumnDef=\"options\">\n            <th mat-header-cell *matHeaderCellDef></th>\n            <td mat-cell *matCellDef=\"let user\">\n              <div\n                *ngIf=\"\n                  loggedUser?.id === data.ownerId ||\n                  loggedUser?.id === user?.user?.id\n                \"\n                class=\"times-icon\"\n                (click)=\"deleteRequest(user)\"\n              >\n                <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n              </div>\n            </td>\n          </ng-container>\n          <tr mat-header-row *matHeaderRowDef=\"displayedInvitesColumns\"></tr>\n          <tr\n            mat-row\n            *matRowDef=\"let row; columns: displayedInvitesColumns\"\n          ></tr>\n        </table>\n      </div>\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n");
 
 /***/ }),
 
@@ -347,7 +347,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"d-flex justify-content-center flex-column\">\n<h3>Wybierz mecz</h3>\n<table\n#availabilityTable\nmat-table\nmatSort\n[dataSource]=\"matchesDto\"\nclass=\"mat-elevation-z8\"\n>\n<ng-container matColumnDef=\"date\">\n  <th mat-header-cell *matHeaderCellDef>Data</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchFrom | date: \"dd MMMM yyyy\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"fromTime\">\n  <th mat-header-cell *matHeaderCellDef>Początek meczu</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchFrom | date: \"HH:mm\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"toTime\">\n  <th mat-header-cell *matHeaderCellDef>Koniec meczu</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchTo | date: \"HH:mm\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"reservation\">\n  <th mat-header-cell *matHeaderCellDef>Rezerwacja</th>\n  <td mat-cell *matCellDef=\"let match\">\n      <span class=\"link-to-profile\" (click)=\"goToUserProfile(match.ownerUsername)\">\n    {{ match.ownerUsername }}\n    </span>\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"private\">\n  <th mat-header-cell *matHeaderCellDef>Prywatny</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.isPrivate ? \"Tak\" : \"Nie\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"size\">\n  <th mat-header-cell *matHeaderCellDef>Liczba miejsc</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.size }}/{{ match.maxSize }}\n  </td>\n</ng-container>\n\n<tr mat-header-row *matHeaderRowDef=\"displayedMatchColumns\"></tr>\n<tr\n  mat-row\n  *matRowDef=\"let row; columns: displayedMatchColumns\" (click)=\"selectMatch(row)\" [class.is-selected]=\"row.id===selectedRowId\"\n></tr>\n</table>\n<mat-paginator\n#matchPaginator\n[length]=\"matchLength\"\n[pageSizeOptions]=\"[5, 10, 20]\"\n></mat-paginator>\n<ng-container *ngIf=\"matchesDto?.length===0\"\n        >\n      <h5 class=\"not-found\">W tej chwili nie bierzesz udziału w żadnym meczu</h5>\n      </ng-container>\n<div class=\"d-flex justify-content-center\">\n<button mat-raised-button color=\"primary\" [class.disable]=\"!selectedRowId\"\n(click)=\"sendRequest()\">\n  Wyślij\n</button>\n</div>\n</div>\n<mat-spinner *ngIf=\"spinner\"></mat-spinner>>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"d-flex justify-content-center flex-column\">\n<h3>Wybierz mecz</h3>\n<table\n#availabilityTable\nmat-table\nmatSort\n[dataSource]=\"matchesDto\"\nclass=\"mat-elevation-z8\"\n>\n<ng-container matColumnDef=\"date\">\n  <th mat-header-cell *matHeaderCellDef>Data</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchFrom | date: \"dd MMMM yyyy\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"fromTime\">\n  <th mat-header-cell *matHeaderCellDef>Początek meczu</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchFrom | date: \"HH:mm\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"toTime\">\n  <th mat-header-cell *matHeaderCellDef>Koniec meczu</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchTo | date: \"HH:mm\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"reservation\">\n  <th mat-header-cell *matHeaderCellDef>Rezerwacja</th>\n  <td mat-cell *matCellDef=\"let match\">\n      <span class=\"link-to-profile\" (click)=\"goToUserProfile(match.ownerUsername)\">\n    {{ match.ownerUsername }}\n    </span>\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"private\">\n  <th mat-header-cell *matHeaderCellDef>Prywatny</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.isPrivate ? \"Tak\" : \"Nie\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"size\">\n  <th mat-header-cell *matHeaderCellDef>Liczba miejsc</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.size }}/{{ match.maxSize }}\n  </td>\n</ng-container>\n\n<tr mat-header-row *matHeaderRowDef=\"displayedMatchColumns\"></tr>\n<tr\n  mat-row\n  *matRowDef=\"let row; columns: displayedMatchColumns\" (click)=\"selectMatch(row)\" [class.is-selected]=\"row.id===selectedRowId\"\n></tr>\n</table>\n<mat-paginator\n#matchPaginator\n[length]=\"matchLength\"\n[pageSizeOptions]=\"[5, 10, 20]\"\n></mat-paginator>\n<ng-container *ngIf=\"matchesDto?.length===0\"\n        >\n      <h5 class=\"not-found\">W tej chwili nie bierzesz udziału w żadnym meczu</h5>\n      </ng-container>\n<div class=\"d-flex justify-content-center\">\n<button mat-raised-button color=\"primary\" [class.disable]=\"!selectedRowId\"\n(click)=\"sendRequest()\">\n  Wyślij\n</button>\n</div>\n</div>\n");
 
 /***/ }),
 
@@ -373,7 +373,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-step\">\r\n  <h3>{{ headerName }}</h3>\r\n  <div *ngIf=\"loggedUser\">\r\n  <div class=\"user-wrapper\" >\r\n  <div class=\"user-info\">\r\n    <label>Zalogowany jako:</label>\r\n    <span>{{loggedUser?.username}}</span>\r\n  </div>\r\n  <a (click)=\"logout()\">Wyloguj</a>\r\n</div>\r\n</div>\r\n\r\n<div class=\"bell-wrapper\" *ngIf=\"loggedUser\" >\r\n  <button\r\n    class=\"bell-btn-round\"\r\n    matTooltip=\"Pokaż powiadomienia\"\r\n    [matMenuTriggerFor]=\"notificationMenu\"\r\n  >\r\n <div class=\"bell-icon\" >\r\n  <svg-icon src=\"assets/icons/bell-solid.svg\"></svg-icon>\r\n</div>\r\n<mat-chip *ngIf=\"count>0\">{{count}}</mat-chip>\r\n  </button>\r\n</div>\r\n</div>\r\n\r\n<mat-menu #notificationMenu xPosition=\"before\">\r\n  <app-notifications [loggedUser]=\"loggedUser\" *ngIf=\"loggedUser\"></app-notifications>\r\n</mat-menu>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-step\">\r\n  <h3>{{ headerName }}</h3>\r\n  <div *ngIf=\"isLoggedField\">\r\n  <div class=\"user-wrapper\" >\r\n  <div class=\"user-info\">\r\n    <label>Zalogowany jako:</label>\r\n    <span>{{username}}</span>\r\n  </div>\r\n  <a (click)=\"logout()\">Wyloguj</a>\r\n</div>\r\n</div>\r\n\r\n<div class=\"bell-wrapper\" *ngIf=\"isLoggedField\" >\r\n  <button\r\n    class=\"bell-btn-round\"\r\n    matTooltip=\"Pokaż powiadomienia\"\r\n    [matMenuTriggerFor]=\"notificationMenu\"\r\n  >\r\n <div class=\"bell-icon\" >\r\n  <svg-icon src=\"assets/icons/bell-solid.svg\"></svg-icon>\r\n</div>\r\n<mat-chip *ngIf=\"count>0\">{{count}}</mat-chip>\r\n  </button>\r\n</div>\r\n</div>\r\n\r\n<mat-menu #notificationMenu xPosition=\"before\">\r\n  <app-notifications [loggedUser]=\"loggedUser\" *ngIf=\"loggedUser\"></app-notifications>\r\n</mat-menu>\r\n");
 
 /***/ }),
 
@@ -732,44 +732,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @app/shared/service/user.service */ "./src/app/shared/service/user.service.ts");
-/* harmony import */ var _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @app/shared/service/data-sharing.service */ "./src/app/shared/service/data-sharing.service.ts");
-/* harmony import */ var _service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../service */ "./src/app/core/service/index.ts");
-
-
-
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(userService, dataSharingService, authService) {
-        this.userService = userService;
-        this.dataSharingService = dataSharingService;
-        this.authService = authService;
-        this.title = "playing-field-managment";
+    function AppComponent() {
+        this.title = 'playing-field-managment';
     }
-    AppComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        if (this.authService.isLogged()) {
-            this.userService.getLoggedUser().subscribe(function (val) {
-                console.log("xd");
-                _this.dataSharingService.setLoggedUser(val);
-            });
-        }
-    };
-    AppComponent.ctorParameters = function () { return [
-        { type: _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"] },
-        { type: _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_3__["DataSharingService"] },
-        { type: _service__WEBPACK_IMPORTED_MODULE_4__["AuthService"] }
-    ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: "app-root",
+            selector: 'app-root',
             template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/core/app-component/app.component.html")).default,
             styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./app.component.scss */ "./src/app/core/app-component/app.component.scss")).default]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"],
-            _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_3__["DataSharingService"],
-            _service__WEBPACK_IMPORTED_MODULE_4__["AuthService"]])
+        })
     ], AppComponent);
     return AppComponent;
 }());
@@ -819,7 +793,7 @@ var appRoutes = [
     {
         path: "worker/playingField/:id",
         loadChildren: function () { return Promise.all(/*! import() | features-worker-worker-module */[__webpack_require__.e("common"), __webpack_require__.e("features-worker-worker-module")]).then(__webpack_require__.bind(null, /*! @features/worker/worker.module */ "./src/app/functionalities/worker/worker.module.ts")).then(function (m) { return m.WorkerModule; }); },
-        canActivate: [_service_auth_guard_worker_service__WEBPACK_IMPORTED_MODULE_4__["AuthGuardWorkerService"]]
+        canLoad: [_service_auth_guard_worker_service__WEBPACK_IMPORTED_MODULE_4__["AuthGuardWorkerService"]]
     },
     {
         path: "findMatch",
@@ -830,7 +804,7 @@ var appRoutes = [
         loadChildren: function () { return Promise.all(/*! import() | features-playing-field-playing-field-module */[__webpack_require__.e("common"), __webpack_require__.e("features-playing-field-playing-field-module")]).then(__webpack_require__.bind(null, /*! @features/playing-field/playing-field.module */ "./src/app/functionalities/playing-field/playing-field.module.ts")).then(function (m) { return m.PlayingFieldModule; }); }
     },
     {
-        path: "user",
+        path: "users",
         loadChildren: function () { return Promise.all(/*! import() | features-user-user-module */[__webpack_require__.e("default~features-home-home-module~features-search-match-search-match-module~features-search-user-sea~8cfb4148"), __webpack_require__.e("features-user-user-module")]).then(__webpack_require__.bind(null, /*! @features/user/user.module */ "./src/app/functionalities/user/user.module.ts")).then(function (m) { return m.UserModule; }); }
     },
     {
@@ -1022,27 +996,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./auth.service */ "./src/app/core/service/auth.service.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @app/shared/service/data-sharing.service */ "./src/app/shared/service/data-sharing.service.ts");
-
 
 
 
 
 
 var AuthGuardWorkerService = /** @class */ (function () {
-    function AuthGuardWorkerService(auth, router, dataSharingService) {
+    function AuthGuardWorkerService(auth, router) {
         this.auth = auth;
         this.router = router;
-        this.dataSharingService = dataSharingService;
         this.subscription = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subscription"]();
     }
     AuthGuardWorkerService.prototype.canActivate = function () {
-        var _this = this;
-        this.dataSharingService.currentLoggedUser.subscribe(function (val) {
-            if (!val) {
-                _this.router.navigate(["/search"]);
-            }
-        });
         if (!this.auth.isLogged()) {
             this.router.navigate(["/search"]);
             return false;
@@ -1069,14 +1034,11 @@ var AuthGuardWorkerService = /** @class */ (function () {
     };
     AuthGuardWorkerService.ctorParameters = function () { return [
         { type: _auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-        { type: _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_5__["DataSharingService"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
     ]; };
     AuthGuardWorkerService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
-            _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_5__["DataSharingService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], AuthGuardWorkerService);
     return AuthGuardWorkerService;
 }());
@@ -1155,24 +1117,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _app_shared_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @app/shared/model */ "./src/app/shared/model/index.ts");
 /* harmony import */ var _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @app/shared/service/user.service */ "./src/app/shared/service/user.service.ts");
-/* harmony import */ var _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @app/shared/service/data-sharing.service */ "./src/app/shared/service/data-sharing.service.ts");
 
 
 
 
 
 
-
-var API_URL = "/api";
+var API_URL = '/api';
 var AUTHORIZATION_HEADER = "Authorization";
 var AUTHORIZATION_KEY = "authorization";
 var USERNAME_KEY = "username";
 var ROLE_KEY = "role";
 var AuthService = /** @class */ (function () {
-    function AuthService(http, userService, dataSharingService) {
+    function AuthService(http, userService) {
         this.http = http;
         this.userService = userService;
-        this.dataSharingService = dataSharingService;
     }
     AuthService.prototype.login = function (userCredentials) {
         var _this = this;
@@ -1199,11 +1158,14 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.logout = function () {
         var pfId = localStorage.getItem("playingFieldId");
-        this.dataSharingService.setLoggedUser(null);
         if (pfId) {
-            this.checkWarnings(pfId).subscribe();
+            this.checkWarnings(pfId).subscribe(function () {
+            }, function () { }, function () {
+                window.location.reload();
+            });
         }
         else {
+            window.location.reload();
         }
         localStorage.removeItem(AUTHORIZATION_KEY);
         localStorage.removeItem(USERNAME_KEY);
@@ -1238,16 +1200,13 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
-        { type: _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"] },
-        { type: _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_6__["DataSharingService"] }
+        { type: _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"] }
     ]; };
     AuthService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: "root"
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
-            _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"],
-            _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_6__["DataSharingService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
     ], AuthService);
     return AuthService;
 }());
@@ -1514,7 +1473,7 @@ var ReservationDialogComponent = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".main {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n  margin: 10px 20px 15px 20px;\n  max-height: 85vh;\n  min-height: 45vh;\n  overflow: auto; }\n  .main .team {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    width: 100%; }\n  .main .team:first-of-type {\n      margin-right: 50px; }\n  .main .team:last-of-type {\n      margin-left: 50px; }\n  .main .team .d-flex {\n      text-align: center;\n      flex-direction: column; }\n  .main .team .d-flex label {\n        font-size: 14px; }\n  .main .team .d-flex label.is-full {\n          color: red; }\n  .main .team table {\n      width: 100%; }\n  .main .team table th:first-of-type {\n        padding-left: 0; }\n  .main .team table th td:first-of-type {\n        padding-left: 12px; }\n  .times-icon {\n  width: 12px;\n  cursor: pointer;\n  color: #5c7886;\n  transition: 0.3s; }\n  .times-icon:hover {\n    color: red;\n    transition: 0.3s;\n    transform: scale(1.1); }\n  .point-icon {\n  margin-top: 15px;\n  width: 20px;\n  cursor: pointer;\n  color: #5c7886;\n  transition: 0.3s; }\n  .point-icon:hover {\n    color: #26c6da;\n    transition: 0.3s;\n    transform: scale(1.1); }\n  .point-icon.is-full {\n    color: red;\n    pointer-events: none; }\n  .autocomplete-form {\n  margin-right: 30px;\n  width: 80%; }\n  mat-accordion {\n  display: flex;\n  justify-content: center;\n  margin-top: 80px;\n  margin-bottom: 30px; }\n  .invites-table {\n  width: 250px;\n  margin-top: -10px; }\n  .invites-table td:first-of-type {\n    padding: 0; }\n  .invites-table td:last-of-type {\n    padding: 0; }\n  .is-not-logged {\n  margin-top: -100px; }\n  .ban-icon {\n  width: 12px;\n  color: red;\n  cursor: pointer;\n  z-index: 5;\n  margin-left: 3px;\n  display: block;\n  margin-top: -2px; }\n  .ban-icon:hover {\n    transform: scale(1.2);\n    transition: 0.3s; }\n  .owner {\n  font-weight: 800;\n  color: red; }\n  .doors {\n  width: 18px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZnVuY3Rpb25hbGl0aWVzL3BsYXlpbmctZmllbGQvY29tcG9uZW50cy90ZWFtcy1kaWFsb2cvRDpcXG12cFxccGxheWluZ2ZpZWxkbWFuYWdtZW50XFxmcm9udGVuZC9zcmNcXGFwcFxcZnVuY3Rpb25hbGl0aWVzXFxwbGF5aW5nLWZpZWxkXFxjb21wb25lbnRzXFx0ZWFtcy1kaWFsb2dcXHRlYW1zLWRpYWxvZy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZnVuY3Rpb25hbGl0aWVzL3BsYXlpbmctZmllbGQvY29tcG9uZW50cy90ZWFtcy1kaWFsb2cvRDpcXG12cFxccGxheWluZ2ZpZWxkbWFuYWdtZW50XFxmcm9udGVuZC9zcmNcXHN0eWxlc1xcdmFyaWFibGVzLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7RUFDRSxhQUFhO0VBQ2Isc0JBQXNCO0VBQ3RCLDZCQUE2QjtFQUM3QiwyQkFBMkI7RUFDM0IsZ0JBQWdCO0VBQ2hCLGdCQUFnQjtFQUNoQixjQUFjLEVBQUE7RUFQaEI7SUFTSSxhQUFhO0lBQ2Isc0JBQXNCO0lBQ3RCLG1CQUFtQjtJQUNuQixXQUFXLEVBQUE7RUFaZjtNQWNNLGtCQUFrQixFQUFBO0VBZHhCO01BaUJNLGlCQUFpQixFQUFBO0VBakJ2QjtNQW9CTSxrQkFBa0I7TUFDbEIsc0JBQXNCLEVBQUE7RUFyQjVCO1FBdUJRLGVBQWUsRUFBQTtFQXZCdkI7VUF5QlUsVUFBVSxFQUFBO0VBekJwQjtNQThCTSxXQUFXLEVBQUE7RUE5QmpCO1FBaUNVLGVBQWUsRUFBQTtFQWpDekI7UUFxQ1ksa0JBQWtCLEVBQUE7RUFPOUI7RUFDRSxXQUFXO0VBQ1gsZUFBZTtFQUNmLGNDM0N3QjtFRDRDeEIsZ0JBQWdCLEVBQUE7RUFKbEI7SUFNSSxVQUFVO0lBQ1YsZ0JBQWdCO0lBQ2hCLHFCQUFxQixFQUFBO0VBR3pCO0VBQ0UsZ0JBQWdCO0VBQ2hCLFdBQVc7RUFDWCxlQUFlO0VBQ2YsY0N2RHdCO0VEd0R4QixnQkFBZ0IsRUFBQTtFQUxsQjtJQU9JLGNDaEVhO0lEaUViLGdCQUFnQjtJQUNoQixxQkFBcUIsRUFBQTtFQVR6QjtJQVlJLFVBQVU7SUFDVixvQkFBb0IsRUFBQTtFQUl4QjtFQUNFLGtCQUFrQjtFQUVsQixVQUFVLEVBQUE7RUFHWjtFQUNFLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsZ0JBQWdCO0VBQ2hCLG1CQUFtQixFQUFBO0VBR3JCO0VBQ0UsWUFBWTtFQUNaLGlCQUFpQixFQUFBO0VBRm5CO0lBS00sVUFBVSxFQUFBO0VBTGhCO0lBUU0sVUFBVSxFQUFBO0VBS2hCO0VBQ0Usa0JBQWtCLEVBQUE7RUFHcEI7RUFDRSxXQUFXO0VBQ1gsVUFBVTtFQUNWLGVBQWU7RUFDZixVQUFVO0VBQ1YsZ0JBQWdCO0VBQ2hCLGNBQWM7RUFDZCxnQkFBZ0IsRUFBQTtFQVBsQjtJQVNJLHFCQUFxQjtJQUNyQixnQkFBZ0IsRUFBQTtFQUlwQjtFQUNFLGdCQUFnQjtFQUNoQixVQUNGLEVBQUE7RUFFQTtFQUNFLFdBQVUsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2Z1bmN0aW9uYWxpdGllcy9wbGF5aW5nLWZpZWxkL2NvbXBvbmVudHMvdGVhbXMtZGlhbG9nL3RlYW1zLWRpYWxvZy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLi8uLi8uLi8uLi8uLi9zdHlsZXMvdmFyaWFibGVzLnNjc3NcIjtcclxuXHJcbi5tYWluIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1hcm91bmQ7XHJcbiAgbWFyZ2luOiAxMHB4IDIwcHggMTVweCAyMHB4O1xyXG4gIG1heC1oZWlnaHQ6IDg1dmg7XHJcbiAgbWluLWhlaWdodDogNDV2aDtcclxuICBvdmVyZmxvdzogYXV0bztcclxuICAudGVhbSB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgICY6Zmlyc3Qtb2YtdHlwZSB7XHJcbiAgICAgIG1hcmdpbi1yaWdodDogNTBweDtcclxuICAgIH1cclxuICAgICY6bGFzdC1vZi10eXBlIHtcclxuICAgICAgbWFyZ2luLWxlZnQ6IDUwcHg7XHJcbiAgICB9XHJcbiAgICAuZC1mbGV4IHtcclxuICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gICAgICBsYWJlbCB7XHJcbiAgICAgICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgICAgICYuaXMtZnVsbCB7XHJcbiAgICAgICAgICBjb2xvcjogcmVkO1xyXG4gICAgICAgIH1cclxuICAgICAgfVxyXG4gICAgfVxyXG4gICAgdGFibGUge1xyXG4gICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgdGgge1xyXG4gICAgICAgICY6Zmlyc3Qtb2YtdHlwZSB7XHJcbiAgICAgICAgICBwYWRkaW5nLWxlZnQ6IDA7XHJcbiAgICAgICAgfVxyXG4gICAgICAgIHRkIHtcclxuICAgICAgICAgICY6Zmlyc3Qtb2YtdHlwZSB7XHJcbiAgICAgICAgICAgIHBhZGRpbmctbGVmdDogMTJweDtcclxuICAgICAgICAgIH1cclxuICAgICAgICB9XHJcbiAgICAgIH1cclxuICAgIH1cclxuICB9XHJcbn1cclxuLnRpbWVzLWljb24ge1xyXG4gIHdpZHRoOiAxMnB4O1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxuICBjb2xvcjogJGFjY2VudENvbG9yQWxwaGE7XHJcbiAgdHJhbnNpdGlvbjogMC4zcztcclxuICAmOmhvdmVyIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgdHJhbnNmb3JtOiBzY2FsZSgxLjEpO1xyXG4gIH1cclxufVxyXG4ucG9pbnQtaWNvbiB7XHJcbiAgbWFyZ2luLXRvcDogMTVweDtcclxuICB3aWR0aDogMjBweDtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgY29sb3I6ICRhY2NlbnRDb2xvckFscGhhO1xyXG4gIHRyYW5zaXRpb246IDAuM3M7XHJcbiAgJjpob3ZlciB7XHJcbiAgICBjb2xvcjogJHByaW1hcnk7XHJcbiAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgdHJhbnNmb3JtOiBzY2FsZSgxLjEpO1xyXG4gIH1cclxuICAmLmlzLWZ1bGwge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICAgIHBvaW50ZXItZXZlbnRzOiBub25lO1xyXG4gIH1cclxufVxyXG5cclxuLmF1dG9jb21wbGV0ZS1mb3JtIHtcclxuICBtYXJnaW4tcmlnaHQ6IDMwcHg7XHJcbiAgLy8gbWFyZ2luLXRvcDoyMHB4O1xyXG4gIHdpZHRoOiA4MCU7XHJcbn1cclxuXHJcbm1hdC1hY2NvcmRpb24ge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgbWFyZ2luLXRvcDogODBweDtcclxuICBtYXJnaW4tYm90dG9tOiAzMHB4O1xyXG59XHJcblxyXG4uaW52aXRlcy10YWJsZSB7XHJcbiAgd2lkdGg6IDI1MHB4O1xyXG4gIG1hcmdpbi10b3A6IC0xMHB4O1xyXG4gIHRkIHtcclxuICAgICY6Zmlyc3Qtb2YtdHlwZSB7XHJcbiAgICAgIHBhZGRpbmc6IDA7XHJcbiAgICB9XHJcbiAgICAmOmxhc3Qtb2YtdHlwZSB7XHJcbiAgICAgIHBhZGRpbmc6IDA7XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcblxyXG4uaXMtbm90LWxvZ2dlZCB7XHJcbiAgbWFyZ2luLXRvcDogLTEwMHB4O1xyXG59XHJcblxyXG4uYmFuLWljb24ge1xyXG4gIHdpZHRoOiAxMnB4O1xyXG4gIGNvbG9yOiByZWQ7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIHotaW5kZXg6IDU7XHJcbiAgbWFyZ2luLWxlZnQ6IDNweDtcclxuICBkaXNwbGF5OiBibG9jaztcclxuICBtYXJnaW4tdG9wOiAtMnB4O1xyXG4gICY6aG92ZXIge1xyXG4gICAgdHJhbnNmb3JtOiBzY2FsZSgxLjIpO1xyXG4gICAgdHJhbnNpdGlvbjogMC4zcztcclxuICB9XHJcbn1cclxuXHJcbi5vd25lciB7XHJcbiAgZm9udC13ZWlnaHQ6IDgwMDtcclxuICBjb2xvcjpyZWRcclxufVxyXG5cclxuLmRvb3JzIHtcclxuICB3aWR0aDoxOHB4O1xyXG59XHJcbiIsIiRwcmltYXJ5OiAjMjZjNmRhO1xyXG4kcHJpbWFyeUhvdmVyOiAjMjJiNGM0O1xyXG4kcHJpbWFyeUJldGE6ICM5MmVlZmE7XHJcbiRwcmltYXJ5TGlnaHQ6I2E3ZjBmYTtcclxuJHByaW1hcnlMaWdodGVyOiAjY2ZmOWZmO1xyXG4kYWNjZW50Q29sb3I6ICM0NTVhNjQ7XHJcbiRhY2NlbnRDb2xvckFscGhhOiAjNWM3ODg2O1xyXG4kYWNjZW50Q29sb3JBbHBoYUhvdmVyOiAjNDU1YTY0O1xyXG4kZHJvcGRvd25BcnJvd0NvbG9yOiAjNDQ0NDQ0O1xyXG4kdGV4dEJ1dHRvbkNvbG9yOiB3aGl0ZTtcclxuJHRleHRDb2xvcjogYmxhY2s7XHJcbiRpbnB1dFR5cGVIb3ZlcjogI2ViZWJlYjtcclxuJGNoZWNrVHJ1ZTogcmdiKDUsIDIwNywgNSk7XHJcbiRmYWxzZUljb246IHJlZDtcclxuJGRyb3B6b25lOiAjYWFhYWFhO1xyXG4kc2Nyb2xsQmFja2dyb3VuZDogbGlnaHRncmV5O1xyXG4kY29sb3ItZGVmYXVsdC1iZzogbGlnaHRncmV5O1xyXG4kdGgtcHJpbWFyeTogYmxhY2s7XHJcbiRjb2xvci1zZXBhcmF0b3ItbGlnaHRlcjogbGlnaHRncmV5O1xyXG4kY29sb3ItdGV4dC1pbnZlcnNlOiB3aGl0ZTtcclxuJGNvbG9yLXRleHQtZGlzYWJsZWQ6ICNhYWFhYWE7XHJcbiRjb2xvci1ob3ZlcjogIzBjYThiYztcclxuQGltcG9ydCBcIm5vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy9fZnVuY3Rpb25zXCI7XHJcbkBpbXBvcnQgXCJub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvX3ZhcmlhYmxlc1wiO1xyXG5AaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL19taXhpbnNcIjtcclxuXHJcbiRicmVha3BvaW50czogKHhzOiAwLFxyXG4gIHNtOiA2MDBweCxcclxuICBtZDogODAwcHgsXHJcbiAgbGc6IDEwMDBweCxcclxuICB4bDogMTI4MHB4KTtcclxuXHJcbi8vIEBpbXBvcnQgXCJub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvYm9vdHN0cmFwXCI7XHJcbiRjb250YWluZXItbWF4LXdpZHRoczogKHNtOiA2MDBweCxcclxuICBtZDogODAwcHgsXHJcbiAgbGc6IDEwMDBweCxcclxuICB4bDogMTIyMHB4KTtcclxuIl19 */");
+/* harmony default export */ __webpack_exports__["default"] = (".main {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n  margin: 10px 20px 15px 20px;\n  max-height: 85vh;\n  min-height: 45vh;\n  overflow: auto; }\n  .main .team {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    width: 100%; }\n  .main .team:first-of-type {\n      margin-right: 50px; }\n  .main .team:last-of-type {\n      margin-left: 50px; }\n  .main .team .d-flex {\n      text-align: center;\n      flex-direction: column; }\n  .main .team .d-flex label {\n        font-size: 14px; }\n  .main .team .d-flex label.is-full {\n          color: red; }\n  .main .team table {\n      width: 100%; }\n  .main .team table th:first-of-type {\n        padding-left: 0; }\n  .main .team table th td:first-of-type {\n        padding-left: 12px; }\n  .times-icon {\n  width: 12px;\n  cursor: pointer;\n  color: #5c7886;\n  transition: 0.3s; }\n  .times-icon:hover {\n    color: red;\n    transition: 0.3s;\n    transform: scale(1.1); }\n  .point-icon {\n  margin-top: 15px;\n  width: 20px;\n  cursor: pointer;\n  color: #5c7886;\n  transition: 0.3s; }\n  .point-icon:hover {\n    color: #26c6da;\n    transition: 0.3s;\n    transform: scale(1.1); }\n  .point-icon.is-full {\n    color: red;\n    pointer-events: none; }\n  .autocomplete-form {\n  margin-right: 30px;\n  width: 80%; }\n  mat-accordion {\n  display: flex;\n  justify-content: center;\n  margin-top: 80px;\n  margin-bottom: 30px; }\n  .invites-table {\n  width: 250px;\n  margin-top: -10px; }\n  .invites-table td:first-of-type {\n    padding: 0; }\n  .invites-table td:last-of-type {\n    padding: 0; }\n  .is-not-logged {\n  margin-top: -100px; }\n  .ban-icon {\n  width: 12px;\n  color: red;\n  cursor: pointer;\n  z-index: 5;\n  margin-left: 3px;\n  display: block;\n  margin-top: -2px; }\n  .ban-icon:hover {\n    transform: scale(1.2);\n    transition: 0.3s; }\n  .owner {\n  font-weight: 800;\n  color: red; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZnVuY3Rpb25hbGl0aWVzL3BsYXlpbmctZmllbGQvY29tcG9uZW50cy90ZWFtcy1kaWFsb2cvRDpcXG12cFxccGxheWluZ2ZpZWxkbWFuYWdtZW50XFxmcm9udGVuZC9zcmNcXGFwcFxcZnVuY3Rpb25hbGl0aWVzXFxwbGF5aW5nLWZpZWxkXFxjb21wb25lbnRzXFx0ZWFtcy1kaWFsb2dcXHRlYW1zLWRpYWxvZy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZnVuY3Rpb25hbGl0aWVzL3BsYXlpbmctZmllbGQvY29tcG9uZW50cy90ZWFtcy1kaWFsb2cvRDpcXG12cFxccGxheWluZ2ZpZWxkbWFuYWdtZW50XFxmcm9udGVuZC9zcmNcXHN0eWxlc1xcdmFyaWFibGVzLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7RUFDRSxhQUFhO0VBQ2Isc0JBQXNCO0VBQ3RCLDZCQUE2QjtFQUM3QiwyQkFBMkI7RUFDM0IsZ0JBQWdCO0VBQ2hCLGdCQUFnQjtFQUNoQixjQUFjLEVBQUE7RUFQaEI7SUFTSSxhQUFhO0lBQ2Isc0JBQXNCO0lBQ3RCLG1CQUFtQjtJQUNuQixXQUFXLEVBQUE7RUFaZjtNQWNNLGtCQUFrQixFQUFBO0VBZHhCO01BaUJNLGlCQUFpQixFQUFBO0VBakJ2QjtNQW9CTSxrQkFBa0I7TUFDbEIsc0JBQXNCLEVBQUE7RUFyQjVCO1FBdUJRLGVBQWUsRUFBQTtFQXZCdkI7VUF5QlUsVUFBVSxFQUFBO0VBekJwQjtNQThCTSxXQUFXLEVBQUE7RUE5QmpCO1FBaUNVLGVBQWUsRUFBQTtFQWpDekI7UUFxQ1ksa0JBQWtCLEVBQUE7RUFPOUI7RUFDRSxXQUFXO0VBQ1gsZUFBZTtFQUNmLGNDM0N3QjtFRDRDeEIsZ0JBQWdCLEVBQUE7RUFKbEI7SUFNSSxVQUFVO0lBQ1YsZ0JBQWdCO0lBQ2hCLHFCQUFxQixFQUFBO0VBR3pCO0VBQ0UsZ0JBQWdCO0VBQ2hCLFdBQVc7RUFDWCxlQUFlO0VBQ2YsY0N2RHdCO0VEd0R4QixnQkFBZ0IsRUFBQTtFQUxsQjtJQU9JLGNDaEVhO0lEaUViLGdCQUFnQjtJQUNoQixxQkFBcUIsRUFBQTtFQVR6QjtJQVlJLFVBQVU7SUFDVixvQkFBb0IsRUFBQTtFQUl4QjtFQUNFLGtCQUFrQjtFQUVsQixVQUFVLEVBQUE7RUFHWjtFQUNFLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsZ0JBQWdCO0VBQ2hCLG1CQUFtQixFQUFBO0VBR3JCO0VBQ0UsWUFBWTtFQUNaLGlCQUFpQixFQUFBO0VBRm5CO0lBS00sVUFBVSxFQUFBO0VBTGhCO0lBUU0sVUFBVSxFQUFBO0VBS2hCO0VBQ0Usa0JBQWtCLEVBQUE7RUFHcEI7RUFDRSxXQUFXO0VBQ1gsVUFBVTtFQUNWLGVBQWU7RUFDZixVQUFVO0VBQ1YsZ0JBQWdCO0VBQ2hCLGNBQWM7RUFDZCxnQkFBZ0IsRUFBQTtFQVBsQjtJQVNJLHFCQUFxQjtJQUNyQixnQkFBZ0IsRUFBQTtFQUlwQjtFQUNFLGdCQUFnQjtFQUNoQixVQUNGLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9mdW5jdGlvbmFsaXRpZXMvcGxheWluZy1maWVsZC9jb21wb25lbnRzL3RlYW1zLWRpYWxvZy90ZWFtcy1kaWFsb2cuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi4vLi4vLi4vLi4vLi4vc3R5bGVzL3ZhcmlhYmxlcy5zY3NzXCI7XHJcblxyXG4ubWFpbiB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYXJvdW5kO1xyXG4gIG1hcmdpbjogMTBweCAyMHB4IDE1cHggMjBweDtcclxuICBtYXgtaGVpZ2h0OiA4NXZoO1xyXG4gIG1pbi1oZWlnaHQ6IDQ1dmg7XHJcbiAgb3ZlcmZsb3c6IGF1dG87XHJcbiAgLnRlYW0ge1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICAmOmZpcnN0LW9mLXR5cGUge1xyXG4gICAgICBtYXJnaW4tcmlnaHQ6IDUwcHg7XHJcbiAgICB9XHJcbiAgICAmOmxhc3Qtb2YtdHlwZSB7XHJcbiAgICAgIG1hcmdpbi1sZWZ0OiA1MHB4O1xyXG4gICAgfVxyXG4gICAgLmQtZmxleCB7XHJcbiAgICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICAgICAgbGFiZWwge1xyXG4gICAgICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgICAgICAmLmlzLWZ1bGwge1xyXG4gICAgICAgICAgY29sb3I6IHJlZDtcclxuICAgICAgICB9XHJcbiAgICAgIH1cclxuICAgIH1cclxuICAgIHRhYmxlIHtcclxuICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgIHRoIHtcclxuICAgICAgICAmOmZpcnN0LW9mLXR5cGUge1xyXG4gICAgICAgICAgcGFkZGluZy1sZWZ0OiAwO1xyXG4gICAgICAgIH1cclxuICAgICAgICB0ZCB7XHJcbiAgICAgICAgICAmOmZpcnN0LW9mLXR5cGUge1xyXG4gICAgICAgICAgICBwYWRkaW5nLWxlZnQ6IDEycHg7XHJcbiAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcbi50aW1lcy1pY29uIHtcclxuICB3aWR0aDogMTJweDtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgY29sb3I6ICRhY2NlbnRDb2xvckFscGhhO1xyXG4gIHRyYW5zaXRpb246IDAuM3M7XHJcbiAgJjpob3ZlciB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gICAgdHJhbnNpdGlvbjogMC4zcztcclxuICAgIHRyYW5zZm9ybTogc2NhbGUoMS4xKTtcclxuICB9XHJcbn1cclxuLnBvaW50LWljb24ge1xyXG4gIG1hcmdpbi10b3A6IDE1cHg7XHJcbiAgd2lkdGg6IDIwcHg7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIGNvbG9yOiAkYWNjZW50Q29sb3JBbHBoYTtcclxuICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICY6aG92ZXIge1xyXG4gICAgY29sb3I6ICRwcmltYXJ5O1xyXG4gICAgdHJhbnNpdGlvbjogMC4zcztcclxuICAgIHRyYW5zZm9ybTogc2NhbGUoMS4xKTtcclxuICB9XHJcbiAgJi5pcy1mdWxsIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgICBwb2ludGVyLWV2ZW50czogbm9uZTtcclxuICB9XHJcbn1cclxuXHJcbi5hdXRvY29tcGxldGUtZm9ybSB7XHJcbiAgbWFyZ2luLXJpZ2h0OiAzMHB4O1xyXG4gIC8vIG1hcmdpbi10b3A6MjBweDtcclxuICB3aWR0aDogODAlO1xyXG59XHJcblxyXG5tYXQtYWNjb3JkaW9uIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIG1hcmdpbi10b3A6IDgwcHg7XHJcbiAgbWFyZ2luLWJvdHRvbTogMzBweDtcclxufVxyXG5cclxuLmludml0ZXMtdGFibGUge1xyXG4gIHdpZHRoOiAyNTBweDtcclxuICBtYXJnaW4tdG9wOiAtMTBweDtcclxuICB0ZCB7XHJcbiAgICAmOmZpcnN0LW9mLXR5cGUge1xyXG4gICAgICBwYWRkaW5nOiAwO1xyXG4gICAgfVxyXG4gICAgJjpsYXN0LW9mLXR5cGUge1xyXG4gICAgICBwYWRkaW5nOiAwO1xyXG4gICAgfVxyXG4gIH1cclxufVxyXG5cclxuLmlzLW5vdC1sb2dnZWQge1xyXG4gIG1hcmdpbi10b3A6IC0xMDBweDtcclxufVxyXG5cclxuLmJhbi1pY29uIHtcclxuICB3aWR0aDogMTJweDtcclxuICBjb2xvcjogcmVkO1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxuICB6LWluZGV4OiA1O1xyXG4gIG1hcmdpbi1sZWZ0OiAzcHg7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbiAgbWFyZ2luLXRvcDogLTJweDtcclxuICAmOmhvdmVyIHtcclxuICAgIHRyYW5zZm9ybTogc2NhbGUoMS4yKTtcclxuICAgIHRyYW5zaXRpb246IDAuM3M7XHJcbiAgfVxyXG59XHJcblxyXG4ub3duZXIge1xyXG4gIGZvbnQtd2VpZ2h0OiA4MDA7XHJcbiAgY29sb3I6cmVkXHJcbn1cclxuIiwiJHByaW1hcnk6ICMyNmM2ZGE7XHJcbiRwcmltYXJ5SG92ZXI6ICMyMmI0YzQ7XHJcbiRwcmltYXJ5QmV0YTogIzkyZWVmYTtcclxuJHByaW1hcnlMaWdodDojYTdmMGZhO1xyXG4kcHJpbWFyeUxpZ2h0ZXI6ICNjZmY5ZmY7XHJcbiRhY2NlbnRDb2xvcjogIzQ1NWE2NDtcclxuJGFjY2VudENvbG9yQWxwaGE6ICM1Yzc4ODY7XHJcbiRhY2NlbnRDb2xvckFscGhhSG92ZXI6ICM0NTVhNjQ7XHJcbiRkcm9wZG93bkFycm93Q29sb3I6ICM0NDQ0NDQ7XHJcbiR0ZXh0QnV0dG9uQ29sb3I6IHdoaXRlO1xyXG4kdGV4dENvbG9yOiBibGFjaztcclxuJGlucHV0VHlwZUhvdmVyOiAjZWJlYmViO1xyXG4kY2hlY2tUcnVlOiByZ2IoNSwgMjA3LCA1KTtcclxuJGZhbHNlSWNvbjogcmVkO1xyXG4kZHJvcHpvbmU6ICNhYWFhYWE7XHJcbiRzY3JvbGxCYWNrZ3JvdW5kOiBsaWdodGdyZXk7XHJcbiRjb2xvci1kZWZhdWx0LWJnOiBsaWdodGdyZXk7XHJcbiR0aC1wcmltYXJ5OiBibGFjaztcclxuJGNvbG9yLXNlcGFyYXRvci1saWdodGVyOiBsaWdodGdyZXk7XHJcbiRjb2xvci10ZXh0LWludmVyc2U6IHdoaXRlO1xyXG4kY29sb3ItdGV4dC1kaXNhYmxlZDogI2FhYWFhYTtcclxuJGNvbG9yLWhvdmVyOiAjMGNhOGJjO1xyXG5AaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL19mdW5jdGlvbnNcIjtcclxuQGltcG9ydCBcIm5vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy9fdmFyaWFibGVzXCI7XHJcbkBpbXBvcnQgXCJub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvX21peGluc1wiO1xyXG5cclxuJGJyZWFrcG9pbnRzOiAoeHM6IDAsXHJcbiAgc206IDYwMHB4LFxyXG4gIG1kOiA4MDBweCxcclxuICBsZzogMTAwMHB4LFxyXG4gIHhsOiAxMjgwcHgpO1xyXG5cclxuLy8gQGltcG9ydCBcIm5vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy9ib290c3RyYXBcIjtcclxuJGNvbnRhaW5lci1tYXgtd2lkdGhzOiAoc206IDYwMHB4LFxyXG4gIG1kOiA4MDBweCxcclxuICBsZzogMTAwMHB4LFxyXG4gIHhsOiAxMjIwcHgpO1xyXG4iXX0= */");
 
 /***/ }),
 
@@ -1699,8 +1658,8 @@ var TeamsDialogComponent = /** @class */ (function () {
     };
     TeamsDialogComponent.prototype.getLoggedUser = function () {
         var _this = this;
-        this.dataSharingService.currentLoggedUser.subscribe(function (response) {
-            if (response) {
+        if (this.authService.isLogged()) {
+            this.userService.getLoggedUser().subscribe(function (response) {
                 _this.loggedUser = response;
                 if (_this.loggedUser.position === "GOALKEEPER") {
                     _this.loggedUser.position = "Bramkarz";
@@ -1721,8 +1680,8 @@ var TeamsDialogComponent = /** @class */ (function () {
                 _this.onlyFriends.valueChanges.subscribe(function (val) {
                     _this.getAllUsersUsername();
                 });
-            }
-        });
+            });
+        }
     };
     TeamsDialogComponent.prototype.getMatchInvites = function () {
         var _this = this;
@@ -1754,8 +1713,8 @@ var TeamsDialogComponent = /** @class */ (function () {
         var _this = this;
         this.userService.getUserByUsername(username).subscribe(function (val) {
             _this.dialogRef.close();
-            _this.dataSharingService.changeUser(val.id.toString());
-            _this.router.navigate(["user/" + val.id]);
+            _this.dataSharingService.changeUser(localStorage.getItem(val.id.toString()));
+            _this.router.navigate(["users/" + val.id]);
         });
     };
     TeamsDialogComponent.prototype.sendInvite = function (id) {
@@ -1844,9 +1803,7 @@ var TeamsDialogComponent = /** @class */ (function () {
     };
     TeamsDialogComponent.prototype.removeFromTeam = function (teamIndex, player) {
         var _this = this;
-        this.teamService
-            .deleteUserFromTeam(this.teamsDto[teamIndex].id, player.id)
-            .subscribe(function (val) {
+        this.teamService.deleteUserFromTeam(this.teamsDto[teamIndex].id, player.id).subscribe(function (val) {
             _this.teamsDto[teamIndex].players.splice(_this.teamsDto[teamIndex].players.indexOf(player), 1);
             _this.teamTable1.renderRows();
             _this.teamTable2.renderRows();
@@ -1971,7 +1928,6 @@ var ChooseMatchDialogComponent = /** @class */ (function () {
         this.userService = userService;
         this.router = router;
         this.inviteService = inviteService;
-        this.spinner = false;
         this.matchesDto = [];
         this.arleadyRequestedMatchIds = [];
         this.displayedMatchColumns = [
@@ -1984,7 +1940,6 @@ var ChooseMatchDialogComponent = /** @class */ (function () {
         ];
     }
     ChooseMatchDialogComponent.prototype.ngOnInit = function () {
-        this.spinner = true;
         this.getMatches();
     };
     ChooseMatchDialogComponent.prototype.getMatches = function () {
@@ -1997,7 +1952,7 @@ var ChooseMatchDialogComponent = /** @class */ (function () {
                 page: _this.matchPaginator.pageIndex + "",
                 size: _this.matchPaginator.pageSize + ""
             };
-            return _this.matchService.getMatchesByUserIdAndReceiverNot(_this.data.user.id, params);
+            return _this.matchService.getMatchesByUserIdAndReceiverNot(_this.data.loggedUser.id, params);
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["map"])(function (data) {
             _this.matchLength = data.totalElements;
             return data.content;
@@ -2021,7 +1976,7 @@ var ChooseMatchDialogComponent = /** @class */ (function () {
         var _this = this;
         this.userService.getUserByUsername(username).subscribe(function (val) {
             _this.dialogRef.close();
-            _this.router.navigate(["user/" + val.id]);
+            _this.router.navigate(["users/" + val.id]);
         });
     };
     ChooseMatchDialogComponent.prototype.selectMatch = function (row) {
@@ -2038,7 +1993,6 @@ var ChooseMatchDialogComponent = /** @class */ (function () {
                 }
             });
             _this.matchesDto = matchesDto;
-            _this.spinner = false;
             _this.matchWithLocationDtoTable.renderRows();
         });
     };
@@ -2093,7 +2047,7 @@ var ChooseMatchDialogComponent = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (":host {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%; }\n  :host ::ng-deep\n.cdk-overlay-container .cdk-global-overlay-wrapper .cdk-overlay-pane {\n    overflow: auto;\n    margin-top: 10px !important;\n    margin-bottom: 10px !important;\n    position: unset !important;\n    max-height: 90% !important; }\n  img {\n  height: auto;\n  width: auto;\n  max-width: 80%;\n  max-height: 80%;\n  display: flex;\n  justify-content: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbXBvbmVudHMvZW5sYXJnZS1pbWFnZS1kaWFsb2cvRDpcXG12cFxccGxheWluZ2ZpZWxkbWFuYWdtZW50XFxmcm9udGVuZC9zcmNcXGFwcFxcc2hhcmVkXFxjb21wb25lbnRzXFxlbmxhcmdlLWltYWdlLWRpYWxvZ1xcZW5sYXJnZS1pbWFnZS1kaWFsb2cuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0E7RUFDRSxhQUFZO0VBQ1osdUJBQXVCO0VBQ3ZCLG1CQUFtQjtFQUNuQixZQUFXLEVBQUE7RUFKYjs7SUFPSSxjQUFjO0lBQ2QsMkJBQTBCO0lBQzFCLDhCQUE2QjtJQUM3QiwwQkFBeUI7SUFDekIsMEJBQ0YsRUFBQTtFQUdGO0VBQ0UsWUFBWTtFQUNaLFdBQVc7RUFDWCxjQUFjO0VBQ2QsZUFBZTtFQUNmLGFBQWE7RUFDYix1QkFBdUIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2VubGFyZ2UtaW1hZ2UtZGlhbG9nL2VubGFyZ2UtaW1hZ2UtZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXHJcbjpob3N0IHtcclxuICBkaXNwbGF5OmZsZXg7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBoZWlnaHQ6MTAwJTtcclxuICA6Om5nLWRlZXBcclxuICAuY2RrLW92ZXJsYXktY29udGFpbmVyIC5jZGstZ2xvYmFsLW92ZXJsYXktd3JhcHBlciAuY2RrLW92ZXJsYXktcGFuZSB7XHJcbiAgICBvdmVyZmxvdzogYXV0bztcclxuICAgIG1hcmdpbi10b3A6MTBweCAhaW1wb3J0YW50O1xyXG4gICAgbWFyZ2luLWJvdHRvbToxMHB4ICFpbXBvcnRhbnQ7XHJcbiAgICBwb3NpdGlvbjp1bnNldCAhaW1wb3J0YW50O1xyXG4gICAgbWF4LWhlaWdodDo5MCUgIWltcG9ydGFudFxyXG4gIH1cclxuXHJcbn1cclxuaW1nIHtcclxuICBoZWlnaHQ6IGF1dG87XHJcbiAgd2lkdGg6IGF1dG87XHJcbiAgbWF4LXdpZHRoOiA4MCU7XHJcbiAgbWF4LWhlaWdodDogODAlO1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbn1cclxuIl19 */");
+/* harmony default export */ __webpack_exports__["default"] = (":host {\n  display: flex;\n  justify-content: center; }\n  :host ::ng-deep\n.cdk-overlay-container .cdk-global-overlay-wrapper .cdk-overlay-pane {\n    overflow: auto;\n    margin-top: 10px !important;\n    margin-bottom: 10px !important;\n    position: unset !important;\n    max-height: 90% !important; }\n  img {\n  height: 100%;\n  width: 100%;\n  max-width: 80%;\n  max-height: 80%;\n  display: flex;\n  justify-content: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbXBvbmVudHMvZW5sYXJnZS1pbWFnZS1kaWFsb2cvRDpcXG12cFxccGxheWluZ2ZpZWxkbWFuYWdtZW50XFxmcm9udGVuZC9zcmNcXGFwcFxcc2hhcmVkXFxjb21wb25lbnRzXFxlbmxhcmdlLWltYWdlLWRpYWxvZ1xcZW5sYXJnZS1pbWFnZS1kaWFsb2cuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0E7RUFDRSxhQUFZO0VBQ1osdUJBQXVCLEVBQUE7RUFGekI7O0lBS0ksY0FBYztJQUNkLDJCQUEwQjtJQUMxQiw4QkFBNkI7SUFDN0IsMEJBQXlCO0lBQ3pCLDBCQUNGLEVBQUE7RUFHRjtFQUNFLFlBQVk7RUFDWixXQUFXO0VBQ1gsY0FBYztFQUNkLGVBQWU7RUFDZixhQUFhO0VBQ2IsdUJBQXVCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvY29tcG9uZW50cy9lbmxhcmdlLWltYWdlLWRpYWxvZy9lbmxhcmdlLWltYWdlLWRpYWxvZy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIlxyXG46aG9zdCB7XHJcbiAgZGlzcGxheTpmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIDo6bmctZGVlcFxyXG4gIC5jZGstb3ZlcmxheS1jb250YWluZXIgLmNkay1nbG9iYWwtb3ZlcmxheS13cmFwcGVyIC5jZGstb3ZlcmxheS1wYW5lIHtcclxuICAgIG92ZXJmbG93OiBhdXRvO1xyXG4gICAgbWFyZ2luLXRvcDoxMHB4ICFpbXBvcnRhbnQ7XHJcbiAgICBtYXJnaW4tYm90dG9tOjEwcHggIWltcG9ydGFudDtcclxuICAgIHBvc2l0aW9uOnVuc2V0ICFpbXBvcnRhbnQ7XHJcbiAgICBtYXgtaGVpZ2h0OjkwJSAhaW1wb3J0YW50XHJcbiAgfVxyXG5cclxufVxyXG5pbWcge1xyXG4gIGhlaWdodDogMTAwJTtcclxuICB3aWR0aDogMTAwJTtcclxuICBtYXgtd2lkdGg6IDgwJTtcclxuICBtYXgtaGVpZ2h0OiA4MCU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxufVxyXG4iXX0= */");
 
 /***/ }),
 
@@ -2148,7 +2102,7 @@ var EnlargeImageDialogComponent = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (":host {\n  position: relative; }\n\n.main-step {\n  display: flex;\n  justify-content: center;\n  color: #26c6da;\n  font-style: italic;\n  border-bottom: 2.5px solid #5c7886;\n  height: 64.5px;\n  padding-top: 10px;\n  position: relative;\n  box-shadow: 0 1px 2px 0 #5c7886; }\n\n.main-step .user-wrapper {\n    display: flex;\n    position: absolute;\n    top: 2px;\n    right: 20px;\n    flex-direction: column; }\n\n.main-step .user-wrapper .user-info {\n      display: flex;\n      margin-top: 8px; }\n\n.main-step .user-wrapper .user-info label {\n        color: #5c7886;\n        font-size: 12px; }\n\n.main-step .user-wrapper .user-info span {\n        margin-left: 4px;\n        font-weight: 600;\n        transition: 0.3s;\n        font-size: 14px; }\n\n.main-step .user-wrapper .user-info span:hover {\n          transition: 0.3s;\n          transform: scale(1.02);\n          cursor: pointer;\n          color: #22b4c4; }\n\n.main-step .user-wrapper a {\n      font-size: 14px;\n      margin-top: -3px;\n      font-weight: 500;\n      transition: 0.3s;\n      display: flex;\n      align-self: flex-end; }\n\n.main-step .user-wrapper a:hover {\n        transition: 0.3s;\n        transform: scale(1.02);\n        cursor: pointer; }\n\n.bell-wrapper {\n  position: absolute;\n  right: 250px;\n  bottom: 12px; }\n\n.bell-wrapper .bell-btn-round {\n    position: relative;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width: 36px;\n    height: 36px;\n    border: 0;\n    border-radius: 100px;\n    background-color: #26c6da;\n    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);\n    cursor: pointer; }\n\n.bell-wrapper .bell-btn-round::after {\n      content: \"\";\n      display: block;\n      border-radius: 100px;\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      opacity: 0;\n      transition: 0.3s;\n      background: black; }\n\n.bell-wrapper .bell-btn-round:hover::after {\n      opacity: 0.1;\n      transition: 0.3s; }\n\n.bell-wrapper .bell-btn-round.active {\n      background: #5c7886; }\n\n.bell-wrapper .bell-btn-round .bell-icon {\n      margin: 0 5px;\n      width: 18px;\n      color: white;\n      transition: 0.3s; }\n\n.bell-wrapper .bell-btn-round .bell-icon:hover {\n        cursor: pointer;\n        transition: 0.3s;\n        transform: scale(1.1); }\n\n.bell-wrapper .bell-btn-round mat-chip {\n      background: #5c7886;\n      color: white;\n      position: absolute;\n      right: 0;\n      bottom: -10px;\n      border-radius: 100px;\n      width: 22px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbXBvbmVudHMvaGVhZGVyL0Q6XFxtdnBcXHBsYXlpbmdmaWVsZG1hbmFnbWVudFxcZnJvbnRlbmQvc3JjXFxhcHBcXHNoYXJlZFxcY29tcG9uZW50c1xcaGVhZGVyXFxoZWFkZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2hlYWRlci9EOlxcbXZwXFxwbGF5aW5nZmllbGRtYW5hZ21lbnRcXGZyb250ZW5kL3NyY1xcc3R5bGVzXFx2YXJpYWJsZXMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFLGtCQUFpQixFQUFBOztBQUVuQjtFQUNFLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsY0NSZTtFRFNmLGtCQUFrQjtFQUNsQixrQ0NKd0I7RURLeEIsY0FBYztFQUNkLGlCQUFpQjtFQUNqQixrQkFBa0I7RUFDbEIsK0JBQStCLEVBQUE7O0FBVGpDO0lBWUksYUFBYTtJQUNiLGtCQUFrQjtJQUNsQixRQUFRO0lBQ1IsV0FBVztJQUNYLHNCQUFzQixFQUFBOztBQWhCMUI7TUFvQk0sYUFBYTtNQUNiLGVBQWMsRUFBQTs7QUFyQnBCO1FBdUJRLGNDdEJrQjtRRHVCcEIsZUFBYyxFQUFBOztBQXhCcEI7UUEyQlEsZ0JBQWdCO1FBQ2hCLGdCQUFnQjtRQUNoQixnQkFBZ0I7UUFDaEIsZUFBYyxFQUFBOztBQTlCdEI7VUFnQ1UsZ0JBQWdCO1VBQ2hCLHNCQUFzQjtVQUN0QixlQUFlO1VBQ2YsY0N2Q1ksRUFBQTs7QURJdEI7TUF5Q00sZUFBYztNQUVkLGdCQUFlO01BQ2YsZ0JBQWdCO01BQ2hCLGdCQUFnQjtNQUNoQixhQUFZO01BQ1osb0JBQW9CLEVBQUE7O0FBL0MxQjtRQWlEUSxnQkFBZ0I7UUFDaEIsc0JBQXNCO1FBQ3RCLGVBQWUsRUFBQTs7QUFNdkI7RUFDRSxrQkFBa0I7RUFDbEIsWUFBWTtFQUNaLFlBQVksRUFBQTs7QUFIZDtJQU1JLGtCQUFpQjtJQUVqQixhQUFhO0lBQ2IsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixXQUFXO0lBQ1gsWUFBWTtJQUNaLFNBQVM7SUFDVCxvQkFBb0I7SUFDcEIseUJDN0VhO0lEOEViLGlIQUNvRTtJQUNwRSxlQUFlLEVBQUE7O0FBbEJuQjtNQXFCTSxXQUFXO01BQ1gsY0FBYztNQUNkLG9CQUFvQjtNQUNwQixrQkFBa0I7TUFDbEIsTUFBTTtNQUNOLE9BQU87TUFDUCxXQUFXO01BQ1gsWUFBWTtNQUNaLFVBQVU7TUFDVixnQkFBZ0I7TUFDaEIsaUJBQWlCLEVBQUE7O0FBL0J2QjtNQW1DTSxZQUFZO01BQ1osZ0JBQWdCLEVBQUE7O0FBcEN0QjtNQXVDTSxtQkMvRm9CLEVBQUE7O0FEd0QxQjtNQTBDTSxhQUFhO01BQ2IsV0FBVztNQUNYLFlBQWE7TUFDYixnQkFBZ0IsRUFBQTs7QUE3Q3RCO1FBK0NRLGVBQWU7UUFDZixnQkFBZ0I7UUFDaEIscUJBQXFCLEVBQUE7O0FBakQ3QjtNQXFETSxtQkM3R29CO01EOEdwQixZQUFZO01BQ2Qsa0JBQWlCO01BQ2pCLFFBQVE7TUFDUixhQUFhO01BQ2Isb0JBQW1CO01BQ25CLFdBQVUsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2hlYWRlci9oZWFkZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi4vLi4vLi4vLi4vc3R5bGVzL3ZhcmlhYmxlcy5zY3NzXCI7XHJcblxyXG46aG9zdCB7XHJcbiAgcG9zaXRpb246cmVsYXRpdmU7XHJcbn1cclxuLm1haW4tc3RlcCB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICBjb2xvcjogJHByaW1hcnk7XHJcbiAgZm9udC1zdHlsZTogaXRhbGljO1xyXG4gIGJvcmRlci1ib3R0b206IDIuNXB4IHNvbGlkICRhY2NlbnRDb2xvckFscGhhO1xyXG4gIGhlaWdodDogNjQuNXB4O1xyXG4gIHBhZGRpbmctdG9wOiAxMHB4O1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICBib3gtc2hhZG93OiAwIDFweCAycHggMCAjNWM3ODg2O1xyXG5cclxuICAudXNlci13cmFwcGVyIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICB0b3A6IDJweDtcclxuICAgIHJpZ2h0OiAyMHB4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuXHJcblxyXG4gICAgLnVzZXItaW5mbyB7XHJcbiAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgIG1hcmdpbi10b3A6OHB4O1xyXG4gICAgICBsYWJlbCB7XHJcbiAgICAgICAgY29sb3I6ICRhY2NlbnRDb2xvckFscGhhO1xyXG4gICAgICBmb250LXNpemU6MTJweDtcclxuICAgICAgfVxyXG4gICAgICBzcGFuIHtcclxuICAgICAgICBtYXJnaW4tbGVmdDogNHB4O1xyXG4gICAgICAgIGZvbnQtd2VpZ2h0OiA2MDA7XHJcbiAgICAgICAgdHJhbnNpdGlvbjogMC4zcztcclxuICAgICAgICBmb250LXNpemU6MTRweDtcclxuICAgICAgICAmOmhvdmVyIHtcclxuICAgICAgICAgIHRyYW5zaXRpb246IDAuM3M7XHJcbiAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMDIpO1xyXG4gICAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gICAgICAgICAgY29sb3I6ICRwcmltYXJ5SG92ZXI7XHJcblxyXG4gICAgICAgIH1cclxuICAgICAgfVxyXG4gICAgfVxyXG4gICAgYSB7XHJcbiAgICAgIGZvbnQtc2l6ZToxNHB4O1xyXG5cclxuICAgICAgbWFyZ2luLXRvcDotM3B4O1xyXG4gICAgICBmb250LXdlaWdodDogNTAwO1xyXG4gICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgICBkaXNwbGF5OmZsZXg7XHJcbiAgICAgIGFsaWduLXNlbGY6IGZsZXgtZW5kO1xyXG4gICAgICAmOmhvdmVyIHtcclxuICAgICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMS4wMik7XHJcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcblxyXG4uYmVsbC13cmFwcGVyIHtcclxuICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgcmlnaHQ6IDI1MHB4O1xyXG4gIGJvdHRvbTogMTJweDtcclxuXHJcbiAgLmJlbGwtYnRuLXJvdW5kIHtcclxuICAgIHBvc2l0aW9uOnJlbGF0aXZlO1xyXG5cclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICB3aWR0aDogMzZweDtcclxuICAgIGhlaWdodDogMzZweDtcclxuICAgIGJvcmRlcjogMDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDEwMHB4O1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogJHByaW1hcnk7XHJcbiAgICBib3gtc2hhZG93OiAwIDNweCA1cHggLTFweCByZ2JhKDAsIDAsIDAsIDAuMiksXHJcbiAgICAgIDAgNnB4IDEwcHggMCByZ2JhKDAsIDAsIDAsIDAuMTQpLCAwIDFweCAxOHB4IDAgcmdiYSgwLCAwLCAwLCAwLjEyKTtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuXHJcbiAgICAmOjphZnRlciB7XHJcbiAgICAgIGNvbnRlbnQ6IFwiXCI7XHJcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgICBib3JkZXItcmFkaXVzOiAxMDBweDtcclxuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgICB0b3A6IDA7XHJcbiAgICAgIGxlZnQ6IDA7XHJcbiAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICAgIG9wYWNpdHk6IDA7XHJcbiAgICAgIHRyYW5zaXRpb246IDAuM3M7XHJcbiAgICAgIGJhY2tncm91bmQ6IGJsYWNrO1xyXG4gICAgfVxyXG5cclxuICAgICY6aG92ZXI6OmFmdGVyIHtcclxuICAgICAgb3BhY2l0eTogMC4xO1xyXG4gICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgfVxyXG4gICAgJi5hY3RpdmUge1xyXG4gICAgICBiYWNrZ3JvdW5kOiRhY2NlbnRDb2xvckFscGhhO1xyXG4gICAgfVxyXG4gICAgLmJlbGwtaWNvbiB7XHJcbiAgICAgIG1hcmdpbjogMCA1cHg7XHJcbiAgICAgIHdpZHRoOiAxOHB4O1xyXG4gICAgICBjb2xvcjogIHdoaXRlO1xyXG4gICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgICAmOmhvdmVyIHtcclxuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgICAgICAgdHJhbnNpdGlvbjogMC4zcztcclxuICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMSk7XHJcbiAgICAgIH1cclxuICAgIH1cclxuICAgIG1hdC1jaGlwIHtcclxuICAgICAgYmFja2dyb3VuZDogJGFjY2VudENvbG9yQWxwaGE7XHJcbiAgICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgIHBvc2l0aW9uOmFic29sdXRlO1xyXG4gICAgcmlnaHQ6IDA7XHJcbiAgICBib3R0b206IC0xMHB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czoxMDBweDtcclxuICAgIHdpZHRoOjIycHg7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuXHJcblxyXG59XHJcblxyXG4iLCIkcHJpbWFyeTogIzI2YzZkYTtcclxuJHByaW1hcnlIb3ZlcjogIzIyYjRjNDtcclxuJHByaW1hcnlCZXRhOiAjOTJlZWZhO1xyXG4kcHJpbWFyeUxpZ2h0OiNhN2YwZmE7XHJcbiRwcmltYXJ5TGlnaHRlcjogI2NmZjlmZjtcclxuJGFjY2VudENvbG9yOiAjNDU1YTY0O1xyXG4kYWNjZW50Q29sb3JBbHBoYTogIzVjNzg4NjtcclxuJGFjY2VudENvbG9yQWxwaGFIb3ZlcjogIzQ1NWE2NDtcclxuJGRyb3Bkb3duQXJyb3dDb2xvcjogIzQ0NDQ0NDtcclxuJHRleHRCdXR0b25Db2xvcjogd2hpdGU7XHJcbiR0ZXh0Q29sb3I6IGJsYWNrO1xyXG4kaW5wdXRUeXBlSG92ZXI6ICNlYmViZWI7XHJcbiRjaGVja1RydWU6IHJnYig1LCAyMDcsIDUpO1xyXG4kZmFsc2VJY29uOiByZWQ7XHJcbiRkcm9wem9uZTogI2FhYWFhYTtcclxuJHNjcm9sbEJhY2tncm91bmQ6IGxpZ2h0Z3JleTtcclxuJGNvbG9yLWRlZmF1bHQtYmc6IGxpZ2h0Z3JleTtcclxuJHRoLXByaW1hcnk6IGJsYWNrO1xyXG4kY29sb3Itc2VwYXJhdG9yLWxpZ2h0ZXI6IGxpZ2h0Z3JleTtcclxuJGNvbG9yLXRleHQtaW52ZXJzZTogd2hpdGU7XHJcbiRjb2xvci10ZXh0LWRpc2FibGVkOiAjYWFhYWFhO1xyXG4kY29sb3ItaG92ZXI6ICMwY2E4YmM7XHJcbkBpbXBvcnQgXCJub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvX2Z1bmN0aW9uc1wiO1xyXG5AaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL192YXJpYWJsZXNcIjtcclxuQGltcG9ydCBcIm5vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy9fbWl4aW5zXCI7XHJcblxyXG4kYnJlYWtwb2ludHM6ICh4czogMCxcclxuICBzbTogNjAwcHgsXHJcbiAgbWQ6IDgwMHB4LFxyXG4gIGxnOiAxMDAwcHgsXHJcbiAgeGw6IDEyODBweCk7XHJcblxyXG4vLyBAaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL2Jvb3RzdHJhcFwiO1xyXG4kY29udGFpbmVyLW1heC13aWR0aHM6IChzbTogNjAwcHgsXHJcbiAgbWQ6IDgwMHB4LFxyXG4gIGxnOiAxMDAwcHgsXHJcbiAgeGw6IDEyMjBweCk7XHJcbiJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (":host {\n  position: relative; }\n\n.main-step {\n  display: flex;\n  justify-content: center;\n  color: #26c6da;\n  font-style: italic;\n  border-bottom: 2.5px solid #5c7886;\n  height: 64.5px;\n  padding-top: 10px;\n  position: relative;\n  box-shadow: 0 1px 2px 0 #5c7886; }\n\n.main-step .user-wrapper {\n    display: flex;\n    position: absolute;\n    top: 2px;\n    right: 20px;\n    flex-direction: column; }\n\n.main-step .user-wrapper .user-info {\n      display: flex;\n      margin-top: 8px; }\n\n.main-step .user-wrapper .user-info label {\n        color: #5c7886;\n        font-size: 12px; }\n\n.main-step .user-wrapper .user-info span {\n        margin-left: 4px;\n        font-weight: 600;\n        transition: 0.3s;\n        font-size: 14px; }\n\n.main-step .user-wrapper .user-info span:hover {\n          transition: 0.3s;\n          transform: scale(1.02);\n          cursor: pointer;\n          color: #22b4c4; }\n\n.main-step .user-wrapper a {\n      font-size: 14px;\n      margin-top: -3px;\n      font-weight: 500;\n      transition: 0.3s;\n      display: flex;\n      align-self: flex-end; }\n\n.main-step .user-wrapper a:hover {\n        transition: 0.3s;\n        transform: scale(1.02);\n        cursor: pointer; }\n\n.bell-wrapper {\n  position: absolute;\n  right: 200px;\n  bottom: 12px; }\n\n.bell-wrapper .bell-btn-round {\n    position: relative;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width: 36px;\n    height: 36px;\n    border: 0;\n    border-radius: 100px;\n    background-color: #26c6da;\n    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);\n    cursor: pointer; }\n\n.bell-wrapper .bell-btn-round::after {\n      content: \"\";\n      display: block;\n      border-radius: 100px;\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      opacity: 0;\n      transition: 0.3s;\n      background: black; }\n\n.bell-wrapper .bell-btn-round:hover::after {\n      opacity: 0.1;\n      transition: 0.3s; }\n\n.bell-wrapper .bell-btn-round.active {\n      background: #5c7886; }\n\n.bell-wrapper .bell-btn-round .bell-icon {\n      margin: 0 5px;\n      width: 18px;\n      color: white;\n      transition: 0.3s; }\n\n.bell-wrapper .bell-btn-round .bell-icon:hover {\n        cursor: pointer;\n        transition: 0.3s;\n        transform: scale(1.1); }\n\n.bell-wrapper .bell-btn-round mat-chip {\n      background: #5c7886;\n      color: white;\n      position: absolute;\n      right: 0;\n      bottom: -10px;\n      border-radius: 100px;\n      width: 22px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbXBvbmVudHMvaGVhZGVyL0Q6XFxtdnBcXHBsYXlpbmdmaWVsZG1hbmFnbWVudFxcZnJvbnRlbmQvc3JjXFxhcHBcXHNoYXJlZFxcY29tcG9uZW50c1xcaGVhZGVyXFxoZWFkZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2hlYWRlci9EOlxcbXZwXFxwbGF5aW5nZmllbGRtYW5hZ21lbnRcXGZyb250ZW5kL3NyY1xcc3R5bGVzXFx2YXJpYWJsZXMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFLGtCQUFpQixFQUFBOztBQUVuQjtFQUNFLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsY0NSZTtFRFNmLGtCQUFrQjtFQUNsQixrQ0NKd0I7RURLeEIsY0FBYztFQUNkLGlCQUFpQjtFQUNqQixrQkFBa0I7RUFDbEIsK0JBQStCLEVBQUE7O0FBVGpDO0lBWUksYUFBYTtJQUNiLGtCQUFrQjtJQUNsQixRQUFRO0lBQ1IsV0FBVztJQUNYLHNCQUFzQixFQUFBOztBQWhCMUI7TUFvQk0sYUFBYTtNQUNiLGVBQWMsRUFBQTs7QUFyQnBCO1FBdUJRLGNDdEJrQjtRRHVCcEIsZUFBYyxFQUFBOztBQXhCcEI7UUEyQlEsZ0JBQWdCO1FBQ2hCLGdCQUFnQjtRQUNoQixnQkFBZ0I7UUFDaEIsZUFBYyxFQUFBOztBQTlCdEI7VUFnQ1UsZ0JBQWdCO1VBQ2hCLHNCQUFzQjtVQUN0QixlQUFlO1VBQ2YsY0N2Q1ksRUFBQTs7QURJdEI7TUF5Q00sZUFBYztNQUVkLGdCQUFlO01BQ2YsZ0JBQWdCO01BQ2hCLGdCQUFnQjtNQUNoQixhQUFZO01BQ1osb0JBQW9CLEVBQUE7O0FBL0MxQjtRQWlEUSxnQkFBZ0I7UUFDaEIsc0JBQXNCO1FBQ3RCLGVBQWUsRUFBQTs7QUFNdkI7RUFDRSxrQkFBa0I7RUFDbEIsWUFBWTtFQUNaLFlBQVksRUFBQTs7QUFIZDtJQU1JLGtCQUFpQjtJQUVqQixhQUFhO0lBQ2IsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixXQUFXO0lBQ1gsWUFBWTtJQUNaLFNBQVM7SUFDVCxvQkFBb0I7SUFDcEIseUJDN0VhO0lEOEViLGlIQUNvRTtJQUNwRSxlQUFlLEVBQUE7O0FBbEJuQjtNQXFCTSxXQUFXO01BQ1gsY0FBYztNQUNkLG9CQUFvQjtNQUNwQixrQkFBa0I7TUFDbEIsTUFBTTtNQUNOLE9BQU87TUFDUCxXQUFXO01BQ1gsWUFBWTtNQUNaLFVBQVU7TUFDVixnQkFBZ0I7TUFDaEIsaUJBQWlCLEVBQUE7O0FBL0J2QjtNQW1DTSxZQUFZO01BQ1osZ0JBQWdCLEVBQUE7O0FBcEN0QjtNQXVDTSxtQkMvRm9CLEVBQUE7O0FEd0QxQjtNQTBDTSxhQUFhO01BQ2IsV0FBVztNQUNYLFlBQWE7TUFDYixnQkFBZ0IsRUFBQTs7QUE3Q3RCO1FBK0NRLGVBQWU7UUFDZixnQkFBZ0I7UUFDaEIscUJBQXFCLEVBQUE7O0FBakQ3QjtNQXFETSxtQkM3R29CO01EOEdwQixZQUFZO01BQ2Qsa0JBQWlCO01BQ2pCLFFBQVE7TUFDUixhQUFhO01BQ2Isb0JBQW1CO01BQ25CLFdBQVUsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2hlYWRlci9oZWFkZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi4vLi4vLi4vLi4vc3R5bGVzL3ZhcmlhYmxlcy5zY3NzXCI7XHJcblxyXG46aG9zdCB7XHJcbiAgcG9zaXRpb246cmVsYXRpdmU7XHJcbn1cclxuLm1haW4tc3RlcCB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICBjb2xvcjogJHByaW1hcnk7XHJcbiAgZm9udC1zdHlsZTogaXRhbGljO1xyXG4gIGJvcmRlci1ib3R0b206IDIuNXB4IHNvbGlkICRhY2NlbnRDb2xvckFscGhhO1xyXG4gIGhlaWdodDogNjQuNXB4O1xyXG4gIHBhZGRpbmctdG9wOiAxMHB4O1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICBib3gtc2hhZG93OiAwIDFweCAycHggMCAjNWM3ODg2O1xyXG5cclxuICAudXNlci13cmFwcGVyIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICB0b3A6IDJweDtcclxuICAgIHJpZ2h0OiAyMHB4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuXHJcblxyXG4gICAgLnVzZXItaW5mbyB7XHJcbiAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgIG1hcmdpbi10b3A6OHB4O1xyXG4gICAgICBsYWJlbCB7XHJcbiAgICAgICAgY29sb3I6ICRhY2NlbnRDb2xvckFscGhhO1xyXG4gICAgICBmb250LXNpemU6MTJweDtcclxuICAgICAgfVxyXG4gICAgICBzcGFuIHtcclxuICAgICAgICBtYXJnaW4tbGVmdDogNHB4O1xyXG4gICAgICAgIGZvbnQtd2VpZ2h0OiA2MDA7XHJcbiAgICAgICAgdHJhbnNpdGlvbjogMC4zcztcclxuICAgICAgICBmb250LXNpemU6MTRweDtcclxuICAgICAgICAmOmhvdmVyIHtcclxuICAgICAgICAgIHRyYW5zaXRpb246IDAuM3M7XHJcbiAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMDIpO1xyXG4gICAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gICAgICAgICAgY29sb3I6ICRwcmltYXJ5SG92ZXI7XHJcblxyXG4gICAgICAgIH1cclxuICAgICAgfVxyXG4gICAgfVxyXG4gICAgYSB7XHJcbiAgICAgIGZvbnQtc2l6ZToxNHB4O1xyXG5cclxuICAgICAgbWFyZ2luLXRvcDotM3B4O1xyXG4gICAgICBmb250LXdlaWdodDogNTAwO1xyXG4gICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgICBkaXNwbGF5OmZsZXg7XHJcbiAgICAgIGFsaWduLXNlbGY6IGZsZXgtZW5kO1xyXG4gICAgICAmOmhvdmVyIHtcclxuICAgICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMS4wMik7XHJcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcblxyXG4uYmVsbC13cmFwcGVyIHtcclxuICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgcmlnaHQ6IDIwMHB4O1xyXG4gIGJvdHRvbTogMTJweDtcclxuXHJcbiAgLmJlbGwtYnRuLXJvdW5kIHtcclxuICAgIHBvc2l0aW9uOnJlbGF0aXZlO1xyXG5cclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICB3aWR0aDogMzZweDtcclxuICAgIGhlaWdodDogMzZweDtcclxuICAgIGJvcmRlcjogMDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDEwMHB4O1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogJHByaW1hcnk7XHJcbiAgICBib3gtc2hhZG93OiAwIDNweCA1cHggLTFweCByZ2JhKDAsIDAsIDAsIDAuMiksXHJcbiAgICAgIDAgNnB4IDEwcHggMCByZ2JhKDAsIDAsIDAsIDAuMTQpLCAwIDFweCAxOHB4IDAgcmdiYSgwLCAwLCAwLCAwLjEyKTtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuXHJcbiAgICAmOjphZnRlciB7XHJcbiAgICAgIGNvbnRlbnQ6IFwiXCI7XHJcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgICBib3JkZXItcmFkaXVzOiAxMDBweDtcclxuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgICB0b3A6IDA7XHJcbiAgICAgIGxlZnQ6IDA7XHJcbiAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICAgIG9wYWNpdHk6IDA7XHJcbiAgICAgIHRyYW5zaXRpb246IDAuM3M7XHJcbiAgICAgIGJhY2tncm91bmQ6IGJsYWNrO1xyXG4gICAgfVxyXG5cclxuICAgICY6aG92ZXI6OmFmdGVyIHtcclxuICAgICAgb3BhY2l0eTogMC4xO1xyXG4gICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgfVxyXG4gICAgJi5hY3RpdmUge1xyXG4gICAgICBiYWNrZ3JvdW5kOiRhY2NlbnRDb2xvckFscGhhO1xyXG4gICAgfVxyXG4gICAgLmJlbGwtaWNvbiB7XHJcbiAgICAgIG1hcmdpbjogMCA1cHg7XHJcbiAgICAgIHdpZHRoOiAxOHB4O1xyXG4gICAgICBjb2xvcjogIHdoaXRlO1xyXG4gICAgICB0cmFuc2l0aW9uOiAwLjNzO1xyXG4gICAgICAmOmhvdmVyIHtcclxuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgICAgICAgdHJhbnNpdGlvbjogMC4zcztcclxuICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMSk7XHJcbiAgICAgIH1cclxuICAgIH1cclxuICAgIG1hdC1jaGlwIHtcclxuICAgICAgYmFja2dyb3VuZDogJGFjY2VudENvbG9yQWxwaGE7XHJcbiAgICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgIHBvc2l0aW9uOmFic29sdXRlO1xyXG4gICAgcmlnaHQ6IDA7XHJcbiAgICBib3R0b206IC0xMHB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czoxMDBweDtcclxuICAgIHdpZHRoOjIycHg7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuXHJcblxyXG59XHJcblxyXG4iLCIkcHJpbWFyeTogIzI2YzZkYTtcclxuJHByaW1hcnlIb3ZlcjogIzIyYjRjNDtcclxuJHByaW1hcnlCZXRhOiAjOTJlZWZhO1xyXG4kcHJpbWFyeUxpZ2h0OiNhN2YwZmE7XHJcbiRwcmltYXJ5TGlnaHRlcjogI2NmZjlmZjtcclxuJGFjY2VudENvbG9yOiAjNDU1YTY0O1xyXG4kYWNjZW50Q29sb3JBbHBoYTogIzVjNzg4NjtcclxuJGFjY2VudENvbG9yQWxwaGFIb3ZlcjogIzQ1NWE2NDtcclxuJGRyb3Bkb3duQXJyb3dDb2xvcjogIzQ0NDQ0NDtcclxuJHRleHRCdXR0b25Db2xvcjogd2hpdGU7XHJcbiR0ZXh0Q29sb3I6IGJsYWNrO1xyXG4kaW5wdXRUeXBlSG92ZXI6ICNlYmViZWI7XHJcbiRjaGVja1RydWU6IHJnYig1LCAyMDcsIDUpO1xyXG4kZmFsc2VJY29uOiByZWQ7XHJcbiRkcm9wem9uZTogI2FhYWFhYTtcclxuJHNjcm9sbEJhY2tncm91bmQ6IGxpZ2h0Z3JleTtcclxuJGNvbG9yLWRlZmF1bHQtYmc6IGxpZ2h0Z3JleTtcclxuJHRoLXByaW1hcnk6IGJsYWNrO1xyXG4kY29sb3Itc2VwYXJhdG9yLWxpZ2h0ZXI6IGxpZ2h0Z3JleTtcclxuJGNvbG9yLXRleHQtaW52ZXJzZTogd2hpdGU7XHJcbiRjb2xvci10ZXh0LWRpc2FibGVkOiAjYWFhYWFhO1xyXG4kY29sb3ItaG92ZXI6ICMwY2E4YmM7XHJcbkBpbXBvcnQgXCJub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvX2Z1bmN0aW9uc1wiO1xyXG5AaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL192YXJpYWJsZXNcIjtcclxuQGltcG9ydCBcIm5vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy9fbWl4aW5zXCI7XHJcblxyXG4kYnJlYWtwb2ludHM6ICh4czogMCxcclxuICBzbTogNjAwcHgsXHJcbiAgbWQ6IDgwMHB4LFxyXG4gIGxnOiAxMDAwcHgsXHJcbiAgeGw6IDEyODBweCk7XHJcblxyXG4vLyBAaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL2Jvb3RzdHJhcFwiO1xyXG4kY29udGFpbmVyLW1heC13aWR0aHM6IChzbTogNjAwcHgsXHJcbiAgbWQ6IDgwMHB4LFxyXG4gIGxnOiAxMDAwcHgsXHJcbiAgeGw6IDEyMjBweCk7XHJcbiJdfQ== */");
 
 /***/ }),
 
@@ -2187,6 +2141,7 @@ var HeaderComponent = /** @class */ (function () {
     }
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.isLogged();
         this.getLoggedUser();
         this.subscription.add(this.router.events.subscribe(function (val) {
             if (val instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"]) {
@@ -2207,7 +2162,7 @@ var HeaderComponent = /** @class */ (function () {
                         _this.dataSharingService.name.subscribe(function (val) { return (_this.headerName = val); });
                     }
                     else if (window.location.pathname ===
-                        "/user/" + tree.root.children[_angular_router__WEBPACK_IMPORTED_MODULE_2__["PRIMARY_OUTLET"]].segments[1].path) {
+                        "/users/" + tree.root.children[_angular_router__WEBPACK_IMPORTED_MODULE_2__["PRIMARY_OUTLET"]].segments[1].path) {
                         _this.userService
                             .getUserUsername(tree.root.children[_angular_router__WEBPACK_IMPORTED_MODULE_2__["PRIMARY_OUTLET"]].segments[1].path)
                             .subscribe(function (val) {
@@ -2232,18 +2187,25 @@ var HeaderComponent = /** @class */ (function () {
                 }
             }
         }));
+        this.username = localStorage.getItem("username");
         this.dataSharingService.count.subscribe(function (val) {
             _this.count = val;
+            console.log(val);
         });
     };
     HeaderComponent.prototype.getLoggedUser = function () {
         var _this = this;
-        this.dataSharingService.currentLoggedUser.subscribe(function (val) {
-            _this.loggedUser = val;
-        });
+        if (this.authService.isLogged()) {
+            this.userService.getLoggedUser().subscribe(function (val) {
+                _this.loggedUser = val;
+            });
+        }
     };
     HeaderComponent.prototype.logout = function () {
         this.authService.logout();
+    };
+    HeaderComponent.prototype.isLogged = function () {
+        this.isLoggedField = this.authService.isLogged();
     };
     HeaderComponent.prototype.toggleActive = function () {
         this.activeNotifications = !this.activeNotifications;
@@ -2580,7 +2542,7 @@ var NotificationsComponent = /** @class */ (function () {
     };
     NotificationsComponent.prototype.goToUserProfile = function (user) {
         this.dataSharingService.changeUser(user.id);
-        this.router.navigate(["user/" + user.id]);
+        this.router.navigate(["users/" + user.id]);
     };
     NotificationsComponent.prototype.acceptFriendRequest = function (event, notification) {
         var _this = this;
@@ -2756,8 +2718,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_core_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @app/core/service */ "./src/app/core/service/index.ts");
 /* harmony import */ var _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @app/shared/service/user.service */ "./src/app/shared/service/user.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @app/shared/service/data-sharing.service */ "./src/app/shared/service/data-sharing.service.ts");
-
 
 
 
@@ -2767,27 +2727,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LoginDialogComponent = /** @class */ (function () {
-    function LoginDialogComponent(authService, dialogRef, toastr, userService, dataSharingService, router) {
+    function LoginDialogComponent(authService, dialogRef, toastr, userService, router) {
         var _this = this;
         this.authService = authService;
         this.dialogRef = dialogRef;
         this.toastr = toastr;
         this.userService = userService;
-        this.dataSharingService = dataSharingService;
         this.router = router;
         this.onSuccess = function () {
             _this.userService.getLoggedUser().subscribe(function (val) {
                 localStorage.setItem("userId", val.id.toString());
                 if (val.playingFieldId) {
                     localStorage.setItem("playingFieldId", val.playingFieldId.toString());
-                    _this.dataSharingService.setLoggedUser(val);
                 }
                 _this.router.navigate(["/users/" + val.id]);
-            }, function () { }, function () { });
+            }, function () { }, function () {
+                window.location.reload();
+            });
             _this.dialogRef.close();
         };
         this.onFail = function (error) {
-            if (error.status === 403 || error.status === 401) {
+            if (error.status === 403) {
                 _this.toastr.error("Podano nieprawidłowe dane", "Błąd");
             }
         };
@@ -2816,7 +2776,6 @@ var LoginDialogComponent = /** @class */ (function () {
         { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"] },
         { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] },
         { type: _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"] },
-        { type: _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_8__["DataSharingService"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"] }
     ]; };
     LoginDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2829,7 +2788,6 @@ var LoginDialogComponent = /** @class */ (function () {
             _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"],
             ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"],
             _app_shared_service_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"],
-            _app_shared_service_data_sharing_service__WEBPACK_IMPORTED_MODULE_8__["DataSharingService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]])
     ], LoginDialogComponent);
     return LoginDialogComponent;
@@ -3068,9 +3026,13 @@ var SidebarComponent = /** @class */ (function () {
     };
     SidebarComponent.prototype.getLoggedUser = function () {
         var _this = this;
-        this.dataSharingService.currentLoggedUser.subscribe(function (val) {
-            _this.loggedUser = val;
-        });
+        if (this.isLogged()) {
+            this.userService.getLoggedUser().subscribe(function (val) {
+                if (val) {
+                    _this.loggedUser = val;
+                }
+            });
+        }
     };
     SidebarComponent.prototype.changeSidebar = function () {
         this.hideSidebar = !this.hideSidebar;
@@ -3111,7 +3073,7 @@ var SidebarComponent = /** @class */ (function () {
         this.reset();
         this.userPanel = true;
         this.dataSharingService.changeUser(localStorage.getItem("userId"));
-        this.router.navigate(["user/" + localStorage.getItem("userId")]);
+        this.router.navigate(["users/" + localStorage.getItem("userId")]);
     };
     SidebarComponent.prototype.setMenuActive = function () {
         var _this = this;
@@ -3130,7 +3092,7 @@ var SidebarComponent = /** @class */ (function () {
                 else if (tree.root.children.primary &&
                     tree.root.children.primary.segments[1]) {
                     if (window.location.pathname ===
-                        "/user/" + tree.root.children[_angular_router__WEBPACK_IMPORTED_MODULE_2__["PRIMARY_OUTLET"]].segments[1].path) {
+                        "/users/" + tree.root.children[_angular_router__WEBPACK_IMPORTED_MODULE_2__["PRIMARY_OUTLET"]].segments[1].path) {
                         _this.reset();
                         if (_this.loggedUser &&
                             tree.root.children[_angular_router__WEBPACK_IMPORTED_MODULE_2__["PRIMARY_OUTLET"]].segments[1].path ===
@@ -3620,16 +3582,11 @@ var DataSharingService = /** @class */ (function () {
         this.isClosed = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.count = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.getUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]('default');
-        this.loggedUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
         this.currentUser = this.getUser.asObservable();
-        this.currentLoggedUser = this.loggedUser.asObservable();
         this.name = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]('');
     }
     DataSharingService.prototype.changeUser = function (message) {
         this.getUser.next(message);
-    };
-    DataSharingService.prototype.setLoggedUser = function (userDto) {
-        this.loggedUser.next(userDto);
     };
     DataSharingService.prototype.push = function (item) {
         this._stack.push(item);
