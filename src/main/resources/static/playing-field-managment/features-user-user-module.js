@@ -345,7 +345,7 @@ var UserPanelComponent = /** @class */ (function () {
                 _this.avatar = _this.domSanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + _this.user.avatar);
             }
             else {
-                val.avatar = null;
+                _this.avatar = null;
             }
             if (val.position === "GOALKEEPER") {
                 _this.user.position = "Bramkarz";
