@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,13 +26,15 @@ public class MatchAssembler {
     private BanRepository banRepository;
 
     public Page<MatchWithLocationDto> toDtoList(Page<Match> matches, User user, Pageable pageable) {
-        System.out.println(matches);
+        AtomicReference<Long> totalElements = new AtomicReference<>(matches.getTotalElements());
+
         return new PageImpl<>(matches.stream().map(val -> {
             if (!(val.getMatchFromDate().equals(LocalDate.now()) && val.getMatchToTime().isBefore(LocalTime.now()))) {
                 return toDto(val, user);
-            }
+            }            totalElements.updateAndGet(v -> v - 1);
+
             return null;
-        }).filter(Objects::nonNull).collect(Collectors.toList()), pageable,matches.getTotalElements());
+        }).filter(Objects::nonNull).collect(Collectors.toList()), pageable,totalElements.get());
     }
 
     public MatchWithLocationDto toDto(Match match, User user) {
@@ -73,12 +76,14 @@ if(user!=null) {
     }
 
     public Page<MatchDto> toDtoListMatchesDto(Page<Match> matches, Pageable pageable) {
+        AtomicReference<Long> totalElements = new AtomicReference<>(matches.getTotalElements());
         return new PageImpl<>(matches.stream().map(val -> {
             if (!(val.getMatchFromDate().equals(LocalDate.now()) && val.getMatchToTime().isBefore(LocalTime.now()))) {
                 return toDtoMatchDto(val);
             }
+            totalElements.updateAndGet(v -> v - 1);
             return null;
-        }).filter(Objects::nonNull).collect(Collectors.toList()),pageable, matches.getTotalElements());
+        }).filter(Objects::nonNull).collect(Collectors.toList()),pageable, totalElements.get());
     }
 
     public List<MatchDto> toDtoListMatchesDto(List<Match> matches) {
