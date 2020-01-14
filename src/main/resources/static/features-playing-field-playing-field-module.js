@@ -138,8 +138,8 @@ var PlayingFieldComponent = /** @class */ (function () {
                 fromTime: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"](searchParams.searchDto.fromTime),
                 toTime: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"](searchParams.searchDto.toTime),
                 reserved: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"](1),
-                showPrivate: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"](true),
-                showFull: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"](false)
+                showPrivate: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"](searchParams.searchDto.showPrivate),
+                showFull: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"](searchParams.searchDto.showFull)
             });
         }
         else {

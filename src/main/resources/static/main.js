@@ -412,7 +412,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<form [formGroup]=\"loginForm\" (ngSubmit)=\"login()\">\n    <h3>Zaloguj się</h3>\n\n  <mat-form-field>\n    <input matInput type=\"text\" placeholder=\"Login\" formControlName=\"login\">\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput type=\"password\" placeholder=\"Password\" formControlName=\"password\">\n  </mat-form-field>\n  <button mat-raised-button color=\"primary\" type=\"submit\">Login</button>\n</form>\n<div style=\"font-size: 0.5rem\" class=\"text-center\">\n  <label *ngIf=\"loginFailed\" style=\"color: red\">Błąd logowania</label>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<form [formGroup]=\"loginForm\" (ngSubmit)=\"login()\">\n    <h3>Zaloguj się</h3>\n\n  <mat-form-field>\n    <input matInput type=\"text\" placeholder=\"Nazwa użytkownika\" formControlName=\"login\">\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput type=\"password\" placeholder=\"Hasło\" formControlName=\"password\">\n  </mat-form-field>\n  <button mat-raised-button color=\"primary\" type=\"submit\">Login</button>\n</form>\n<div style=\"font-size: 0.5rem\" class=\"text-center\">\n  <label *ngIf=\"loginFailed\" style=\"color: red\">Błąd logowania</label>\n</div>\n");
 
 /***/ }),
 
@@ -751,7 +751,6 @@ var AppComponent = /** @class */ (function () {
         var _this = this;
         if (this.authService.isLogged()) {
             this.userService.getLoggedUser().subscribe(function (val) {
-                console.log("xd");
                 _this.dataSharingService.setLoggedUser(val);
             });
         }
@@ -971,6 +970,7 @@ var AccessTokenInterceptor = /** @class */ (function () {
         var _this = this;
         this.authService = authService;
         this.toastr = toastr;
+        this.show = true;
         this.handleExpiredTokenError = function () {
             _this.toastr.error('Twoja sesja wygasła, zaloguj się ponownie', 'Błąd');
             _this.authService.logout();
@@ -983,7 +983,10 @@ var AccessTokenInterceptor = /** @class */ (function () {
         var accessToken = this.authService.getAuthorization();
         if (accessToken !== null) {
             if (this.jwtHelper.isTokenExpired(accessToken)) {
-                return this.handleExpiredTokenError();
+                if (this.show) {
+                    this.show = false;
+                    return this.handleExpiredTokenError();
+                }
             }
             request = request.clone({
                 headers: request.headers.set(authHeader, accessToken),
@@ -1260,7 +1263,7 @@ var AuthService = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./src/app/core/service/index.ts ***!
   \***************************************/
-/*! exports provided: AccessTokenInterceptor, AUTHORIZATION_HEADER, AuthService */
+/*! exports provided: AUTHORIZATION_HEADER, AuthService, AccessTokenInterceptor */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2780,8 +2783,8 @@ var LoginDialogComponent = /** @class */ (function () {
                 localStorage.setItem("userId", val.id.toString());
                 if (val.playingFieldId) {
                     localStorage.setItem("playingFieldId", val.playingFieldId.toString());
-                    _this.dataSharingService.setLoggedUser(val);
                 }
+                _this.dataSharingService.setLoggedUser(val);
                 _this.router.navigate(["/users/" + val.id]);
             }, function () { }, function () { });
             _this.dialogRef.close();

@@ -6,6 +6,7 @@ import engineersthesis.playingfieldmanagment.modules.playingField.PlayingFieldRe
 import engineersthesis.playingfieldmanagment.modules.playingField.availability.match.Match;
 import engineersthesis.playingfieldmanagment.modules.security.service.SecurityUserHelper;
 import engineersthesis.playingfieldmanagment.web.dto.AvailabilityWithMatchesDto;
+import engineersthesis.playingfieldmanagment.web.dto.MatchDto;
 import engineersthesis.playingfieldmanagment.web.dto.PFAvailabilityDto;
 import engineersthesis.playingfieldmanagment.web.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +42,15 @@ public class PlayingFieldAvailabilityService {
             playingFieldAvailabilities =
                     playingFieldRepository.getOne(id).getPlayingFieldAvailabilities().stream().filter(it -> (it.getCloseDatePF().isAfter(LocalDate.now()) || it.getCloseDatePF().isEqual(LocalDate.now()))).collect(Collectors.toList());
         }
-        return playingFieldAvailabilityAssembler.toDtoList(playingFieldAvailabilities)
-                .stream().sorted(Comparator.comparing(AvailabilityWithMatchesDto::getFromDate)).collect(Collectors.toList());
-//        List<AvailabilityWithMatchesDto>  dto =
-//                playingFieldAvailabilityAssembler.toDtoList(playingFieldAvailabilities);
-//        dto.sort(Comparator.comparing(AvailabilityWithMatchesDto::getFromDate));
-////                .stream().sorted(Comparator.comparing(AvailabilityWithMatchesDto::getFromDate)).collect(Collectors.toList());
-//        return dto;
+//        return playingFieldAvailabilityAssembler.toDtoList(playingFieldAvailabilities)
+//                .stream().sorted(Comparator.comparing(AvailabilityWithMatchesDto::getFromDate)).collect(Collectors.toList());
+        List<AvailabilityWithMatchesDto>  dto =
+                playingFieldAvailabilityAssembler.toDtoList(playingFieldAvailabilities);
+        dto.sort(Comparator.comparing(AvailabilityWithMatchesDto::getFromDate));
+        dto.forEach(val-> val.getMatchesDto().sort(Comparator.comparing(MatchDto::getMatchFrom)));
+//               .stream().sorted(Comparator.comparing(AvailabilityWithMatchesDto::getFromDate)).collect(Collectors
+//               .toList());
+        return dto;
     }
 
     @Transactional
