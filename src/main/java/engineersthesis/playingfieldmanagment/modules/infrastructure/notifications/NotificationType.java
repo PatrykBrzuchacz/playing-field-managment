@@ -4,5 +4,5 @@ package engineersthesis.playingfieldmanagment.modules.infrastructure.notificatio
 import lombok.Data;
 
 public enum NotificationType {
-    MESSAGE, FRIENDREQUEST, MATCHREQUEST, USERJOINTEAM, BAN
+    MESSAGE, FRIENDREQUEST, MATCHREQUEST, USERJOINTEAM, BAN, DELETEDMATCH
 }

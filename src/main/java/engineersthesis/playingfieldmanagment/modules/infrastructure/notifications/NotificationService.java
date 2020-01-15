@@ -60,25 +60,30 @@ public class NotificationService {
 //        notification.setAccepted(true);
 //    }
     public void saveConversationNotification(Conversation conversation, User receiver, User sender) {
-    notificationsRepository.save(new Notification("Masz nową wiadomość od " + sender.getUsername(),
+    notificationsRepository.save(new Notification("Masz nową wiadomość od " + sender.getUsername()+ ".",
             LocalDateTime.now(),false, receiver, sender, conversation.getId(), NotificationType.MESSAGE));
     }
     public void saveFriendRequestNotification(FriendsRequest friendsRequest, User receiver, User sender) {
-        notificationsRepository.save(new Notification("Otrzymałeś zaproszenie do znajomych od " + sender.getUsername(),
+        notificationsRepository.save(new Notification("Otrzymałeś zaproszenie do znajomych od " + sender.getUsername()+ ".",
                 LocalDateTime.now(),false, receiver, sender, friendsRequest.getId(), NotificationType.FRIENDREQUEST));
     }
 
     public void saveInviteToMatchNotification(Invite invite, User receiver, User sender) {
-        notificationsRepository.save(new Notification("Otrzymałeś zaproszenie do meczu od " + sender.getUsername(),
+        notificationsRepository.save(new Notification("Otrzymałeś zaproszenie do meczu od " + sender.getUsername()+ ".",
                 LocalDateTime.now(),false, receiver, sender, invite.getId(), NotificationType.MATCHREQUEST));
     }
 
     public void saveUserJoinYourTeamNotification(Match match, User receiver, User sender){
-        notificationsRepository.save(new Notification("Użytkwonik dołączył do twojego meczu " + sender.getUsername(),
+        notificationsRepository.save(new Notification("Użytkownik dołączył do twojego meczu " + sender.getUsername()+ ".",
                 LocalDateTime.now(),false, receiver, sender, match.getId(), NotificationType.USERJOINTEAM));
     }
     public void saveUserHasBeenBannedOnPfNotification(Ban ban, User receiver, User sender) {
-        notificationsRepository.save(new Notification("Zostałeś zbanowany na orliku " + ban.getPlayingField().getName(),
+        notificationsRepository.save(new Notification("Zostałeś zablokowany na orliku " + ban.getPlayingField().getName() + ".",
                 LocalDateTime.now(),false, receiver, sender, ban.getId(), NotificationType.BAN));
+    }
+    public void saveMatchHasBeenDeleted(Match match, User receiver, User sender) {
+        notificationsRepository.save(new Notification("Twój mecz na orliku "+ match.getPlayingFieldAvailability().getPlayingField().getName()+
+                " został usunięty.",
+                LocalDateTime.now(),false, receiver, sender, match.getId(), NotificationType.DELETEDMATCH));
     }
 }

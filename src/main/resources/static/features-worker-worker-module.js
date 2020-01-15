@@ -48,7 +48,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<form [formGroup] =\"pfSetupForm\" (ngSubmit)=\"setPFSetup()\">\n  <h3>Edycja danych orlika</h3>\n  <mat-form-field>\n    <mat-label>Maksymalna ilość osób w drużynie</mat-label>\n    <mat-select formControlName=\"teamSize\">\n      <mat-option\n        *ngFor=\"let teamSize of [4, 5, 6, 7, 8, 9, 10, 11]\"\n        [value]=\"teamSize\"\n        >{{ teamSize }}</mat-option\n      >\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <textarea matInput\n\n       placeholder=\"Opis orlika\"\n       formControlName=\"description\"\n       >\n    </textarea>\n  </mat-form-field>\n  <mat-form-field>\n      <input matInput\n         placeholder=\"Nazwa orlika\"\n         formControlName=\"name\"\n         />\n\n    </mat-form-field>\n<!-- <label class=\"image-upload-container btn btn-bwm\">\n  <span>Wybierz zdjęcie orlika</span>\n  <input type=\"file\" accept=\"image/*\" (change)=\"processFile($event)\" />\n</label> -->\n\n<div\nclass=\"uploadfilecontainer\"\n(click)=\"fileInput.click()\"\nappDragDrop\n(onFileDropped)=\"onFileImport($event)\"\n>\n\n<input\n  hidden\n  type=\"file\"\n  #fileInput\n  (change)=\"onFileImport($event.target.files)\"\n/>\n<svg-icon\n  class=\"upload-icon\"\n  src=\"assets/icons/upload-solid.svg\"\n></svg-icon>\n<h2>Wybierz zdjęcie orliku</h2>\n<div class=\"file-section\" *ngIf=\"image\">\n  <img [src]=\"image\" />\n  <div class=\"close-icon\" (click)=\"removeFile()\">\n    <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n  </div>\n</div>\n\n</div>\n\n\n<button mat-raised-button  color=\"primary\"\n type=\"submit\">Zaktualizuj dane orlika</button>\n\n</form>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<form [formGroup]=\"pfSetupForm\" (ngSubmit)=\"setPFSetup()\">\n  <h3>Edycja danych orlika</h3>\n  <mat-form-field>\n    <mat-label>Maksymalna ilość osób w drużynie</mat-label>\n    <mat-select formControlName=\"teamSize\">\n      <mat-option\n        *ngFor=\"let teamSize of [4, 5, 6, 7, 8, 9, 10, 11]\"\n        [value]=\"teamSize\"\n        >{{ teamSize }}</mat-option\n      >\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <textarea matInput placeholder=\"Opis orlika\" formControlName=\"description\">\n    </textarea>\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Nazwa orlika\" formControlName=\"name\" />\n  </mat-form-field>\n\n  <div\n    class=\"uploadfilecontainer\"\n    (click)=\"fileInput.click()\"\n    appDragDrop\n    (onFileDropped)=\"onFileImport($event)\"\n  >\n    <input\n      hidden\n      type=\"file\"\n      #fileInput\n      (change)=\"onFileImport($event.target.files)\"\n    />\n    <svg-icon\n      class=\"upload-icon\"\n      src=\"assets/icons/upload-solid.svg\"\n    ></svg-icon>\n    <h2>Wybierz zdjęcie orliku</h2>\n    <div class=\"file-section\" *ngIf=\"image\">\n      <img [src]=\"image\" />\n      <div class=\"close-icon\" (click)=\"removeFile()\">\n        <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n      </div>\n    </div>\n  </div>\n\n  <button\n    mat-raised-button\n    color=\"primary\"\n    [disabled]=\"\n      !pfSetupForm.controls.teamSize.value ||\n      !pfSetupForm.controls.name.value ||\n      !pfSetupForm.controls.description.value || !pfPhoto\n    \"\n    type=\"submit\"\n  >\n    Zaktualizuj dane orlika\n  </button>\n</form>\n");
 
 /***/ }),
 
@@ -377,8 +377,18 @@ var WorkerPFMenuComponent = /** @class */ (function () {
         return this.playingFieldService
             .deletePFAvailability(availability.availabilityId)
             .subscribe(function (val) {
-            _this.availabilities.splice(_this.availabilities.indexOf(availability), 1);
-        }, function () { return _this.toastrService.error("Wystąpił błąd"); }, function () { return _this.toastrService.success("Pomyślnie usunięto rozgrywki"); });
+            if (!val) {
+                _this.availabilities.splice(_this.availabilities.indexOf(availability), 1);
+                _this.toastrService.success("Pomyślnie usunięto rozgrywki");
+            }
+            else {
+                availability.matchesDto = val;
+                _this.availabilityTable.renderRows();
+                _this.toastrService.success("Pomyślnie usunięto rozgrywki, jednak pozostały mecze, które odbędą się za mniej niż 3 dni");
+            }
+        }, function (error) {
+            _this.toastrService.error("Wystąpił błąd");
+        });
     };
     WorkerPFMenuComponent.prototype.setPFSetup = function () {
         var _this = this;
@@ -405,13 +415,20 @@ var WorkerPFMenuComponent = /** @class */ (function () {
             _this.availabilities[index].matchesDto.splice(_this.availabilities[index].matchesDto.indexOf(match), 1);
             _this.toastrService.success("Usunąłeś mecz");
             _this.availabilityTable.renderRows();
+        }, function (error) {
+            if (error.status === 409) {
+                _this.toastrService.error("Nie można usunąć rozgrywki, ponieważ mecz odbędzie się w czasie krótszym niż 3dni");
+            }
+            else {
+                _this.toastrService.error("Wystąpił błąd");
+            }
         });
     };
     WorkerPFMenuComponent.prototype.enlarge = function () {
         this.dialog.open(_app_shared_components_enlarge_image_dialog_enlarge_image_dialog_component__WEBPACK_IMPORTED_MODULE_11__["EnlargeImageDialogComponent"], {
             width: "80%",
             data: { image: this.playingFieldSetup.pfPhoto },
-            panelClass: 'custom-enlarge-dialog-container'
+            panelClass: "custom-enlarge-dialog-container"
         });
     };
     WorkerPFMenuComponent.prototype.goToUserProfile = function (username) {
@@ -424,7 +441,6 @@ var WorkerPFMenuComponent = /** @class */ (function () {
     WorkerPFMenuComponent.prototype.getLoggedUser = function () {
         var _this = this;
         this.dataSharingService.currentLoggedUser.subscribe(function (val) {
-            console.log(val);
             _this.loggedUser = val;
         });
     };
@@ -477,7 +493,7 @@ var WorkerPFMenuComponent = /** @class */ (function () {
     };
     WorkerPFMenuComponent.prototype.openAddCodeDialog = function () {
         this.dialog.open(_worker_add_code_dialog_worker_add_code_dialog_component__WEBPACK_IMPORTED_MODULE_18__["WorkerAddCodeDialogComponent"], {
-            width: '300px'
+            width: "300px"
         });
     };
     WorkerPFMenuComponent.ctorParameters = function () { return [

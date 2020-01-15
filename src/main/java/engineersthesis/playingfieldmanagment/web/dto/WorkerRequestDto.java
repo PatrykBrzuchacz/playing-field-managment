@@ -20,4 +20,5 @@ public class WorkerRequestDto {
     private String apiId;
     private byte[] proofOfWork;
     private Long pfId;
+    private String address;
 }

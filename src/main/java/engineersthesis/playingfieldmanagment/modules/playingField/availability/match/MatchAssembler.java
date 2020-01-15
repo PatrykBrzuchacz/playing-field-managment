@@ -31,7 +31,8 @@ public class MatchAssembler {
         return new PageImpl<>(matches.stream().map(val -> {
             if (!(val.getMatchFromDate().equals(LocalDate.now()) && val.getMatchToTime().isBefore(LocalTime.now()))) {
                 return toDto(val, user);
-            }            totalElements.updateAndGet(v -> v - 1);
+            }
+            totalElements.updateAndGet(v -> v - 1);
 
             return null;
         }).filter(Objects::nonNull).collect(Collectors.toList()), pageable,totalElements.get());

@@ -1,5 +1,6 @@
 package engineersthesis.playingfieldmanagment.modules.playingField.availability.match;
 
+import engineersthesis.playingfieldmanagment.modules.infrastructure.notifications.NotificationService;
 import engineersthesis.playingfieldmanagment.modules.playingField.availability.match.contact.MatchContact;
 import engineersthesis.playingfieldmanagment.modules.playingField.availability.match.reservation.Reservation;
 import engineersthesis.playingfieldmanagment.modules.playingField.availability.match.reservation.ReservationRepository;
@@ -9,6 +10,7 @@ import engineersthesis.playingfieldmanagment.modules.security.service.SecurityUs
 import engineersthesis.playingfieldmanagment.modules.team.Team;
 import engineersthesis.playingfieldmanagment.modules.team.TeamRepository;
 import engineersthesis.playingfieldmanagment.web.dto.*;
+import engineersthesis.playingfieldmanagment.web.exception.CannotDeleteMatchException;
 import engineersthesis.playingfieldmanagment.web.exception.CodeExistsException;
 import engineersthesis.playingfieldmanagment.web.exception.UserHaveArleadyBookedPFInThisTimeException;
 import engineersthesis.playingfieldmanagment.web.exception.UserIsNotOwnerException;
@@ -38,6 +40,8 @@ public class MatchService {
     private TeamRepository teamRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private NotificationService notificationService;
 
     public Page<MatchWithLocationDto> getMatchesByLocation(SearchParams searchParams, Pageable pageable) {
         Page<Match> matches;
@@ -273,9 +277,14 @@ public class MatchService {
 
     public void deleteMatch(Long matchId) {
         Match match = matchRepository.getOne(matchId);
-        if (match.getPlayingFieldAvailability().getPlayingField().getUser() == securityUserHelper.getLoggedUser()) {
+        User loggedUser = securityUserHelper.getLoggedUser();
+        if (match.getPlayingFieldAvailability().getPlayingField().getUser() == loggedUser ) {
             if (match.getMatchFromDate().minusDays(3).isBefore(LocalDate.now()) && match.getIsBooked()) {
-                throw new RuntimeException("You cannot delete match because its to late");
+                throw new CannotDeleteMatchException();
+            }
+            if(match.getPlayingFieldAvailability().getPlayingField().getUser()== loggedUser) {
+                notificationService.saveMatchHasBeenDeleted(match, match.getPlayingFieldAvailability().getPlayingField().getUser()
+                        , loggedUser);
             }
             matchRepository.deleteById(matchId);
         } else {

@@ -4,6 +4,7 @@ package engineersthesis.playingfieldmanagment.web.controller;
 import engineersthesis.playingfieldmanagment.modules.playingField.PlayingFieldService;
 import engineersthesis.playingfieldmanagment.modules.playingField.availability.PlayingFieldAvailabilityService;
 import engineersthesis.playingfieldmanagment.web.dto.AvailabilityWithMatchesDto;
+import engineersthesis.playingfieldmanagment.web.dto.MatchDto;
 import engineersthesis.playingfieldmanagment.web.dto.PFAvailabilityDto;
 import engineersthesis.playingfieldmanagment.web.dto.PlayingFieldSetupDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,8 @@ public class PlayingFieldController {
 
     @PreAuthorize("hasRole('ROLE_WORKER')")
     @DeleteMapping("/worker/playingField/playingFieldAvailability/{id}")
-    public ResponseEntity<?> deletePFAvailability(@PathVariable("id") Long id) {
-        playingFieldAvailabilityService.deletePfAvailability(id);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+    public List<MatchDto> deletePFAvailability(@PathVariable("id") Long id) {
+        return playingFieldAvailabilityService.deletePfAvailability(id);
     }
 
     @GetMapping("/playingField/availabilities/{id}")

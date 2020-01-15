@@ -19,6 +19,7 @@ public class WorkerRequestAssembler {
                 workerRequest.getUser().getUsername(),
                 workerRequest.getStatus(),
                 workerRequest.getFileName(), workerRequest.getPlayingField().getApiId(),
-                workerRequest.getProofOfWork(), workerRequest.getPlayingField().getId());
+                workerRequest.getProofOfWork(), workerRequest.getPlayingField().getId(),
+                workerRequest.getPlayingField().getAddress());
     }
 }

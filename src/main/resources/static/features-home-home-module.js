@@ -247,7 +247,6 @@ var MainPageComponent = /** @class */ (function () {
             }
         };
         this.handleSuccessResponse = function (response) {
-            console.log(response);
             _this.playingFieldList = response;
             if (!_this.playingFieldList.length) {
                 _this.toastr.info("Nie znaleziono żadnych orlików w tym miejscu!");

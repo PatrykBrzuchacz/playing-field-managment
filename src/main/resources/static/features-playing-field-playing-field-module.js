@@ -162,8 +162,7 @@ var PlayingFieldComponent = /** @class */ (function () {
                 data: { match: match, loggedUser: this.loggedUser }
             });
             dialogRef.afterClosed().subscribe(function (val) {
-                if (val) {
-                    console.log(val);
+                if (val.isBooked) {
                     var bookedMatch = _this.matchesDto.find(function (match) { return match.id === val.id; });
                     bookedMatch.isBooked = val.isBooked;
                     bookedMatch.ownerId = _this.loggedUser.id;

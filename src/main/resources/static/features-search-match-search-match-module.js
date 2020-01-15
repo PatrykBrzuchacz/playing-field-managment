@@ -317,11 +317,9 @@ var SearchMatchComponent = /** @class */ (function () {
     };
     SearchMatchComponent.prototype.getLoggedUser = function () {
         var _this = this;
-        if (this.authService.isLogged()) {
-            this.dataSharingService.currentLoggedUser.subscribe(function (response) {
-                _this.loggedUser = response;
-            });
-        }
+        this.dataSharingService.currentLoggedUser.subscribe(function (response) {
+            _this.loggedUser = response;
+        });
     };
     SearchMatchComponent.prototype.unbook = function (match) {
         this.matchService.unbookPF(match.id).subscribe(function (val) {
@@ -356,12 +354,12 @@ var SearchMatchComponent = /** @class */ (function () {
                 data: { match: match, loggedUser: this.loggedUser }
             });
             dialogRef.afterClosed().subscribe(function (val) {
-                if (val) {
+                if (val.isBooked) {
                     match.isPrivate = val.isPrivate;
                     match.isBooked = true;
                     match.size = 1;
                     match.ownerUsername = _this.loggedUser.username;
-                    match.ownerId = _this.loggedUser.username;
+                    match.ownerId = _this.loggedUser.id;
                     _this.matchWithLocationDtoTable.renderRows();
                 }
             });
@@ -375,7 +373,6 @@ var SearchMatchComponent = /** @class */ (function () {
             searchParams = new _app_shared_model_playing_field__WEBPACK_IMPORTED_MODULE_12__["SearchParams"](this.userLocation.lat, this.userLocation.lng, this.searchForm.value.rangeInKm, searchDto);
         }
         else {
-            console.log(this.selectedLocation);
             if (!this.searchForm.controls.city.value || !this.selectedLocation || !this.selectedLocation.lat || !this.selectedLocation.lng) {
                 this.toastrService.error("Uzupełnij poprawnie miejscowość wybierając go z listy po kliknięciu w pole miejscowość i rozpoczęciu wpisywania miejscowości");
                 return;

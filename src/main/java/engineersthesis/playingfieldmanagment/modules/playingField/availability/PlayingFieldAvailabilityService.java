@@ -4,6 +4,8 @@ package engineersthesis.playingfieldmanagment.modules.playingField.availability;
 import engineersthesis.playingfieldmanagment.modules.playingField.PlayingField;
 import engineersthesis.playingfieldmanagment.modules.playingField.PlayingFieldRepository;
 import engineersthesis.playingfieldmanagment.modules.playingField.availability.match.Match;
+import engineersthesis.playingfieldmanagment.modules.playingField.availability.match.MatchAssembler;
+import engineersthesis.playingfieldmanagment.modules.playingField.availability.match.MatchRepository;
 import engineersthesis.playingfieldmanagment.modules.security.service.SecurityUserHelper;
 import engineersthesis.playingfieldmanagment.web.dto.AvailabilityWithMatchesDto;
 import engineersthesis.playingfieldmanagment.web.dto.MatchDto;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +36,11 @@ public class PlayingFieldAvailabilityService {
     private SecurityUserHelper securityUserHelper;
     @Autowired
     private PlayingFieldAvailabilityAssembler playingFieldAvailabilityAssembler;
+    @Autowired
+    private MatchRepository matchRepository;
+    @Autowired
+    private MatchAssembler matchAssembler;
+
 
     public List<AvailabilityWithMatchesDto> getAvailabilities(Long id, Boolean showAll) {
         List<PlayingFieldAvailability> playingFieldAvailabilities;
@@ -165,16 +173,28 @@ public class PlayingFieldAvailabilityService {
         }
     }
 
-    public void deletePfAvailability(Long id) {
+    @Transactional
+    public List<MatchDto> deletePfAvailability(Long id) {
         PlayingFieldAvailability playingFieldAvailability = playingFieldAvailabilityRepository.getOne(id);
+        List<Match> matches = new ArrayList<>();
+        List<Match> matchesToDelete = new ArrayList<>();
         playingFieldAvailability.getMatches().forEach(match -> {
 
             if (match.getIsBooked() && match.getMatchFromDate().minusDays(3).isBefore(LocalDate.now())) {
-                throw new RuntimeException("You cannot delete playing field availability, its to late");
+
+                matches.add(match);
+            } else {
+                matchesToDelete.add(match);
+                matchRepository.delete(match);
             }
         });
-        playingFieldAvailabilityRepository.delete(playingFieldAvailability);
+//
+        playingFieldAvailability.removeMatches(matchesToDelete);
 
+        if(matches.isEmpty()) {
+            playingFieldAvailabilityRepository.delete(playingFieldAvailability);
+        }
+return matchAssembler.toDtoListMatchesDto(matches);
     }
 
 

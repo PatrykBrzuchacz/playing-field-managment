@@ -399,7 +399,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!-- CASE WHEN THERE ARE NO NOTIFICATIONS -->\n<h6 (click)=\"setAllAsDisplayed($event)\">Oznacz wszystkie jako przeczytane</h6>\n\n<mat-card *ngIf=\"!notifications.length\" style=\"padding:8px;margin:8px\">\n  <mat-icon>notifications_off</mat-icon>\n  Brak powiadomień\n</mat-card>\n\n<div *ngFor=\"let notification of notifications\">\n  <mat-card\n    (click)=\"openMessage(notification)\"\n    *ngIf=\"notification.notificationType === 'MESSAGE'\"\n    [class.not-displayed]=\"!notification.displayed\"\n  >\n    <div class=\"d-flex align-items-center\">\n      <mat-icon [class.not-displayed]=\"!notification.displayed\">chat</mat-icon>\n      {{ notification.title }}\n    </div>\n    <div class=\"sended-date\">\n      Wysłano: {{ notification.sendedDate | date: \"HH:mm dd-MM-yyyy\" }}\n    </div>\n  </mat-card>\n\n  <mat-card\n  (click)=\"openTeamDialog(notification, false)\"\n  *ngIf=\"notification.notificationType === 'USERJOINTEAM'\"\n  [class.not-displayed]=\"!notification.displayed\"\n>\n  <div class=\"d-flex align-items-center\">\n    <mat-icon [class.not-displayed]=\"!notification.displayed\">accessibility_new</mat-icon>\n    {{ notification.title }}\n  </div>\n  <div class=\"sended-date\">\n    Wysłano: {{ notification.sendedDate | date: \"HH:mm dd-MM-yyyy\" }}\n  </div>\n</mat-card>\n\n\n  <mat-card\n    (click)=\"goToUserProfile(notification.senderId)\"\n    *ngIf=\"notification.notificationType === 'FRIENDREQUEST'\"\n    [class.not-displayed]=\"!notification.displayed\"\n  >\n    <div class=\"d-flex align-items-center\">\n      <mat-icon [class.not-displayed]=\"!notification.displayed\"\n        >account_circle</mat-icon\n      >\n      <div class=\"d-flex flex-column\" style=\"width:350px\">\n      {{ notification.title }}\n      <div class=\"d-flex justify-content-around\" style=\"margin-top:5px;\">\n      <button\n        mat-raised-button\n        class=\"friend-request-button\"\n\n        color=\"primary\"\n        *ngIf=\"!notification.displayed\"\n        (click)=\"acceptFriendRequest($event, notification)\"\n      >\n        Zaakceptuj\n        <div\n        class=\"accept-icon\">\n        <svg-icon\n          src=\"assets/icons/check-solid.svg\"\n        ></svg-icon>\n        </div>\n      </button>\n      <button\n        mat-raised-button\n        class=\"friend-request-button\"\n        *ngIf=\"!notification.displayed\"\n        color=\"primary\"\n        (click)=\"declineFriendRequest($event, notification)\"\n      >\n        Odrzuć\n        <div\n        class=\"decline-icon\">\n        <svg-icon\n          src=\"assets/icons/times-solid.svg\"\n        ></svg-icon>\n    </div>\n      </button>\n    </div>\n    </div>\n    </div>\n    <div class=\"sended-date\">\n      Wysłano: {{ notification.sendedDate | date: \"HH:mm dd-MM-yyyy\" }}\n    </div>\n  </mat-card>\n\n\n  <mat-card\n  (click)=\"openTeamDialog(notification,true)\"\n  *ngIf=\"notification.notificationType === 'MATCHREQUEST'\"\n  [class.not-displayed]=\"!notification.displayed\"\n>\n  <div class=\"d-flex align-items-center\">\n    <mat-icon [class.not-displayed]=\"!notification.displayed\"\n      > insert_invitation</mat-icon>\n\n    <div class=\"d-flex flex-column\" style=\"width:350px\">\n    {{ notification.title }}\n    <div class=\"d-flex justify-content-around\" style=\"margin-top:5px;\">\n    <button\n      mat-raised-button\n      class=\"friend-request-button\"\n\n      color=\"primary\"\n      *ngIf=\"!notification.displayed\"\n      (click)=\"acceptMatchRequest($event, notification)\"\n    >\n      Zaakceptuj\n      <div\n      class=\"accept-icon\">\n      <svg-icon\n        src=\"assets/icons/check-solid.svg\"\n      ></svg-icon>\n      </div>\n    </button>\n    <button\n      mat-raised-button\n      class=\"friend-request-button\"\n      *ngIf=\"!notification.displayed\"\n      color=\"primary\"\n      (click)=\"declineMatchRequest($event, notification)\"\n    >\n      Odrzuć\n      <div\n      class=\"decline-icon\">\n      <svg-icon\n        src=\"assets/icons/times-solid.svg\"\n      ></svg-icon>\n  </div>\n    </button>\n  </div>\n  </div>\n  </div>\n  <div class=\"sended-date\">\n    Wysłano: {{ notification.sendedDate | date: \"HH:mm dd-MM-yyyy\" }}\n  </div>\n</mat-card>\n\n<mat-card\n(click)=\"setAsDisplayed(notification)\"\n*ngIf=\"notification.notificationType === 'BAN'\"\n[class.not-displayed]=\"!notification.displayed\"\n>\n<div class=\"d-flex align-items-center\">\n  <mat-icon [class.not-displayed]=\"!notification.displayed\">sentiment_very_dissatisfied</mat-icon>\n  {{ notification.title }}\n</div>\n<div class=\"sended-date\">\n  Wysłano: {{ notification.sendedDate | date: \"HH:mm dd-MM-yyyy\" }}\n</div>\n</mat-card>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<!-- CASE WHEN THERE ARE NO NOTIFICATIONS -->\n<h6 (click)=\"setAllAsDisplayed($event)\">Oznacz wszystkie jako przeczytane</h6>\n\n<mat-card *ngIf=\"!notifications.length\" style=\"padding:8px;margin:8px\">\n  <mat-icon>notifications_off</mat-icon>\n  Brak powiadomień\n</mat-card>\n\n<div *ngFor=\"let notification of notifications\">\n  <mat-card\n    (click)=\"openMessage(notification)\"\n    *ngIf=\"notification.notificationType === 'MESSAGE'\"\n    [class.not-displayed]=\"!notification.displayed\"\n  >\n    <div class=\"d-flex align-items-center\">\n      <mat-icon [class.not-displayed]=\"!notification.displayed\">chat</mat-icon>\n      {{ notification.title }}\n    </div>\n    <div class=\"sended-date\">\n      Wysłano: {{ notification.sendedDate | date: \"HH:mm dd-MM-yyyy\" }}\n    </div>\n  </mat-card>\n\n  <mat-card\n  (click)=\"openTeamDialog(notification, false)\"\n  *ngIf=\"notification.notificationType === 'USERJOINTEAM'\"\n  [class.not-displayed]=\"!notification.displayed\"\n>\n  <div class=\"d-flex align-items-center\">\n    <mat-icon [class.not-displayed]=\"!notification.displayed\">accessibility_new</mat-icon>\n    {{ notification.title }}\n  </div>\n  <div class=\"sended-date\">\n    Wysłano: {{ notification.sendedDate | date: \"HH:mm dd-MM-yyyy\" }}\n  </div>\n</mat-card>\n\n\n  <mat-card\n    (click)=\"goToUserProfile(notification.senderId)\"\n    *ngIf=\"notification.notificationType === 'FRIENDREQUEST'\"\n    [class.not-displayed]=\"!notification.displayed\"\n  >\n    <div class=\"d-flex align-items-center\">\n      <mat-icon [class.not-displayed]=\"!notification.displayed\"\n        >account_circle</mat-icon\n      >\n      <div class=\"d-flex flex-column\" style=\"width:350px\">\n      {{ notification.title }}\n      <div class=\"d-flex justify-content-around\" style=\"margin-top:5px;\">\n      <button\n        mat-raised-button\n        class=\"friend-request-button\"\n\n        color=\"primary\"\n        *ngIf=\"!notification.displayed\"\n        (click)=\"acceptFriendRequest($event, notification)\"\n      >\n        Zaakceptuj\n        <div\n        class=\"accept-icon\">\n        <svg-icon\n          src=\"assets/icons/check-solid.svg\"\n        ></svg-icon>\n        </div>\n      </button>\n      <button\n        mat-raised-button\n        class=\"friend-request-button\"\n        *ngIf=\"!notification.displayed\"\n        color=\"primary\"\n        (click)=\"declineFriendRequest($event, notification)\"\n      >\n        Odrzuć\n        <div\n        class=\"decline-icon\">\n        <svg-icon\n          src=\"assets/icons/times-solid.svg\"\n        ></svg-icon>\n    </div>\n      </button>\n    </div>\n    </div>\n    </div>\n    <div class=\"sended-date\">\n      Wysłano: {{ notification.sendedDate | date: \"HH:mm dd-MM-yyyy\" }}\n    </div>\n  </mat-card>\n\n\n  <mat-card\n  (click)=\"openTeamDialog(notification,true)\"\n  *ngIf=\"notification.notificationType === 'MATCHREQUEST'\"\n  [class.not-displayed]=\"!notification.displayed\"\n>\n  <div class=\"d-flex align-items-center\">\n    <mat-icon [class.not-displayed]=\"!notification.displayed\"\n      > insert_invitation</mat-icon>\n\n    <div class=\"d-flex flex-column\" style=\"width:350px\">\n    {{ notification.title }}\n    <div class=\"d-flex justify-content-around\" style=\"margin-top:5px;\">\n    <button\n      mat-raised-button\n      class=\"friend-request-button\"\n\n      color=\"primary\"\n      *ngIf=\"!notification.displayed\"\n      (click)=\"acceptMatchRequest($event, notification)\"\n    >\n      Zaakceptuj\n      <div\n      class=\"accept-icon\">\n      <svg-icon\n        src=\"assets/icons/check-solid.svg\"\n      ></svg-icon>\n      </div>\n    </button>\n    <button\n      mat-raised-button\n      class=\"friend-request-button\"\n      *ngIf=\"!notification.displayed\"\n      color=\"primary\"\n      (click)=\"declineMatchRequest($event, notification)\"\n    >\n      Odrzuć\n      <div\n      class=\"decline-icon\">\n      <svg-icon\n        src=\"assets/icons/times-solid.svg\"\n      ></svg-icon>\n  </div>\n    </button>\n  </div>\n  </div>\n  </div>\n  <div class=\"sended-date\">\n    Wysłano: {{ notification.sendedDate | date: \"HH:mm dd-MM-yyyy\" }}\n  </div>\n</mat-card>\n\n<mat-card\n(click)=\"setAsDisplayed(notification)\"\n*ngIf=\"notification.notificationType === 'BAN'\"\n[class.not-displayed]=\"!notification.displayed\"\n>\n<div class=\"d-flex align-items-center\">\n  <mat-icon [class.not-displayed]=\"!notification.displayed\">sentiment_very_dissatisfied</mat-icon>\n  {{ notification.title }}\n</div>\n<div class=\"sended-date\">\n  Wysłano: {{ notification.sendedDate | date: \"HH:mm dd-MM-yyyy\" }}\n</div>\n</mat-card>\n<mat-card\n(click)=\"setAsDisplayed(notification)\"\n*ngIf=\"notification.notificationType === 'DELETEDMATCH'\"\n[class.not-displayed]=\"!notification.displayed\"\n>\n<div class=\"d-flex align-items-center\">\n  <mat-icon [class.not-displayed]=\"!notification.displayed\">delete_sweep</mat-icon>\n  {{ notification.title }}\n</div>\n<div class=\"sended-date\">\n  Wysłano: {{ notification.sendedDate | date: \"HH:mm dd-MM-yyyy\" }}\n</div>\n</mat-card>\n</div>\n");
 
 /***/ }),
 
@@ -813,7 +813,7 @@ var appRoutes = [
     {
         path: "admin-panel",
         loadChildren: function () { return Promise.all(/*! import() | features-admin-panel-admin-panel-module */[__webpack_require__.e("common"), __webpack_require__.e("features-admin-panel-admin-panel-module")]).then(__webpack_require__.bind(null, /*! @features/admin-panel/admin-panel.module */ "./src/app/functionalities/admin-panel/admin-panel.module.ts")).then(function (m) { return m.AdminPanelModule; }); },
-        canActivate: [_service_auth_guard_service__WEBPACK_IMPORTED_MODULE_3__["AuthGuardService"]]
+        canActivate: [_service_auth_guard_service__WEBPACK_IMPORTED_MODULE_3__["AuthGuardService"]],
     },
     {
         path: "worker/playingField/:id",
@@ -1112,11 +1112,12 @@ var AuthGuardService = /** @class */ (function () {
         this.router = router;
     }
     AuthGuardService.prototype.canActivate = function () {
-        if (!this.auth.isLogged()) {
+        if (!this.auth.isAdmin()) {
             this.router.navigate(["/search"]);
             return false;
         }
-        return true;
+        else
+            return true;
     };
     AuthGuardService.prototype.canLoad = function () {
         if (!this.auth.isAdmin()) {
@@ -1310,7 +1311,7 @@ var MainAuthGuardService = /** @class */ (function () {
     }
     MainAuthGuardService.prototype.canActivate = function () {
         if (this.auth.isLogged() && window.location.href === "http://localhost:4200/") {
-            this.router.navigate(["/users/" + localStorage.getItem('userId')]);
+            this.router.navigate(["/user/" + localStorage.getItem('userId')]);
             return false;
         }
         else {
@@ -1477,8 +1478,13 @@ var ReservationDialogComponent = /** @class */ (function () {
                 isPrivate: _this.reservationForm.value.isPrivate,
                 code: val.code
             });
-        }, function () {
-            _this.toastrService.error("Nie udało się zarezerwować orliku");
+        }, function (error) {
+            if (error.status === 409) {
+                _this.toastrService.error("Nie udało się zarezerwować orlik, ponieważ użytkownik ma już zaplanowane rozgrywki w tym czasie");
+            }
+            else {
+                _this.toastrService.error("Nie udało się zarezerwować orliku");
+            }
             _this.dialogRef.close({ id: _this.data.match.id, isBooked: false });
         });
     };
@@ -2373,9 +2379,7 @@ var MessageDialogComponent = /** @class */ (function () {
     }
     MessageDialogComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.friendsService
-            .getSendedRequests()
-            .subscribe(function (friendsRequests) {
+        this.friendsService.getSendedRequests().subscribe(function (friendsRequests) {
             var sendedFriendRequests = friendsRequests;
             if (sendedFriendRequests.indexOf(_this.data.username) !== -1) {
                 _this.sended = true;
@@ -2386,6 +2390,17 @@ var MessageDialogComponent = /** @class */ (function () {
         });
     };
     MessageDialogComponent.prototype.sendMessage = function () {
+        var _this = this;
+        if (this.content.value !== "") {
+            this.messageService
+                .sendMessage(this.data.id, this.content.value)
+                .subscribe(function (val) {
+                _this.data.messages.push(val);
+                _this.content.setValue("");
+            });
+        }
+    };
+    MessageDialogComponent.prototype.onKeydownHandler = function (event) {
         var _this = this;
         if (this.content.value !== "") {
             this.messageService
@@ -2421,9 +2436,15 @@ var MessageDialogComponent = /** @class */ (function () {
         { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_8__["ToastrService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('scrollMe', { static: true }),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("scrollMe", { static: true }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
     ], MessageDialogComponent.prototype, "myScrollContainer", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])("document:keydown.enter", ["$event"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], MessageDialogComponent.prototype, "onKeydownHandler", null);
     MessageDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: "app-message-dialog",
@@ -2785,7 +2806,7 @@ var LoginDialogComponent = /** @class */ (function () {
                     localStorage.setItem("playingFieldId", val.playingFieldId.toString());
                 }
                 _this.dataSharingService.setLoggedUser(val);
-                _this.router.navigate(["/users/" + val.id]);
+                // this.router.navigate(["/users/" + val.id]);
             }, function () { }, function () { });
             _this.dialogRef.close();
         };
@@ -3058,6 +3079,9 @@ var SidebarComponent = /** @class */ (function () {
         return this.authService.isLogged();
     };
     SidebarComponent.prototype.logout = function () {
+        if (window.location.pathname === "/admin-panel/users") {
+            this.router.navigate(["/search"]);
+        }
         this.authService.logout();
     };
     SidebarComponent.prototype.isAdmin = function () {

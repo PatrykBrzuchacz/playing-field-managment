@@ -64,4 +64,7 @@ public class PlayingFieldAvailability {
     public void addMatch(Match match) {
         this.matches.add(match);
     }
+    public void removeMatches(List<Match> matches) {
+        this.matches.removeAll(matches);
+    }
 }
