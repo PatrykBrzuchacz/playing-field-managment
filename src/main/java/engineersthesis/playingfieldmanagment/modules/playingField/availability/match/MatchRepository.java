@@ -105,5 +105,7 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
 
     Page<Match> findAllByTeams_PlayersAndTeams_PlayersNotAndMatchFromDateGreaterThanEqual(User loggedUser, User one,
                                                                                           LocalDate now, Pageable pageable);
+
+    boolean existsByTeams_Players_Id(Long id);
 }
 

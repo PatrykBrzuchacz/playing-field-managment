@@ -63,7 +63,10 @@ public class PlayingFieldService {
                         LocalDateTime.now(), false);
 
         matches.forEach(match->{
+            if(match.getUser()!=null) {
+
             User user = match.getUser();
+            if(user!=null && user.getWarning()!=null && user.getWarning()<3){
             if(user.getWarning()==null) {
                 user.setWarning(0);
             }
@@ -84,6 +87,8 @@ public class PlayingFieldService {
              });
          }
             match.setIsCodeFilled(true);
-        });
+            }
+            } });
+
     }
 }

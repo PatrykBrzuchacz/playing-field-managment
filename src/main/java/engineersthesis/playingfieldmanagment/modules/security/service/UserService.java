@@ -165,7 +165,8 @@ public class UserService {
         }
 
         return usersToReturn.stream().map(val -> {
-            if (!banRepository.existsByPlayingField_IdAndUser_Id(playingField.getId(), val.getId())) {
+            if (!banRepository.existsByPlayingField_IdAndUser_Id(playingField.getId(),
+                    val.getId()) && !matchRepository.existsByTeams_Players_Id(id)) {
                 return toDto(val);
 
             } else {

@@ -5,6 +5,7 @@ import engineersthesis.playingfieldmanagment.modules.playingField.availability.m
 import engineersthesis.playingfieldmanagment.modules.playingField.availability.match.reservation.Reservation;
 import engineersthesis.playingfieldmanagment.modules.security.model.User;
 import engineersthesis.playingfieldmanagment.modules.team.Team;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import java.util.List;
 @Setter
 @Entity
 @NoArgsConstructor
+@Data
 @Table(name = "game")
 public class Match {
 
@@ -60,7 +62,7 @@ public class Match {
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
-    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Team> teams = new ArrayList<>();
 
     private String code;

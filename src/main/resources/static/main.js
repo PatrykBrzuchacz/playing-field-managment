@@ -334,7 +334,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main\">\n  <div class=\"d-flex\" [class.is-not-logged]=\"!loggedUser || !data.editable\">\n    <div class=\"team\" *ngIf=\"teamsDto\">\n      <div class=\"d-flex justify-content-center\">\n        <h4>{{ teamsDto[0]?.teamName }}</h4>\n        <label [class.is-full]=\"teamsDto[0]?.size === teamsDto[0]?.maxSize\"\n          >{{ teamsDto[0]?.size }}/{{ teamsDto[0]?.maxSize }}</label\n        >\n      </div>\n      <table #teamTable1 mat-table [dataSource]=\"teamsDto[0]?.players\">\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef>Numer</th>\n          <td mat-cell *matCellDef=\"let user; let i = index\">{{ i + 1 }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              class=\"d-flex justify-content-center flex-row\"\n              *ngIf=\"user.username\"\n            >\n              <span\n                class=\"link-to-profile\"\n                [class.owner]=\"user?.id === data?.ownerId\"\n                (click)=\"goToUserProfile(user.username)\"\n                >{{ user.username }}</span\n              >\n              <div\n                class=\"ban-icon\"\n                *ngIf=\"\n                  loggedUser?.playingFieldId == data.pfId &&\n                  loggedUser?.id != user.id &&\n                  user.username !== 'Admin'\n                \"\n                (click)=\"banUser(user.id, 0)\"\n              >\n                <svg-icon src=\"assets/icons/ban-solid.svg\"></svg-icon>\n              </div>\n            </div>\n          </td>\n        </ng-container>\n        <ng-container matColumnDef=\"position\">\n          <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n          <td mat-cell *matCellDef=\"let user\">{{ user?.position }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"options\">\n          <th mat-header-cell *matHeaderCellDef></th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              *ngIf=\"loggedUser?.username === user?.username && data.editable\"\n              class=\"times-icon doors\"\n              matTooltip=\"opuść drużynę\"\n              (click)=\"exitTeam(teamsDto[0])\"\n            >\n              <svg-icon src=\"assets/icons/door-open-solid.svg\"></svg-icon>\n            </div>\n            <div\n              *ngIf=\"\n                loggedUser?.username !== user?.username &&\n                loggedUser?.id === data?.ownerId\n              \"\n              class=\"times-icon\"\n              (click)=\"removeFromTeam(0, user)\"\n            >\n              <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n            </div>\n          </td>\n        </ng-container>\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n      </table>\n\n      <div\n        *ngIf=\"\n          loggedUser &&\n          data.editable &&\n          ((!isPrivate && !existInTeam(teamsDto[0])) ||\n            (isPrivate && !existInTeam(teamsDto[0])))\n        \"\n        class=\"point-icon\"\n        [class.is-full]=\"teamsDto[0]?.size === teamsDto[0]?.maxSize\"\n        (click)=\"joinTeam(teamsDto[0])\"\n      >\n        <svg-icon src=\"assets/icons/hand-point-up-solid.svg\"></svg-icon>\n      </div>\n    </div>\n    <div class=\"team\" *ngIf=\"teamsDto\">\n      <div class=\"d-flex justify-content-center\">\n        <h4>{{ teamsDto[1].teamName }}</h4>\n        <label [class.is-full]=\"teamsDto[1]?.size === teamsDto[1]?.maxSize\"\n          >{{ teamsDto[1]?.size }}/{{ teamsDto[1]?.maxSize }}</label\n        >\n      </div>\n      <table #teamTable2 mat-table [dataSource]=\"teamsDto[1]?.players\">\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef>Numer</th>\n          <td mat-cell *matCellDef=\"let user; let i = index\">{{ i + 1 }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              class=\"d-flex justify-content-center  flex-row\"\n              *ngIf=\"user.username\"\n            >\n              <span\n                class=\"link-to-profile\"\n                (click)=\"goToUserProfile(user?.username)\"\n                [class.owner]=\"user?.id === data?.ownerId\"\n                >{{ user?.username }}</span\n              >\n              <div\n                class=\"ban-icon\"\n                *ngIf=\"\n                  loggedUser?.playingFieldId == data.pfId &&\n                  loggedUser?.id != user.id\n                \"\n                (click)=\"banUser(user.id, 0)\"\n              >\n                <svg-icon src=\"assets/icons/ban-solid.svg\"></svg-icon>\n              </div>\n            </div>\n          </td>\n        </ng-container>\n        <ng-container matColumnDef=\"position\">\n          <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n          <td mat-cell *matCellDef=\"let user\">{{ user?.position }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"options\">\n          <th mat-header-cell *matHeaderCellDef></th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              *ngIf=\"loggedUser?.username === user?.username && data.editable\"\n              class=\"times-icon doors\"\n              (click)=\"exitTeam(teamsDto[1])\"\n            >\n              <svg-icon src=\"assets/icons/door-open-solid.svg\"></svg-icon>\n            </div>\n            <div\n              *ngIf=\"\n                loggedUser?.username !== user?.username &&\n                loggedUser?.id === data?.ownerId\n              \"\n              class=\"times-icon\"\n              (click)=\"removeFromTeam(1, user)\"\n            >\n              <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n            </div>\n          </td>\n        </ng-container>\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n      </table>\n\n      <div\n        *ngIf=\"\n          loggedUser &&\n          data.editable &&\n          ((!isPrivate && !existInTeam(teamsDto[1])) ||\n            (isPrivate && !existInTeam(teamsDto[1])))\n        \"\n        class=\"point-icon\"\n        [class.is-full]=\"teamsDto[1]?.size === teamsDto[1]?.maxSize\"\n        (click)=\"joinTeam(teamsDto[1])\"\n      >\n        <svg-icon src=\"assets/icons/hand-point-up-solid.svg\"></svg-icon>\n      </div>\n    </div>\n  </div>\n  <mat-accordion *ngIf=\"loggedUser && data.editable\">\n    <mat-expansion-panel>\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          Zaproszenia\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"d-flex flex-column\">\n          <label style=\"margin:5px 0 -2px 0\">Dodaj graczy:</label>\n          <mat-form-field class=\"autocomplete-form\">\n            <input\n              matInput\n              placeholder=\"Nazwa użytkownika\"\n              [matAutocomplete]=\"auto\"\n              [formControl]=\"usernameForm\"\n            />\n            <mat-autocomplete #auto=\"matAutocomplete\">\n              <mat-option\n                *ngFor=\"let user of filteredUsers | async\"\n                [value]=\"user.username\"\n                (click)=\"sendInvite(user.id)\"\n              >\n                <span>{{ user.username }}</span>\n              </mat-option>\n            </mat-autocomplete>\n          </mat-form-field>\n          <mat-checkbox color=\"primary\" [formControl]=\"onlyFriends\">\n            Tylko znajomi\n          </mat-checkbox>\n        </div>\n        <table\n          #invitesTable\n          class=\"invites-table\"\n          mat-table\n          [dataSource]=\"usersInvited\"\n        >\n          <ng-container matColumnDef=\"username\">\n            <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n            <td mat-cell *matCellDef=\"let user\">\n              <div class=\"d-flex justify-content-center flex-row\">\n                <span\n                  class=\"link-to-profile\"\n                  (click)=\"goToUserProfile(user.user.username)\"\n                  >{{ user.user.username }}</span\n                >\n              </div>\n            </td>\n          </ng-container>\n          <ng-container matColumnDef=\"position\">\n            <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n            <td mat-cell *matCellDef=\"let user\">{{ user?.user?.position }}</td>\n          </ng-container>\n          <ng-container matColumnDef=\"options\">\n            <th mat-header-cell *matHeaderCellDef></th>\n            <td mat-cell *matCellDef=\"let user\">\n              <div\n                *ngIf=\"\n                  loggedUser?.id === data.ownerId ||\n                  loggedUser?.id === user?.user?.id\n                \"\n                class=\"times-icon\"\n                (click)=\"deleteRequest(user)\"\n              >\n                <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n              </div>\n            </td>\n          </ng-container>\n          <tr mat-header-row *matHeaderRowDef=\"displayedInvitesColumns\"></tr>\n          <tr\n            mat-row\n            *matRowDef=\"let row; columns: displayedInvitesColumns\"\n          ></tr>\n        </table>\n      </div>\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main\">\n  <div class=\"d-flex\" [class.is-not-logged]=\"!loggedUser || !data.editable\">\n    <div class=\"team\" *ngIf=\"teamsDto\">\n      <div class=\"d-flex justify-content-center\">\n        <h4>{{ teamsDto[0]?.teamName }}</h4>\n        <label [class.is-full]=\"teamsDto[0]?.size === teamsDto[0]?.maxSize\"\n          >{{ teamsDto[0]?.size }}/{{ teamsDto[0]?.maxSize }}</label\n        >\n      </div>\n      <table #teamTable1 mat-table [dataSource]=\"teamsDto[0]?.players\" style=\"max-height:500px; overflow-y:auto\">\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef>Numer</th>\n          <td mat-cell *matCellDef=\"let user; let i = index\">{{ i + 1 }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              class=\"d-flex justify-content-center flex-row\"\n              *ngIf=\"user.username\"\n            >\n              <span\n                class=\"link-to-profile\"\n                [class.owner]=\"user?.id === data?.ownerId\"\n                (click)=\"goToUserProfile(user.username)\"\n                >{{ user.username }}</span\n              >\n              <div\n                class=\"ban-icon\"\n                *ngIf=\"\n                  loggedUser?.playingFieldId == data.pfId &&\n                  loggedUser?.id != user.id &&\n                  user.username !== 'Admin'\n                \"\n                (click)=\"banUser(user.id, 0)\"\n              >\n                <svg-icon src=\"assets/icons/ban-solid.svg\"></svg-icon>\n              </div>\n            </div>\n          </td>\n        </ng-container>\n        <ng-container matColumnDef=\"position\">\n          <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n          <td mat-cell *matCellDef=\"let user\">{{ user?.position }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"options\">\n          <th mat-header-cell *matHeaderCellDef></th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              *ngIf=\"loggedUser?.username === user?.username && data.editable\"\n              class=\"times-icon doors\"\n              matTooltip=\"opuść drużynę\"\n              (click)=\"exitTeam(teamsDto[0])\"\n            >\n              <svg-icon src=\"assets/icons/door-open-solid.svg\"></svg-icon>\n            </div>\n            <div\n              *ngIf=\"\n                loggedUser?.username !== user?.username &&\n                loggedUser?.id === data?.ownerId\n              \"\n              class=\"times-icon\"\n              (click)=\"removeFromTeam(0, user)\"\n            >\n              <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n            </div>\n          </td>\n        </ng-container>\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n      </table>\n\n      <div\n        *ngIf=\"\n          loggedUser &&\n          data.editable &&\n          ((!isPrivate && !existInTeam(teamsDto[0])) ||\n            (isPrivate && !existInTeam(teamsDto[0])))\n        \"\n        class=\"point-icon\"\n        [class.is-full]=\"teamsDto[0]?.size === teamsDto[0]?.maxSize\"\n        (click)=\"joinTeam(teamsDto[0])\"\n      >\n        <svg-icon src=\"assets/icons/hand-point-up-solid.svg\"></svg-icon>\n      </div>\n    </div>\n    <div class=\"team\" *ngIf=\"teamsDto\">\n      <div class=\"d-flex justify-content-center\">\n        <h4>{{ teamsDto[1].teamName }}</h4>\n        <label [class.is-full]=\"teamsDto[1]?.size === teamsDto[1]?.maxSize\"\n          >{{ teamsDto[1]?.size }}/{{ teamsDto[1]?.maxSize }}</label\n        >\n      </div>\n      <table #teamTable2 mat-table [dataSource]=\"teamsDto[1]?.players\">\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef>Numer</th>\n          <td mat-cell *matCellDef=\"let user; let i = index\">{{ i + 1 }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              class=\"d-flex justify-content-center  flex-row\"\n              *ngIf=\"user.username\"\n            >\n              <span\n                class=\"link-to-profile\"\n                (click)=\"goToUserProfile(user?.username)\"\n                [class.owner]=\"user?.id === data?.ownerId\"\n                >{{ user?.username }}</span\n              >\n              <div\n                class=\"ban-icon\"\n                *ngIf=\"\n                  loggedUser?.playingFieldId == data.pfId &&\n                  loggedUser?.id != user.id\n                \"\n                (click)=\"banUser(user.id, 0)\"\n              >\n                <svg-icon src=\"assets/icons/ban-solid.svg\"></svg-icon>\n              </div>\n            </div>\n          </td>\n        </ng-container>\n        <ng-container matColumnDef=\"position\">\n          <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n          <td mat-cell *matCellDef=\"let user\">{{ user?.position }}</td>\n        </ng-container>\n        <ng-container matColumnDef=\"options\">\n          <th mat-header-cell *matHeaderCellDef></th>\n          <td mat-cell *matCellDef=\"let user\">\n            <div\n              *ngIf=\"loggedUser?.username === user?.username && data.editable\"\n              class=\"times-icon doors\"\n              (click)=\"exitTeam(teamsDto[1])\"\n            >\n              <svg-icon src=\"assets/icons/door-open-solid.svg\"></svg-icon>\n            </div>\n            <div\n              *ngIf=\"\n                loggedUser?.username !== user?.username &&\n                loggedUser?.id === data?.ownerId\n              \"\n              class=\"times-icon\"\n              (click)=\"removeFromTeam(1, user)\"\n            >\n              <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n            </div>\n          </td>\n        </ng-container>\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n      </table>\n\n      <div\n        *ngIf=\"\n          loggedUser &&\n          data.editable &&\n          ((!isPrivate && !existInTeam(teamsDto[1])) ||\n            (isPrivate && !existInTeam(teamsDto[1])))\n        \"\n        class=\"point-icon\"\n        [class.is-full]=\"teamsDto[1]?.size === teamsDto[1]?.maxSize\"\n        (click)=\"joinTeam(teamsDto[1])\"\n      >\n        <svg-icon src=\"assets/icons/hand-point-up-solid.svg\"></svg-icon>\n      </div>\n    </div>\n  </div>\n  <mat-accordion *ngIf=\"loggedUser && data.editable\">\n    <mat-expansion-panel>\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          Zaproszenia\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <div class=\"d-flex justify-content-center\">\n        <div class=\"d-flex flex-column\">\n          <label style=\"margin:5px 0 -2px 0\">Dodaj graczy:</label>\n          <mat-form-field class=\"autocomplete-form\">\n            <input\n              matInput\n              placeholder=\"Nazwa użytkownika\"\n              [matAutocomplete]=\"auto\"\n              [formControl]=\"usernameForm\"\n            />\n            <mat-autocomplete #auto=\"matAutocomplete\">\n              <mat-option\n                *ngFor=\"let user of filteredUsers | async\"\n                [value]=\"user.username\"\n                (click)=\"sendInvite(user.id)\"\n              >\n                <span>{{ user.username }}</span>\n              </mat-option>\n            </mat-autocomplete>\n          </mat-form-field>\n          <mat-checkbox color=\"primary\" [formControl]=\"onlyFriends\">\n            Tylko znajomi\n          </mat-checkbox>\n        </div>\n        <table\n          #invitesTable\n          class=\"invites-table\"\n          mat-table\n          [dataSource]=\"usersInvited\"\n        >\n          <ng-container matColumnDef=\"username\">\n            <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>\n            <td mat-cell *matCellDef=\"let user\">\n              <div class=\"d-flex justify-content-center flex-row\">\n                <span\n                  class=\"link-to-profile\"\n                  (click)=\"goToUserProfile(user.user.username)\"\n                  >{{ user.user.username }}</span\n                >\n              </div>\n            </td>\n          </ng-container>\n          <ng-container matColumnDef=\"position\">\n            <th mat-header-cell *matHeaderCellDef>Pozycja</th>\n            <td mat-cell *matCellDef=\"let user\">{{ user?.user?.position }}</td>\n          </ng-container>\n          <ng-container matColumnDef=\"options\">\n            <th mat-header-cell *matHeaderCellDef></th>\n            <td mat-cell *matCellDef=\"let user\">\n              <div\n                *ngIf=\"\n                  loggedUser?.id === data.ownerId ||\n                  loggedUser?.id === user?.user?.id\n                \"\n                class=\"times-icon\"\n                (click)=\"deleteRequest(user)\"\n              >\n                <svg-icon src=\"assets/icons/times-solid.svg\"></svg-icon>\n              </div>\n            </td>\n          </ng-container>\n          <tr mat-header-row *matHeaderRowDef=\"displayedInvitesColumns\"></tr>\n          <tr\n            mat-row\n            *matRowDef=\"let row; columns: displayedInvitesColumns\"\n          ></tr>\n        </table>\n      </div>\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n");
 
 /***/ }),
 
@@ -2505,6 +2505,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 /* harmony import */ var _app_functionalities_playing_field_components_teams_dialog_teams_dialog_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @app/functionalities/playing-field/components/teams-dialog/teams-dialog.component */ "./src/app/functionalities/playing-field/components/teams-dialog/teams-dialog.component.ts");
 /* harmony import */ var _app_shared_service_team_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @app/shared/service/team.service */ "./src/app/shared/service/team.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+
 
 
 
@@ -2522,7 +2524,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var NotificationsComponent = /** @class */ (function () {
-    function NotificationsComponent(router, dialog, dataSharingService, authService, userService, messageService, notificationService, friendsService, inviteService, matchService, toastrService, teamService) {
+    function NotificationsComponent(router, dialog, dataSharingService, authService, userService, messageService, notificationService, friendsService, inviteService, matchService, toastrService, teamService, activatedRoute, domSanitizer) {
         this.router = router;
         this.dialog = dialog;
         this.dataSharingService = dataSharingService;
@@ -2535,12 +2537,18 @@ var NotificationsComponent = /** @class */ (function () {
         this.matchService = matchService;
         this.toastrService = toastrService;
         this.teamService = teamService;
+        this.activatedRoute = activatedRoute;
+        this.domSanitizer = domSanitizer;
         this.activeNotifications = false;
         this.notifications = [];
         this.count = 0;
     }
     NotificationsComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.getNotifications();
+        this.activatedRoute.params.subscribe(function (param) {
+            _this.userId = param["id"];
+        });
     };
     NotificationsComponent.prototype.getNotifications = function () {
         var _this = this;
@@ -2610,11 +2618,35 @@ var NotificationsComponent = /** @class */ (function () {
         var _this = this;
         event.stopPropagation();
         event.preventDefault();
-        this.friendsService.acceptRequest(notification.entityId).subscribe(function (val) {
+        this.friendsService
+            .acceptRequest(notification.entityId)
+            .subscribe(function (friend) {
+            friend.avatar = _this.domSanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64," + friend.avatar);
             notification.accepted = true;
             notification.title = notification.title.replace("Otrzymałeś", "Zaakceptowałeś");
             _this.setAsDisplayed(notification, true);
-            //sharowany serwis by sie odswiezylo
+            _this.dataSharingService.friends.subscribe(function (friends) {
+                if (friends.length) {
+                    if (friends.find(function (val) { return val !== friend; })) {
+                        _this.dataSharingService.changeFriends(friends);
+                    }
+                }
+                else {
+                    friends.push(friend);
+                    _this.dataSharingService.changeFriends(friends);
+                }
+            });
+            _this.dataSharingService.changeFriendRequests([]);
+            _this.dataSharingService.friendRequests.subscribe(function (val) {
+                if (val.length) {
+                    if (val.find(function (request) { return request.senderUsename === notification.senderUsername; })) {
+                        val.splice(val.indexOf(val.find(function (request) {
+                            return request.senderUsername === notification.senderUsername;
+                        }), 1));
+                    }
+                    _this.dataSharingService.changeFriendRequests(val);
+                }
+            });
         });
     };
     NotificationsComponent.prototype.declineFriendRequest = function (event, notification) {
@@ -2630,15 +2662,54 @@ var NotificationsComponent = /** @class */ (function () {
         var _this = this;
         event.stopPropagation();
         event.preventDefault();
-        this.matchService.getMatchById(notification.externalId).subscribe(function (val) {
-            if (val.ownerId == null) {
-                if (val.size < val.maxSize) {
+        this.matchService.getMatchById(notification.externalId).subscribe(function (match) {
+            if (match.ownerId != null) {
+                if (match.size < match.maxSize) {
                     _this.inviteService
                         .acceptInvite(notification.entityId)
                         .subscribe(function (val) {
                         _this.toastrService.success("Zaakceptowałeś zaproszenie do meczu");
                         _this.setAsDisplayed(notification, true);
                         notification.title = notification.title.replace("Otrzymałeś", "Zaakceptowałeś");
+                        // this.dataSharingService.incomingMatches.subscribe(
+                        //   incomingMatches => {
+                        //     if (incomingMatches.length) {
+                        //       if (incomingMatches.find(inc => inc === match)) {
+                        //         this.dataSharingService.changeIncomingMatches(
+                        //           incomingMatches
+                        //         );
+                        //       }else {
+                        //         incomingMatches.push(match);
+                        //         this.dataSharingService.changeIncomingMatches(
+                        //           incomingMatches
+                        //         );
+                        //       }
+                        //     }
+                        //   }
+                        // );
+                        // this.dataSharingService.changeMatchRequests([]);
+                        // this.dataSharingService.matchRequests.subscribe(val => {
+                        //   if (val.length) {
+                        //     if (
+                        //       val.find(
+                        //         request =>
+                        //           request.senderUsename === notification.senderUsername
+                        //       )
+                        //     ) {
+                        //       val.splice(
+                        //         val.indexOf(
+                        //           val.find(
+                        //             request =>
+                        //               request.senderUsername ===
+                        //               notification.senderUsername
+                        //           ),
+                        //           1
+                        //         )
+                        //       );
+                        //     }
+                        //     this.dataSharingService.changeMatchRequests(val);
+                        //   }
+                        // });
                     });
                 }
                 else {
@@ -2717,7 +2788,9 @@ var NotificationsComponent = /** @class */ (function () {
         { type: _app_shared_service_invite_service__WEBPACK_IMPORTED_MODULE_11__["InviteService"] },
         { type: _app_shared_service_match_service__WEBPACK_IMPORTED_MODULE_12__["MatchService"] },
         { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_13__["ToastrService"] },
-        { type: _app_shared_service_team_service__WEBPACK_IMPORTED_MODULE_15__["TeamService"] }
+        { type: _app_shared_service_team_service__WEBPACK_IMPORTED_MODULE_15__["TeamService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
+        { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__["DomSanitizer"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -2740,7 +2813,9 @@ var NotificationsComponent = /** @class */ (function () {
             _app_shared_service_invite_service__WEBPACK_IMPORTED_MODULE_11__["InviteService"],
             _app_shared_service_match_service__WEBPACK_IMPORTED_MODULE_12__["MatchService"],
             ngx_toastr__WEBPACK_IMPORTED_MODULE_13__["ToastrService"],
-            _app_shared_service_team_service__WEBPACK_IMPORTED_MODULE_15__["TeamService"]])
+            _app_shared_service_team_service__WEBPACK_IMPORTED_MODULE_15__["TeamService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__["DomSanitizer"]])
     ], NotificationsComponent);
     return NotificationsComponent;
 }());
@@ -3646,12 +3721,32 @@ var DataSharingService = /** @class */ (function () {
         //todo refactor
         this.isClosed = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
         this.count = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
-        this.getUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]('default');
+        this.getUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]("default");
         this.loggedUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
+        this.friendRequestsSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
+        this.matchRequestsSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
+        this.incomingMatchesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
+        this.friendsSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
         this.currentUser = this.getUser.asObservable();
         this.currentLoggedUser = this.loggedUser.asObservable();
-        this.name = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]('');
+        this.friendRequests = this.friendRequestsSubject.asObservable();
+        this.matchRequests = this.matchRequestsSubject.asObservable();
+        this.incomingMatches = this.incomingMatchesSubject.asObservable();
+        this.friends = this.friendsSubject.asObservable();
+        this.name = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]("");
     }
+    DataSharingService.prototype.changeFriendRequests = function (friendRequests) {
+        this.friendRequestsSubject.next(friendRequests);
+    };
+    DataSharingService.prototype.changeMatchRequests = function (matchRequests) {
+        this.matchRequestsSubject.next(matchRequests);
+    };
+    DataSharingService.prototype.changeIncomingMatches = function (incomingMatches) {
+        this.incomingMatchesSubject.next(incomingMatches);
+    };
+    DataSharingService.prototype.changeFriends = function (friends) {
+        this.friendsSubject.next(friends);
+    };
     DataSharingService.prototype.changeUser = function (message) {
         this.getUser.next(message);
     };
@@ -3706,8 +3801,8 @@ var DataSharingService = /** @class */ (function () {
         return this.removeQueryParams(url1) === this.removeQueryParams(url2);
     };
     DataSharingService.prototype.removeQueryParams = function (url) {
-        if (url && url.indexOf('?') >= 0) {
-            return url.substring(0, url.indexOf('?'));
+        if (url && url.indexOf("?") >= 0) {
+            return url.substring(0, url.indexOf("?"));
         }
         else {
             return url;
@@ -3718,7 +3813,7 @@ var DataSharingService = /** @class */ (function () {
     ]; };
     DataSharingService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
+            providedIn: "root"
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], DataSharingService);
