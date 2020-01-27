@@ -1264,7 +1264,7 @@ var AuthService = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./src/app/core/service/index.ts ***!
   \***************************************/
-/*! exports provided: AUTHORIZATION_HEADER, AuthService, AccessTokenInterceptor */
+/*! exports provided: AccessTokenInterceptor, AUTHORIZATION_HEADER, AuthService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
