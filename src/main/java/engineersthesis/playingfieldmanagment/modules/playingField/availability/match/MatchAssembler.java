@@ -27,7 +27,12 @@ public class MatchAssembler {
 
     public Page<MatchWithLocationDto> toDtoList(Page<Match> matches, User user, Pageable pageable) {
         AtomicReference<Long> totalElements = new AtomicReference<>(matches.getTotalElements());
+        System.out.println("xd");
+        System.out.println(matches.getTotalElements());
 
+        matches.forEach(it -> {
+            System.out.println(it.getMatchFromDate() + " " + it.getMatchFromTime());
+        });
         return new PageImpl<>(matches.stream().map(val -> {
             if (!(val.getMatchFromDate().equals(LocalDate.now()) && val.getMatchToTime().isBefore(LocalTime.now()))) {
                 return toDto(val, user);

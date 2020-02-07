@@ -56,7 +56,7 @@ public class MatchController {
         return matchService.getAllMatchesByUserId(id, pageable);
     }
 
-    @GetMapping("/matches/users/{id}/getAllMatchesAndReiceverNot")
+    @GetMapping("/matches/userss/{id}/getAllMatchesAndReceiverNot")
     public Page<MatchWithLocationDto> getAllMatchesByUserIdAndReceiverNot(@PathVariable("id") Long id,
                                                                         Pageable pageable) {
         return matchService.getAllMatchesByUserIdAndReceiverNot(id, pageable);

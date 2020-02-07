@@ -321,7 +321,7 @@ var UserPanelComponent = /** @class */ (function () {
             _this.paramId = param["id"];
         });
         if (this.paramId) {
-            this.dataSharingService.currentUser.subscribe(function (val) {
+            this.subscription.add(this.dataSharingService.currentUser.subscribe(function (val) {
                 _this.loading = true;
                 if (val === "default") {
                     _this.getUser(_this.paramId);
@@ -331,7 +331,7 @@ var UserPanelComponent = /** @class */ (function () {
                     _this.getUser(val);
                     _this.getFriends(val);
                 }
-            });
+            }));
         }
         this.dataSharingService.friends.subscribe(function (val) {
             if (_this.user && _this.loggedUser && _this.loggedUser.id === _this.user.id) {
@@ -593,10 +593,10 @@ var UserPanelComponent = /** @class */ (function () {
             _this.getFriends(val.id);
         });
     };
-    UserPanelComponent.prototype.sendRequest = function () {
+    UserPanelComponent.prototype.sendRequest = function (friend) {
         this.dialog.open(_app_shared_components_choose_match_dialog_choose_match_dialog_component__WEBPACK_IMPORTED_MODULE_18__["ChooseMatchDialogComponent"], {
             width: "800px",
-            data: { user: this.user, loggedUser: this.loggedUser }
+            data: { user: friend, loggedUser: this.loggedUser }
         });
     };
     UserPanelComponent.prototype.unbook = function (match) {

@@ -347,7 +347,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"d-flex justify-content-center flex-column\">\n<h3>Wybierz mecz</h3>\n<table\n#availabilityTable\nmat-table\nmatSort\n[dataSource]=\"matchesDto\"\nclass=\"mat-elevation-z8\"\n>\n<ng-container matColumnDef=\"date\">\n  <th mat-header-cell *matHeaderCellDef>Data</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchFrom | date: \"dd MMMM yyyy\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"fromTime\">\n  <th mat-header-cell *matHeaderCellDef>Początek meczu</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchFrom | date: \"HH:mm\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"toTime\">\n  <th mat-header-cell *matHeaderCellDef>Koniec meczu</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchTo | date: \"HH:mm\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"reservation\">\n  <th mat-header-cell *matHeaderCellDef>Rezerwacja</th>\n  <td mat-cell *matCellDef=\"let match\">\n      <span class=\"link-to-profile\" (click)=\"goToUserProfile(match.ownerUsername)\">\n    {{ match.ownerUsername }}\n    </span>\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"private\">\n  <th mat-header-cell *matHeaderCellDef>Prywatny</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.isPrivate ? \"Tak\" : \"Nie\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"size\">\n  <th mat-header-cell *matHeaderCellDef>Liczba miejsc</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.size }}/{{ match.maxSize }}\n  </td>\n</ng-container>\n\n<tr mat-header-row *matHeaderRowDef=\"displayedMatchColumns\"></tr>\n<tr\n  mat-row\n  *matRowDef=\"let row; columns: displayedMatchColumns\" (click)=\"selectMatch(row)\" [class.is-selected]=\"row.id===selectedRowId\"\n></tr>\n</table>\n<mat-paginator\n#matchPaginator\n[length]=\"matchLength\"\n[pageSizeOptions]=\"[5, 10, 20]\"\n></mat-paginator>\n<ng-container *ngIf=\"matchesDto?.length===0\"\n        >\n      <h5 class=\"not-found\">W tej chwili nie bierzesz udziału w żadnym meczu</h5>\n      </ng-container>\n<div class=\"d-flex justify-content-center\">\n<button mat-raised-button color=\"primary\" [class.disable]=\"!selectedRowId\"\n(click)=\"sendRequest()\">\n  Wyślij\n</button>\n</div>\n</div>\n<mat-spinner *ngIf=\"spinner\"></mat-spinner>>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"d-flex justify-content-center flex-column\">\n<h3>Wybierz mecz</h3>\n<table\n#availabilityTable\nmat-table\nmatSort\n[dataSource]=\"matchesDto\"\nclass=\"mat-elevation-z8\"\n>\n<ng-container matColumnDef=\"date\">\n  <th mat-header-cell *matHeaderCellDef>Data</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchFrom | date: \"dd MMMM yyyy\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"fromTime\">\n  <th mat-header-cell *matHeaderCellDef> Początek meczu </th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchFrom | date: \"HH:mm\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"toTime\">\n  <th mat-header-cell *matHeaderCellDef>Koniec meczu</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.matchTo | date: \"HH:mm\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"reservation\">\n  <th mat-header-cell *matHeaderCellDef>Rezerwacja</th>\n  <td mat-cell *matCellDef=\"let match\">\n      <span class=\"link-to-profile\" (click)=\"goToUserProfile(match.ownerUsername)\">\n    {{ match.ownerUsername }}\n    </span>\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"private\">\n  <th mat-header-cell *matHeaderCellDef>Prywatny</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.isPrivate ? \"Tak\" : \"Nie\" }}\n  </td>\n</ng-container>\n<ng-container matColumnDef=\"size\">\n  <th mat-header-cell *matHeaderCellDef>Liczba miejsc</th>\n  <td mat-cell *matCellDef=\"let match\">\n    {{ match.size }}/{{ match.maxSize }}\n  </td>\n</ng-container>\n\n<tr mat-header-row *matHeaderRowDef=\"displayedMatchColumns\"></tr>\n<tr\n  mat-row\n  *matRowDef=\"let row; columns: displayedMatchColumns\" (click)=\"selectMatch(row)\" [class.is-selected]=\"row.id===selectedRowId\"\n></tr>\n</table>\n<mat-paginator\n#matchPaginator\n[length]=\"matchLength\"\n[pageSizeOptions]=\"[5, 10, 20]\"\n></mat-paginator>\n<ng-container *ngIf=\"matchesDto?.length===0\"\n        >\n      <h5 class=\"not-found\">W tej chwili nie bierzesz udziału w żadnym meczu</h5>\n      </ng-container>\n<div class=\"d-flex justify-content-center\">\n<button mat-raised-button color=\"primary\" [class.disable]=\"!selectedRowId\"\n(click)=\"sendRequest()\">\n  Wyślij\n</button>\n</div>\n</div>\n<mat-spinner *ngIf=\"spinner\"></mat-spinner>>\n");
 
 /***/ }),
 
@@ -2013,7 +2013,10 @@ var ChooseMatchDialogComponent = /** @class */ (function () {
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["catchError"])(function () {
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_8__["of"])([]);
         }))
-            .subscribe(function (data) { return _this.getUserRequestsId(data); });
+            .subscribe(function (data) {
+            console.log(data);
+            _this.getUserRequestsId(data);
+        });
     };
     ChooseMatchDialogComponent.prototype.sendRequest = function () {
         var _this = this;
@@ -3992,7 +3995,7 @@ var MatchService = /** @class */ (function () {
         });
     };
     MatchService.prototype.getMatchesByUserIdAndReceiverNot = function (id, httpParams) {
-        return this.http.get(API_URL + "/matches/users/" + id + "/getAllMatchesAndReiceverNot", {
+        return this.http.get(API_URL + "/matches/userss/" + id + "/getAllMatchesAndReceiverNot", {
             params: httpParams
         });
     };
